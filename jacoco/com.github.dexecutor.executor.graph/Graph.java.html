@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Graph.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.executor.graph</a> &gt; <span class="el_source">Graph.java</span></div><h1>Graph.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.executor.graph;
+
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+/**
+ * Dependency would be constructed based on this APIs, Dexecutor uses this data structure to represent the dependencies between tasks
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public interface Graph&lt;T extends Comparable&lt;T&gt;, R&gt; {
+	/**
+	 * Should add the two nodes in the datastructure in such a way that {@code evalFirstValue} should be evaluated before {@code evalAfterValue}.
+	 * Nodes should be created only if it is not already added.
+	 * 
+	 * @param evalFirstValue
+	 * @param evalAfterValue
+	 */
+	void addDependency(final T evalFirstValue, final T evalAfterValue);
+	/**
+	 * Adds the given node to the datastructure whith out any dependency
+	 * Nodes should be created only if it is not already added.
+	 * @param nodeValue
+	 */
+	void addIndependent(final T nodeValue);
+	/**
+	 * Returns the Set of nodes for which there is no incoming dependencies.
+	 * @return set of initial nodes
+	 */
+	Set&lt;Node&lt;T, R&gt;&gt; getInitialNodes();
+	/**
+	 * Retruns the set of nodes for which there is no outgoing dependencies.
+	 * @return set of leaf nodes
+	 */
+	Set&lt;Node&lt;T, R&gt;&gt; getLeafNodes();
+	/**
+	 * Returns all nodes in this graph
+	 * @return all nodes in this graph
+	 */
+	Collection&lt;Node&lt;T, R&gt;&gt; allNodes();
+	/**
+	 * Returns the total number of nodes in this graph
+	 * 
+	 * @return total number of nodes in this graph
+	 */
+	int size();
+	
+	/**
+	 * A node representation in this graph, every node may have set of incoming edges and outgoing edges, a node is represented by unique value
+	 * 
+	 * @author Nadeem Mohammad
+	 *
+	 * @param &lt;T&gt;
+	 */
+	public final class Node&lt;T, R&gt; {
+		/**
+		 * Unique id of the node
+		 */
+		private T value;
+		/**
+		 * Execution result of this node
+		 */
+		private R result;
+		/**
+		 * Execution status of this node
+		 */
+		private NodeStatus status;
+		/**
+		 * incoming dependencies for this node
+		 */
+<span class="fc" id="L74">	    private Set&lt;Node&lt;T, R&gt;&gt; inComingEdges = new LinkedHashSet&lt;Graph.Node&lt;T, R&gt;&gt;();</span>
+	    /**
+	     * outgoing dependencies for this node
+	     */
+<span class="fc" id="L78">	    private Set&lt;Node&lt;T, R&gt;&gt; outGoingEdges = new LinkedHashSet&lt;Graph.Node&lt;T, R&gt;&gt;();</span>
+	    /**
+	     * Constructs the node with the given node Id
+	     * @param val
+	     */
+<span class="fc" id="L83">	    public Node(final T val) {</span>
+<span class="fc" id="L84">			this.value = val;</span>
+<span class="fc" id="L85">		}</span>
+	    /**
+	     * Add the given node, to the set of incoming nodes
+	     * @param node
+	     */
+	    public void addInComingNode(final Node&lt;T, R&gt; node) {	        
+<span class="fc" id="L91">	        this.inComingEdges.add(node);</span>
+<span class="fc" id="L92">	    }</span>
+	    /**
+	     * add the given to the set of out going nodes
+	     * @param node
+	     */
+	    public void addOutGoingNode(final Node&lt;T, R&gt; node) {	        
+<span class="fc" id="L98">	        this.outGoingEdges.add(node);</span>
+<span class="fc" id="L99">	    }</span>
+	    /**
+	     * 
+	     * @return the set of incoming nodes
+	     */
+	    public Set&lt;Node&lt;T, R&gt;&gt; getInComingNodes() {
+<span class="fc" id="L105">	        return this.inComingEdges;</span>
+	    }
+	    /**
+	     * 
+	     * @return set of out going nodes
+	     */
+	    public Set&lt;Node&lt;T, R&gt;&gt; getOutGoingNodes() {
+<span class="fc" id="L112">	        return this.outGoingEdges;</span>
+	    }
+	    /**
+	     * 
+	     * @return the node's value
+	     */
+		public T getValue() {
+<span class="fc" id="L119">			return this.value;</span>
+		}
+
+		public R getResult() {
+<span class="fc" id="L123">			return result;</span>
+		}
+
+		public void setResult(final R result) {
+<span class="fc" id="L127">			this.result = result;</span>
+<span class="fc" id="L128">		}</span>
+		
+		public boolean isSuccess() {
+<span class="fc" id="L131">			return NodeStatus.SUCCESS.equals(this.status);</span>
+		}
+		
+		public boolean isErrored() {
+<span class="nc" id="L135">			return NodeStatus.ERRORED.equals(this.status);</span>
+		}
+
+		public boolean isSkipped() {
+<span class="nc" id="L139">			return NodeStatus.SKIPPED.equals(this.status);</span>
+		}
+
+		public void setSuccess() {
+<span class="fc" id="L143">			this.status = NodeStatus.SUCCESS;</span>
+<span class="fc" id="L144">		}</span>
+		
+		public void setErrored() {
+<span class="nc" id="L147">			this.status = NodeStatus.ERRORED;</span>
+<span class="nc" id="L148">		}</span>
+		
+		public void setSkipped() {
+<span class="nc" id="L151">			this.status = NodeStatus.SKIPPED;</span>
+<span class="nc" id="L152">		}</span>
+
+		@Override
+		public int hashCode() {
+<span class="fc" id="L156">			final int prime = 31;</span>
+<span class="fc" id="L157">			int result = 1;</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">			result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());</span>
+<span class="fc" id="L159">			return result;</span>
+		}
+
+		@Override
+		public boolean equals(final Object obj) {
+<span class="fc bfc" id="L164" title="All 2 branches covered.">			if (obj == this) {</span>
+<span class="fc" id="L165">				return true;</span>
+			}
+<span class="pc bpc" id="L167" title="1 of 4 branches missed.">			if (obj == null || obj.getClass() != this.getClass()) {</span>
+<span class="fc" id="L168">				return false;</span>
+			}
+			@SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L171">			Node&lt;T, R&gt; other = (Node&lt;T, R&gt;) obj;</span>
+
+<span class="fc" id="L173">			return this.value.equals(other.value);</span>
+		}
+
+	    @Override
+	    public String toString() {
+<span class="fc" id="L178">	    	return String.valueOf(this.value);</span>
+	    }
+	}
+	/**
+	 * Represents node's execution status
+	 * 
+	 * @author Nadeem Mohammad
+	 *
+	 */
+<span class="pc" id="L187">	public enum NodeStatus {</span>
+<span class="fc" id="L188">		ERRORED,SKIPPED,SUCCESS;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

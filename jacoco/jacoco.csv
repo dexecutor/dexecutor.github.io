@@ -1,0 +1,20 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Dependent Tasks Executor,com.github.dexecutor.executor.support,ThreadPoolUtil,3,18,0,0,2,5,1,2,1,2
+Dependent Tasks Executor,com.github.dexecutor.executor.support,Preconditions,3,8,0,2,2,3,1,2,1,1
+Dependent Tasks Executor,com.github.dexecutor.executor.graph,LevelOrderTraversar,6,197,4,18,4,45,4,12,0,5
+Dependent Tasks Executor,com.github.dexecutor.executor.graph,DefaultGraph,0,151,0,12,0,38,0,16,0,10
+Dependent Tasks Executor,com.github.dexecutor.executor.graph,Graph.Node,20,97,2,6,6,29,6,15,4,13
+Dependent Tasks Executor,com.github.dexecutor.executor.graph,Graph.NodeStatus,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor,com.github.dexecutor.executor.graph,CyclicValidator,0,103,0,8,0,23,0,11,0,7
+Dependent Tasks Executor,com.github.dexecutor.executor,TaskExecutionException,5,4,0,0,2,2,1,1,1,1
+Dependent Tasks Executor,com.github.dexecutor.executor,TaskProvider.Task,0,15,0,0,0,6,0,4,0,4
+Dependent Tasks Executor,com.github.dexecutor.executor,DefaultDependentTasksExecutor,0,342,2,26,0,79,2,32,0,20
+Dependent Tasks Executor,com.github.dexecutor.executor,DependentTasksExecutorConfig,0,56,0,0,0,19,0,8,0,8
+Dependent Tasks Executor,com.github.dexecutor.executor,ExecutionResult,0,55,0,0,0,11,0,7,0,7
+Dependent Tasks Executor,com.github.dexecutor.executor,DefaultDependentTasksExecutor.RetryOnceAndTerminateTask,36,35,5,1,6,9,4,2,1,2
+Dependent Tasks Executor,com.github.dexecutor.executor,DefaultDependentTasksExecutor.NonTerminatingTask,17,25,0,0,3,8,0,2,0,2
+Dependent Tasks Executor,com.github.dexecutor.executor,DefaultDependentTasksExecutor.ExecutorTask,26,111,5,5,5,26,4,9,0,8
+Dependent Tasks Executor,com.github.dexecutor.executor,ExecutionStatus,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor,com.github.dexecutor.executor,ExecutionResults,0,44,0,4,0,12,0,8,0,6
+Dependent Tasks Executor,com.github.dexecutor.executor,DependentTasksExecutor.ExecutionBehavior,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor,com.github.dexecutor.executor,DefaultDependentTasksExecutor.TerminatingTask,0,28,0,0,0,8,0,2,0,2

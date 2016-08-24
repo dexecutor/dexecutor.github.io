@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreadPoolUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.executor.support</a> &gt; <span class="el_source">ThreadPoolUtil.java</span></div><h1>ThreadPoolUtil.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.executor.support;
+
+/**
+ * 
+ * @author Nadeem Mohammad
+ *
+ */
+public final class ThreadPoolUtil {
+	
+<span class="nc" id="L10">	private ThreadPoolUtil() {</span>
+		
+<span class="nc" id="L12">	}</span>
+	/**
+	 * Each tasks blocks 90% of the time, and works only 10% of its
+	 *	lifetime. That is, I/O intensive pool
+	 * @return io intesive Thread pool size
+	 */
+	public static int ioIntesivePoolSize() {
+		
+<span class="fc" id="L20">		double blockingCoefficient = 0.9;</span>
+<span class="fc" id="L21">		return poolSize(blockingCoefficient);</span>
+	}
+
+	/**
+	 * 
+	 * Number of threads = Number of Available Cores / (1 - Blocking
+	 * Coefficient) where the blocking coefficient is between 0 and 1.
+	 * 
+	 * A computation-intensive task has a blocking coefficient of 0, whereas an
+	 * IO-intensive task has a value close to 1,
+	 * so we don't have to worry about the value reaching 1.
+	 *  @param blockingCoefficient 
+	 *  @return Thread pool size
+	 */
+	public static int poolSize(double blockingCoefficient) {
+<span class="fc" id="L36">		int numberOfCores = Runtime.getRuntime().availableProcessors();</span>
+<span class="fc" id="L37">		int poolSize = (int) (numberOfCores / (1 - blockingCoefficient));</span>
+<span class="fc" id="L38">		return poolSize;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

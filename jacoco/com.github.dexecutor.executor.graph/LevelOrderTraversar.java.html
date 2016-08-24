@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LevelOrderTraversar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.executor.graph</a> &gt; <span class="el_source">LevelOrderTraversar.java</span></div><h1>LevelOrderTraversar.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.executor.graph;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
+import com.github.dexecutor.executor.graph.Graph.Node;
+
+/**
+ * A Traversar which does level order traversal of the given graph
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+<span class="fc" id="L21">public class LevelOrderTraversar&lt;T extends Comparable&lt;T&gt;, R&gt; implements Traversar&lt;T, R&gt; {</span>
+	
+<span class="fc" id="L23">	private List&lt;Graph.Node&lt;T, R&gt;&gt; processed = new ArrayList&lt;Graph.Node&lt;T, R&gt;&gt;();</span>
+	
+	public void traverse(final Graph&lt;T, R&gt; graph, final Writer writer) {
+<span class="fc" id="L26">		List&lt;List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt;&gt; levelOrderOfGraphs = traverseLevelOrder(graph);</span>
+<span class="fc" id="L27">		int i = 0;</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		for (List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt; levelOrderOfGraph : levelOrderOfGraphs) {</span>
+			try {
+<span class="fc" id="L30">				writer.write(&quot;Path #&quot; + (i++) + &quot;\n&quot;);</span>
+<span class="fc" id="L31">				printGraph(levelOrderOfGraph, writer);</span>
+<span class="fc" id="L32">				writer.write(&quot;\n&quot;);</span>
+<span class="nc" id="L33">			} catch (IOException e) {</span>
+<span class="nc" id="L34">				e.printStackTrace();</span>
+<span class="fc" id="L35">			}</span>
+<span class="fc" id="L36">		}</span>
+<span class="fc" id="L37">	}</span>
+
+	private List&lt;List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt;&gt; traverseLevelOrder(final Graph&lt;T, R&gt; graph) {
+<span class="fc" id="L40">		List&lt;List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt;&gt; result = new ArrayList&lt;List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt;&gt;();</span>
+<span class="fc" id="L41">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = graph.getInitialNodes();</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">		for (Node&lt;T, R&gt; iNode : initialNodes) {</span>
+<span class="fc" id="L43">			List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt; iresult = new ArrayList&lt;List&lt;Node&lt;T, R&gt;&gt;&gt;();</span>
+<span class="fc" id="L44">			doTraverse(iresult, iNode);</span>
+<span class="fc" id="L45">			result.add(iresult);</span>
+<span class="fc" id="L46">		}</span>
+<span class="fc" id="L47">		return result;</span>
+	}
+
+	private void doTraverse(final List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt; result, final Node&lt;T, R&gt; iNode) {
+<span class="fc" id="L51">		Queue&lt;Node&lt;T, R&gt;&gt; queue = new LinkedList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L52">		queue.offer(iNode);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		while (!queue.isEmpty()) {</span>
+<span class="fc" id="L54">			List&lt;Node&lt;T, R&gt;&gt; level = new ArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L55">			int size = queue.size();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">			for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L57">				Node&lt;T, R&gt; node = queue.poll();</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">				if (!this.processed.contains(node)) {</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">					if (!level.contains(node)) {</span>
+<span class="fc" id="L60">						level.add(node);</span>
+					}
+<span class="fc" id="L62">					this.processed.add(node);</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">					for (Node&lt;T, R&gt; ogn : node.getOutGoingNodes()) {</span>
+<span class="pc bpc" id="L64" title="2 of 4 branches missed.">						if (ogn != null &amp;&amp; !this.processed.contains(ogn)) {</span>
+<span class="fc" id="L65">							queue.offer(ogn);</span>
+						}
+<span class="fc" id="L67">					}</span>
+				}
+				
+			}
+<span class="fc" id="L71">			result.add(level);</span>
+<span class="fc" id="L72">		}</span>
+<span class="fc" id="L73">	}</span>
+
+	private void printGraph(final List&lt;List&lt;Node&lt;T, R&gt;&gt;&gt; list, final Writer writer) {
+<span class="fc bfc" id="L76" title="All 2 branches covered.">		for (List&lt;Node&lt;T, R&gt;&gt; nodes : list) {</span>
+			try {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">				for (Node&lt;T, R&gt; node : nodes) {</span>
+<span class="fc" id="L79">					writer.write(node + &quot;&quot; + node.getInComingNodes() + &quot; &quot;);</span>
+<span class="fc" id="L80">				}</span>
+<span class="fc" id="L81">				writer.write(&quot;\n&quot;);</span>
+<span class="nc" id="L82">			} catch (IOException e) {</span>
+<span class="nc" id="L83">				e.printStackTrace();</span>
+<span class="fc" id="L84">			}</span>
+<span class="fc" id="L85">		}</span>
+<span class="fc" id="L86">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
