@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.9168975069252078" branch-rate="0.82" lines-covered="331" lines-valid="361" branches-covered="82" branches-valid="100" complexity="1.5517241379310345" version="2.0.3" timestamp="1472105456087">
+<coverage line-rate="0.9168975069252078" branch-rate="0.82" lines-covered="331" lines-valid="361" branches-covered="82" branches-valid="100" complexity="1.5517241379310345" version="2.0.3" timestamp="1472106851595">
 	<sources>
 		<source>D:/nadeem/gitrepos/dependent-tasks-executor/target/generated-sources/annotations</source>
 		<source>D:/nadeem/gitrepos/dependent-tasks-executor/src/main/java</source>
