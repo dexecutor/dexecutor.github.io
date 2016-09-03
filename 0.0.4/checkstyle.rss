@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>Dependent Tasks Executor - Checkstyle report</title>
+    <link>https://github.com/dexecutor/dependent-tasks-executor</link>
+    <description>Dependent Tasks Executor - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2016 Dexecutor</copyright>
+    <item>
+      <title>File: 19,
+             Errors: 1289,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.package-info.java">com/github/dexecutor/executor/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.Graph.java">com/github/dexecutor/executor/graph/Graph.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  222
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.DefaultGraph.java">com/github/dexecutor/executor/graph/DefaultGraph.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  75
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.LevelOrderTraversar.java">com/github/dexecutor/executor/graph/LevelOrderTraversar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  85
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.support.Preconditions.java">com/github/dexecutor/executor/support/Preconditions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.DependentTasksExecutor.java">com/github/dexecutor/executor/DependentTasksExecutor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  100
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.ExecutionResults.java">com/github/dexecutor/executor/ExecutionResults.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  51
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.package-info.java">com/github/dexecutor/executor/graph/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.support.ThreadPoolUtil.java">com/github/dexecutor/executor/support/ThreadPoolUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  42
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.DefaultDependentTasksExecutor.java">com/github/dexecutor/executor/DefaultDependentTasksExecutor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  356
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.Validator.java">com/github/dexecutor/executor/graph/Validator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.Traversar.java">com/github/dexecutor/executor/graph/Traversar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.ExecutionStatus.java">com/github/dexecutor/executor/ExecutionStatus.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.TaskExecutionException.java">com/github/dexecutor/executor/TaskExecutionException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.graph.CyclicValidator.java">com/github/dexecutor/executor/graph/CyclicValidator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.TaskProvider.java">com/github/dexecutor/executor/TaskProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  74
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.support.package-info.java">com/github/dexecutor/executor/support/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.ExecutionResult.java">com/github/dexecutor/executor/ExecutionResult.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  75
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dependent-tasks-executor/checkstyle.html#com.github.dexecutor.executor.DependentTasksExecutorConfig.java">com/github/dexecutor/executor/DependentTasksExecutorConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  93
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
