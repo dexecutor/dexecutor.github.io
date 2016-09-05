@@ -8,8 +8,8 @@
     <language>en-us</language>
     <copyright>&#169;2016 Dexecutor</copyright>
     <item>
-      <title>File: 43,
-             Errors: 1340,
+      <title>File: 60,
+             Errors: 1319,
              Warnings: 0,
              Infos: 0
       </title>
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.CyclicValidator.java">com/github/dexecutor/core/graph/CyclicValidator.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.ExecutionEngine.java">src/main/java/com/github/dexecutor/core/ExecutionEngine.java</a>
                 </td>
                 <td>
                   0
@@ -52,7 +52,7 @@
                   0
                 </td>
                 <td>
-                  0
+                  4
                 </td>
               </tr>
                           <tr>
@@ -71,7 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.ExecutionEngine.java">src/main/java/com/github/dexecutor/core/ExecutionEngine.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DefaultDependentTasksExecutor.java">src/main/java/com/github/dexecutor/core/DefaultDependentTasksExecutor.java</a>
                 </td>
                 <td>
                   0
@@ -80,7 +80,301 @@
                   0
                 </td>
                 <td>
-                  4
+                  170
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.Node.java">com/github/dexecutor/core/graph/Node.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.generated-classes.cobertura.cobertura.properties">target/generated-classes/cobertura/cobertura.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DefaultExecutionEngine.java">src/main/java/com/github/dexecutor/core/DefaultExecutionEngine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  39
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.RetryOnceAndTerminateTask.java">src/main/java/com/github/dexecutor/core/RetryOnceAndTerminateTask.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  39
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.TerminatingTask.java">com/github/dexecutor/core/TerminatingTask.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.package-info.java">src/main/java/com/github/dexecutor/core/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.package-info.java">com/github/dexecutor/core/graph/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Dag.java">src/main/java/com/github/dexecutor/core/graph/Dag.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  45
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.package-info.java">src/main/java/com/github/dexecutor/core/graph/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.support.ThreadPoolUtil.java">com/github/dexecutor/core/support/ThreadPoolUtil.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.maven-archiver.pom.properties">target/maven-archiver/pom.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.WorkerFactory.java">src/main/java/com/github/dexecutor/core/WorkerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.TerminatingTask.java">src/main/java/com/github/dexecutor/core/TerminatingTask.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  29
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.DefaultDependentTasksExecutor.java">com/github/dexecutor/core/DefaultDependentTasksExecutor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.support.package-info.java">src/main/java/com/github/dexecutor/core/support/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.DependentTasksExecutorConfig.java">com/github/dexecutor/core/DependentTasksExecutorConfig.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DependentTasksExecutor.java">src/main/java/com/github/dexecutor/core/DependentTasksExecutor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  100
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.generated-classes.cobertura.META-INF.maven.com.github.dexecutor.dexecutor-core.pom.properties">target/generated-classes/cobertura/META-INF/maven/com.github.dexecutor/dexecutor-core/pom.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.DefaultDag.java">src/main/java/com/github/dexecutor/core/graph/DefaultDag.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  74
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.TaskProvider.java">src/main/java/com/github/dexecutor/core/TaskProvider.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  74
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.CyclicValidator.java">com/github/dexecutor/core/graph/CyclicValidator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -95,20 +389,6 @@
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DefaultDependentTasksExecutor.java">src/main/java/com/github/dexecutor/core/DefaultDependentTasksExecutor.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  351
                 </td>
               </tr>
                           <tr>
@@ -211,20 +491,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.generated-classes.cobertura.cobertura.properties">target/generated-classes/cobertura/cobertura.properties</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.ExecutionEngine.java">com/github/dexecutor/core/ExecutionEngine.java</a>
                 </td>
                 <td>
@@ -235,20 +501,6 @@
                 </td>
                 <td>
                   0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DefaultExecutionEngine.java">src/main/java/com/github/dexecutor/core/DefaultExecutionEngine.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  39
                 </td>
               </tr>
                           <tr>
@@ -281,7 +533,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.package-info.java">src/main/java/com/github/dexecutor/core/package-info.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.checkout.target.maven-archiver.pom.properties">target/checkout/target/maven-archiver/pom.properties</a>
                 </td>
                 <td>
                   0
@@ -290,7 +542,35 @@
                   0
                 </td>
                 <td>
-                  1
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.WorkerFactory.java">com/github/dexecutor/core/WorkerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.ExecutorTask.java">com/github/dexecutor/core/ExecutorTask.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
               </tr>
                           <tr>
@@ -305,20 +585,6 @@
                 </td>
                 <td>
                   107
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.package-info.java">com/github/dexecutor/core/graph/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
               </tr>
                           <tr>
@@ -351,7 +617,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.TaskProvider.java">com/github/dexecutor/core/TaskProvider.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.checkout.target.nexus-staging.staging.1274044e65846d.properties">target/checkout/target/nexus-staging/staging/1274044e65846d.properties</a>
                 </td>
                 <td>
                   0
@@ -365,7 +631,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.Validator.java">com/github/dexecutor/core/graph/Validator.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.TaskProvider.java">com/github/dexecutor/core/TaskProvider.java</a>
                 </td>
                 <td>
                   0
@@ -393,35 +659,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Dag.java">src/main/java/com/github/dexecutor/core/graph/Dag.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  222
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.package-info.java">src/main/java/com/github/dexecutor/core/graph/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.support.ThreadPoolUtil.java">com/github/dexecutor/core/support/ThreadPoolUtil.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.graph.Validator.java">com/github/dexecutor/core/graph/Validator.java</a>
                 </td>
                 <td>
                   0
@@ -449,7 +687,21 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.DefaultDependentTasksExecutor.java">com/github/dexecutor/core/DefaultDependentTasksExecutor.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#target.classes.META-INF.maven.com.github.dexecutor.dexecutor-core.pom.properties">target/classes/META-INF/maven/com.github.dexecutor/dexecutor-core/pom.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.NonTerminatingTask.java">com/github/dexecutor/core/NonTerminatingTask.java</a>
                 </td>
                 <td>
                   0
@@ -477,7 +729,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.support.package-info.java">src/main/java/com/github/dexecutor/core/support/package-info.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.RetryOnceAndTerminateTask.java">com/github/dexecutor/core/RetryOnceAndTerminateTask.java</a>
                 </td>
                 <td>
                   0
@@ -486,7 +738,7 @@
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
               </tr>
                           <tr>
@@ -519,20 +771,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.DependentTasksExecutorConfig.java">com/github/dexecutor/core/DependentTasksExecutorConfig.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#com.github.dexecutor.core.TaskExecutionException.java">com/github/dexecutor/core/TaskExecutionException.java</a>
                 </td>
                 <td>
@@ -547,7 +785,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.DependentTasksExecutor.java">src/main/java/com/github/dexecutor/core/DependentTasksExecutor.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Node.java">src/main/java/com/github/dexecutor/core/graph/Node.java</a>
                 </td>
                 <td>
                   0
@@ -556,7 +794,7 @@
                   0
                 </td>
                 <td>
-                  100
+                  116
                 </td>
               </tr>
                           <tr>
@@ -575,20 +813,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Validator.java">src/main/java/com/github/dexecutor/core/graph/Validator.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  9
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Traversar.java">src/main/java/com/github/dexecutor/core/graph/Traversar.java</a>
                 </td>
                 <td>
@@ -603,7 +827,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.DefaultDag.java">src/main/java/com/github/dexecutor/core/graph/DefaultDag.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.graph.Validator.java">src/main/java/com/github/dexecutor/core/graph/Validator.java</a>
                 </td>
                 <td>
                   0
@@ -612,12 +836,12 @@
                   0
                 </td>
                 <td>
-                  74
+                  9
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.TaskProvider.java">src/main/java/com/github/dexecutor/core/TaskProvider.java</a>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.NonTerminatingTask.java">src/main/java/com/github/dexecutor/core/NonTerminatingTask.java</a>
                 </td>
                 <td>
                   0
@@ -626,7 +850,21 @@
                   0
                 </td>
                 <td>
-                  74
+                  41
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/dexecutor/dexecutor-core/checkstyle.html#src.main.java.com.github.dexecutor.core.ExecutorTask.java">src/main/java/com/github/dexecutor/core/ExecutorTask.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  91
                 </td>
               </tr>
                       </tbody>

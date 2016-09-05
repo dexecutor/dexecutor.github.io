@@ -81,8 +81,8 @@
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  	<strong class="jxr_keyword">public</strong> Set&lt;Node&lt;T, R&gt;&gt; getInitialNodes() {
 <a class="jxr_linenumber" name="L75" href="#L75">75</a>  		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>  		<strong class="jxr_keyword">for</strong> (Entry&lt;T, Dag.Node&lt;T, R&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.nodes.entrySet()) {
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>  			Dag.Node&lt;T, R&gt; node = entry.getValue();
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  		<strong class="jxr_keyword">for</strong> (Entry&lt;T, Node&lt;T, R&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.nodes.entrySet()) {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  			Node&lt;T, R&gt; node = entry.getValue();
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  			<strong class="jxr_keyword">if</strong> (node.getInComingNodes().isEmpty()) {				
 <a class="jxr_linenumber" name="L79" href="#L79">79</a>  				initialNodes.add(node);
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  			}
@@ -94,14 +94,14 @@
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>  		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.nodes.size();
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  	}
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
-<a class="jxr_linenumber" name="L89" href="#L89">89</a>  	<strong class="jxr_keyword">public</strong> Collection&lt;Dag.Node&lt;T, R&gt;&gt; allNodes() {
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ArrayList&lt;Dag.Node&lt;T, R&gt;&gt;(<strong class="jxr_keyword">this</strong>.nodes.values());
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  	<strong class="jxr_keyword">public</strong> Collection&lt;Node&lt;T, R&gt;&gt; allNodes() {
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ArrayList&lt;Node&lt;T, R&gt;&gt;(<strong class="jxr_keyword">this</strong>.nodes.values());
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  	}
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
-<a class="jxr_linenumber" name="L93" href="#L93">93</a>  	<strong class="jxr_keyword">public</strong> Set&lt;Dag.Node&lt;T, R&gt;&gt; getLeafNodes() {
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  	<strong class="jxr_keyword">public</strong> Set&lt;Node&lt;T, R&gt;&gt; getLeafNodes() {
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>  		Set&lt;Node&lt;T, R&gt;&gt; leafNodes = <strong class="jxr_keyword">new</strong> LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  		<strong class="jxr_keyword">for</strong> (Entry&lt;T, Dag.Node&lt;T, R&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.nodes.entrySet()) {
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>  			Dag.Node&lt;T, R&gt; node = entry.getValue();
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  		<strong class="jxr_keyword">for</strong> (Entry&lt;T, Node&lt;T, R&gt;&gt; entry : <strong class="jxr_keyword">this</strong>.nodes.entrySet()) {
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  			Node&lt;T, R&gt; node = entry.getValue();
 <a class="jxr_linenumber" name="L97" href="#L97">97</a>  			<strong class="jxr_keyword">if</strong> (node.getOutGoingNodes().isEmpty()) {				
 <a class="jxr_linenumber" name="L98" href="#L98">98</a>  				leafNodes.add(node);
 <a class="jxr_linenumber" name="L99" href="#L99">99</a>  			}

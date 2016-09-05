@@ -1,212 +1,181 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.92" branch-rate="0.82" lines-covered="345" lines-valid="375" branches-covered="82" branches-valid="100" complexity="1.512" version="2.0.3" timestamp="1472919402856">
+<coverage line-rate="0.9228723404255319" branch-rate="0.8617021276595744" lines-covered="347" lines-valid="376" branches-covered="81" branches-valid="94" complexity="1.5081967213114753" version="2.0.3" timestamp="1473092505813">
 	<sources>
 		<source>D:/nadeem/gitrepos/dexecutor-core/src/main/java</source>
 		<source>D:/nadeem/gitrepos/dexecutor-core/target/generated-sources/annotations</source>
 		<source>--source</source>
 	</sources>
 	<packages>
-		<package name="com.github.dexecutor.core" line-rate="0.8990825688073395" branch-rate="0.75" complexity="1.4210526315789473">
+		<package name="com.github.dexecutor.core" line-rate="0.9041095890410958" branch-rate="0.8333333333333334" complexity="1.4109589041095891">
 			<classes>
-				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="1.0" branch-rate="0.9285714285714286" complexity="1.8235294117647058">
+				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="1.0" branch-rate="0.9166666666666666" complexity="1.8125">
 					<methods>
 						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="52" hits="1" branch="false"/>
+								<line number="50" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/DependentTasksExecutorConfig;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="60" hits="7" branch="false"/>
-								<line number="61" hits="7" branch="false"/>
+								<line number="58" hits="7" branch="false"/>
+								<line number="59" hits="7" branch="false"/>
+								<line number="72" hits="7" branch="false"/>
+								<line number="73" hits="7" branch="false"/>
 								<line number="74" hits="7" branch="false"/>
 								<line number="75" hits="7" branch="false"/>
 								<line number="76" hits="7" branch="false"/>
 								<line number="77" hits="7" branch="false"/>
 								<line number="78" hits="7" branch="false"/>
 								<line number="79" hits="7" branch="false"/>
-								<line number="80" hits="7" branch="false"/>
-								<line number="81" hits="7" branch="false"/>
 							</lines>
 						</method>
 						<method name="&lt;init&gt;" signature="(Ljava/util/concurrent/ExecutorService;Lcom/github/dexecutor/core/TaskProvider;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="68" hits="7" branch="false"/>
-								<line number="69" hits="7" branch="false"/>
-							</lines>
-						</method>
-						<method name="access$000" signature="(Lcom/github/dexecutor/core/DefaultDependentTasksExecutor;Lcom/github/dexecutor/core/graph/Dag$Node;)Lcom/github/dexecutor/core/TaskProvider$Task;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-						<method name="access$100" signature="()Lorg/slf4j/Logger;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="50" hits="69" branch="false"/>
+								<line number="66" hits="7" branch="false"/>
+								<line number="67" hits="7" branch="false"/>
 							</lines>
 						</method>
 						<method name="addAsDependencyToAllInitialNodes" signature="(Ljava/lang/Comparable;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="107" hits="2" branch="true" condition-coverage="100% (2/2)">
+								<line number="105" hits="2" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="108" hits="1" branch="false"/>
-								<line number="110" hits="1" branch="true" condition-coverage="100% (2/2)">
+								<line number="106" hits="1" branch="false"/>
+								<line number="108" hits="1" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="111" hits="1" branch="false"/>
-								<line number="112" hits="1" branch="false"/>
-								<line number="114" hits="2" branch="false"/>
+								<line number="109" hits="1" branch="false"/>
+								<line number="110" hits="1" branch="false"/>
+								<line number="112" hits="2" branch="false"/>
 							</lines>
 						</method>
 						<method name="addAsDependentOnAllLeafNodes" signature="(Ljava/lang/Comparable;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="96" hits="2" branch="true" condition-coverage="100% (2/2)">
+								<line number="94" hits="2" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="97" hits="1" branch="false"/>
-								<line number="99" hits="1" branch="true" condition-coverage="100% (2/2)">
+								<line number="95" hits="1" branch="false"/>
+								<line number="97" hits="1" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="100" hits="1" branch="false"/>
-								<line number="101" hits="1" branch="false"/>
-								<line number="103" hits="2" branch="false"/>
+								<line number="98" hits="1" branch="false"/>
+								<line number="99" hits="1" branch="false"/>
+								<line number="101" hits="2" branch="false"/>
 							</lines>
 						</method>
 						<method name="addDependency" signature="(Ljava/lang/Comparable;Ljava/lang/Comparable;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="92" hits="33" branch="false"/>
-								<line number="93" hits="33" branch="false"/>
+								<line number="90" hits="33" branch="false"/>
+								<line number="91" hits="33" branch="false"/>
 							</lines>
 						</method>
 						<method name="addIndependent" signature="(Ljava/lang/Comparable;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="88" hits="4" branch="false"/>
-								<line number="89" hits="4" branch="false"/>
+								<line number="86" hits="4" branch="false"/>
+								<line number="87" hits="4" branch="false"/>
 							</lines>
 						</method>
-						<method name="allIncomingNodesProcessed" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Z" line-rate="1.0" branch-rate="1.0">
+						<method name="allIncomingNodesProcessed" signature="(Lcom/github/dexecutor/core/graph/Node;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="166" hits="25" branch="true" condition-coverage="100% (4/4)">
+								<line number="164" hits="25" branch="true" condition-coverage="100% (4/4)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 										<condition number="1" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="167" hits="24" branch="false"/>
-								<line number="169" hits="1" branch="false"/>
+								<line number="165" hits="24" branch="false"/>
+								<line number="167" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="areAlreadyProcessed" signature="(Ljava/util/Set;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="121" hits="17" branch="false"/>
+								<line number="119" hits="17" branch="false"/>
 							</lines>
 						</method>
 						<method name="doExecute" signature="(Ljava/util/Collection;Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="149" hits="25" branch="true" condition-coverage="100% (2/2)">
+								<line number="147" hits="25" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="150" hits="25" branch="true" condition-coverage="100% (2/2)">
+								<line number="148" hits="25" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
+								<line number="149" hits="24" branch="false"/>
+								<line number="150" hits="24" branch="false"/>
 								<line number="151" hits="24" branch="false"/>
-								<line number="152" hits="24" branch="false"/>
-								<line number="153" hits="24" branch="false"/>
-								<line number="156" hits="1" branch="false"/>
-								<line number="158" hits="25" branch="false"/>
-								<line number="159" hits="25" branch="false"/>
+								<line number="154" hits="1" branch="false"/>
+								<line number="156" hits="25" branch="false"/>
+								<line number="157" hits="25" branch="false"/>
 							</lines>
 						</method>
 						<method name="doProcessNodes" signature="(Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;Ljava/util/Set;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
+								<line number="142" hits="4" branch="false"/>
+								<line number="143" hits="4" branch="false"/>
 								<line number="144" hits="4" branch="false"/>
-								<line number="145" hits="4" branch="false"/>
-								<line number="146" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="doWaitForExecution" signature="(Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="173" hits="4" branch="false"/>
-								<line number="174" hits="28" branch="true" condition-coverage="100% (2/2)">
+								<line number="171" hits="4" branch="false"/>
+								<line number="172" hits="28" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="176" hits="24" branch="false"/>
-								<line number="177" hits="24" branch="false"/>
+								<line number="174" hits="24" branch="false"/>
+								<line number="175" hits="24" branch="false"/>
+								<line number="176" hits="21" branch="false"/>
+								<line number="177" hits="21" branch="false"/>
 								<line number="178" hits="21" branch="false"/>
 								<line number="179" hits="21" branch="false"/>
-								<line number="180" hits="21" branch="false"/>
-								<line number="181" hits="21" branch="false"/>
+								<line number="180" hits="3" branch="false"/>
+								<line number="181" hits="3" branch="false"/>
 								<line number="182" hits="3" branch="false"/>
-								<line number="183" hits="3" branch="false"/>
-								<line number="184" hits="3" branch="false"/>
-								<line number="185" hits="24" branch="false"/>
-								<line number="187" hits="4" branch="false"/>
+								<line number="183" hits="24" branch="false"/>
+								<line number="185" hits="4" branch="false"/>
 							</lines>
 						</method>
 						<method name="execute" signature="(Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
+								<line number="123" hits="4" branch="false"/>
 								<line number="125" hits="4" branch="false"/>
 								<line number="127" hits="4" branch="false"/>
 								<line number="129" hits="4" branch="false"/>
 								<line number="131" hits="4" branch="false"/>
 								<line number="133" hits="4" branch="false"/>
+								<line number="134" hits="4" branch="false"/>
 								<line number="135" hits="4" branch="false"/>
-								<line number="136" hits="4" branch="false"/>
-								<line number="137" hits="4" branch="false"/>
 							</lines>
 						</method>
-						<method name="isAlreadyProcessed" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Z" line-rate="1.0" branch-rate="1.0">
+						<method name="isAlreadyProcessed" signature="(Lcom/github/dexecutor/core/graph/Node;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="117" hits="25" branch="false"/>
-							</lines>
-						</method>
-						<method name="newExecutorTask" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Lcom/github/dexecutor/core/TaskProvider$Task;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="268" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="newWorker" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;)Ljava/util/concurrent/Callable;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="190" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="191" hits="2" branch="false"/>
-								<line number="192" hits="22" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="193" hits="14" branch="false"/>
-								<line number="195" hits="8" branch="false"/>
+								<line number="115" hits="25" branch="false"/>
 							</lines>
 						</method>
 						<method name="print" signature="(Ljava/io/Writer;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="84" hits="1" branch="false"/>
-								<line number="85" hits="1" branch="false"/>
+								<line number="82" hits="1" branch="false"/>
+								<line number="83" hits="1" branch="false"/>
 							</lines>
 						</method>
-						<method name="shouldProcess" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Z" line-rate="1.0" branch-rate="0.6666666666666666">
+						<method name="shouldProcess" signature="(Lcom/github/dexecutor/core/graph/Node;)Z" line-rate="1.0" branch-rate="0.6666666666666666">
 							<lines>
-								<line number="162" hits="25" branch="true" condition-coverage="66% (4/6)">
+								<line number="160" hits="25" branch="true" condition-coverage="66% (4/6)">
 									<conditions>
 										<condition number="0" type="jump" coverage="50%"/>
 										<condition number="1" type="jump" coverage="50%"/>
@@ -215,441 +184,124 @@
 								</line>
 							</lines>
 						</method>
-						<method name="shouldRetry" signature="(Ljava/lang/Comparable;)Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="264" hits="14" branch="false"/>
-							</lines>
-						</method>
 						<method name="validate" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="140" hits="4" branch="false"/>
-								<line number="141" hits="4" branch="false"/>
+								<line number="138" hits="4" branch="false"/>
+								<line number="139" hits="4" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="50" hits="69" branch="false"/>
-						<line number="52" hits="1" branch="false"/>
-						<line number="60" hits="7" branch="false"/>
-						<line number="61" hits="7" branch="false"/>
-						<line number="68" hits="7" branch="false"/>
-						<line number="69" hits="7" branch="false"/>
+						<line number="50" hits="1" branch="false"/>
+						<line number="58" hits="7" branch="false"/>
+						<line number="59" hits="7" branch="false"/>
+						<line number="66" hits="7" branch="false"/>
+						<line number="67" hits="7" branch="false"/>
+						<line number="72" hits="7" branch="false"/>
+						<line number="73" hits="7" branch="false"/>
 						<line number="74" hits="7" branch="false"/>
 						<line number="75" hits="7" branch="false"/>
 						<line number="76" hits="7" branch="false"/>
 						<line number="77" hits="7" branch="false"/>
 						<line number="78" hits="7" branch="false"/>
 						<line number="79" hits="7" branch="false"/>
-						<line number="80" hits="7" branch="false"/>
-						<line number="81" hits="7" branch="false"/>
-						<line number="84" hits="1" branch="false"/>
-						<line number="85" hits="1" branch="false"/>
-						<line number="88" hits="4" branch="false"/>
-						<line number="89" hits="4" branch="false"/>
-						<line number="92" hits="33" branch="false"/>
-						<line number="93" hits="33" branch="false"/>
-						<line number="96" hits="2" branch="true" condition-coverage="100% (2/2)">
+						<line number="82" hits="1" branch="false"/>
+						<line number="83" hits="1" branch="false"/>
+						<line number="86" hits="4" branch="false"/>
+						<line number="87" hits="4" branch="false"/>
+						<line number="90" hits="33" branch="false"/>
+						<line number="91" hits="33" branch="false"/>
+						<line number="94" hits="2" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="97" hits="1" branch="false"/>
-						<line number="99" hits="1" branch="true" condition-coverage="100% (2/2)">
+						<line number="95" hits="1" branch="false"/>
+						<line number="97" hits="1" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="100" hits="1" branch="false"/>
-						<line number="101" hits="1" branch="false"/>
-						<line number="103" hits="2" branch="false"/>
-						<line number="107" hits="2" branch="true" condition-coverage="100% (2/2)">
+						<line number="98" hits="1" branch="false"/>
+						<line number="99" hits="1" branch="false"/>
+						<line number="101" hits="2" branch="false"/>
+						<line number="105" hits="2" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="108" hits="1" branch="false"/>
-						<line number="110" hits="1" branch="true" condition-coverage="100% (2/2)">
+						<line number="106" hits="1" branch="false"/>
+						<line number="108" hits="1" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="111" hits="1" branch="false"/>
-						<line number="112" hits="1" branch="false"/>
-						<line number="114" hits="2" branch="false"/>
-						<line number="117" hits="25" branch="false"/>
-						<line number="121" hits="17" branch="false"/>
+						<line number="109" hits="1" branch="false"/>
+						<line number="110" hits="1" branch="false"/>
+						<line number="112" hits="2" branch="false"/>
+						<line number="115" hits="25" branch="false"/>
+						<line number="119" hits="17" branch="false"/>
+						<line number="123" hits="4" branch="false"/>
 						<line number="125" hits="4" branch="false"/>
 						<line number="127" hits="4" branch="false"/>
 						<line number="129" hits="4" branch="false"/>
 						<line number="131" hits="4" branch="false"/>
 						<line number="133" hits="4" branch="false"/>
+						<line number="134" hits="4" branch="false"/>
 						<line number="135" hits="4" branch="false"/>
-						<line number="136" hits="4" branch="false"/>
-						<line number="137" hits="4" branch="false"/>
-						<line number="140" hits="4" branch="false"/>
-						<line number="141" hits="4" branch="false"/>
+						<line number="138" hits="4" branch="false"/>
+						<line number="139" hits="4" branch="false"/>
+						<line number="142" hits="4" branch="false"/>
+						<line number="143" hits="4" branch="false"/>
 						<line number="144" hits="4" branch="false"/>
-						<line number="145" hits="4" branch="false"/>
-						<line number="146" hits="4" branch="false"/>
-						<line number="149" hits="25" branch="true" condition-coverage="100% (2/2)">
+						<line number="147" hits="25" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="150" hits="25" branch="true" condition-coverage="100% (2/2)">
+						<line number="148" hits="25" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
+						<line number="149" hits="24" branch="false"/>
+						<line number="150" hits="24" branch="false"/>
 						<line number="151" hits="24" branch="false"/>
-						<line number="152" hits="24" branch="false"/>
-						<line number="153" hits="24" branch="false"/>
-						<line number="156" hits="1" branch="false"/>
-						<line number="158" hits="25" branch="false"/>
-						<line number="159" hits="25" branch="false"/>
-						<line number="162" hits="25" branch="true" condition-coverage="66% (4/6)">
+						<line number="154" hits="1" branch="false"/>
+						<line number="156" hits="25" branch="false"/>
+						<line number="157" hits="25" branch="false"/>
+						<line number="160" hits="25" branch="true" condition-coverage="66% (4/6)">
 							<conditions>
 								<condition number="0" type="jump" coverage="50%"/>
 								<condition number="1" type="jump" coverage="50%"/>
 								<condition number="2" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="166" hits="25" branch="true" condition-coverage="100% (4/4)">
+						<line number="164" hits="25" branch="true" condition-coverage="100% (4/4)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 								<condition number="1" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="167" hits="24" branch="false"/>
-						<line number="169" hits="1" branch="false"/>
-						<line number="173" hits="4" branch="false"/>
-						<line number="174" hits="28" branch="true" condition-coverage="100% (2/2)">
+						<line number="165" hits="24" branch="false"/>
+						<line number="167" hits="1" branch="false"/>
+						<line number="171" hits="4" branch="false"/>
+						<line number="172" hits="28" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="176" hits="24" branch="false"/>
-						<line number="177" hits="24" branch="false"/>
+						<line number="174" hits="24" branch="false"/>
+						<line number="175" hits="24" branch="false"/>
+						<line number="176" hits="21" branch="false"/>
+						<line number="177" hits="21" branch="false"/>
 						<line number="178" hits="21" branch="false"/>
 						<line number="179" hits="21" branch="false"/>
-						<line number="180" hits="21" branch="false"/>
-						<line number="181" hits="21" branch="false"/>
+						<line number="180" hits="3" branch="false"/>
+						<line number="181" hits="3" branch="false"/>
 						<line number="182" hits="3" branch="false"/>
-						<line number="183" hits="3" branch="false"/>
-						<line number="184" hits="3" branch="false"/>
-						<line number="185" hits="24" branch="false"/>
-						<line number="187" hits="4" branch="false"/>
-						<line number="190" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="191" hits="2" branch="false"/>
-						<line number="192" hits="22" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="193" hits="14" branch="false"/>
-						<line number="195" hits="8" branch="false"/>
-						<line number="264" hits="14" branch="false"/>
-						<line number="268" hits="24" branch="false"/>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor$ExecutorTask" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="0.8387096774193549" branch-rate="0.5" complexity="1.8235294117647058">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/DefaultDependentTasksExecutor;Lcom/github/dexecutor/core/graph/Dag$Node;Lcom/github/dexecutor/core/TaskProvider$Task;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="274" hits="24" branch="false"/>
-								<line number="276" hits="24" branch="false"/>
-								<line number="277" hits="24" branch="false"/>
-								<line number="278" hits="24" branch="false"/>
-								<line number="279" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="execute" signature="()Ljava/lang/Object;" line-rate="0.8181818181818182" branch-rate="0.5">
-							<lines>
-								<line number="282" hits="24" branch="false"/>
-								<line number="283" hits="24" branch="true" condition-coverage="50% (1/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="284" hits="24" branch="false"/>
-								<line number="285" hits="24" branch="false"/>
-								<line number="286" hits="24" branch="false"/>
-								<line number="287" hits="21" branch="false"/>
-								<line number="288" hits="21" branch="false"/>
-								<line number="289" hits="21" branch="false"/>
-								<line number="291" hits="0" branch="false"/>
-								<line number="292" hits="0" branch="false"/>
-								<line number="294" hits="21" branch="false"/>
-							</lines>
-						</method>
-						<method name="msg" signature="(I)Ljava/lang/String;" line-rate="1.0" branch-rate="0.5">
-							<lines>
-								<line number="324" hits="24" branch="true" condition-coverage="50% (1/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-							</lines>
-						</method>
-						<method name="parentResults" signature="()Lcom/github/dexecutor/core/ExecutionResults;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="303" hits="24" branch="false"/>
-								<line number="304" hits="24" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="305" hits="17" branch="false"/>
-								<line number="306" hits="17" branch="false"/>
-								<line number="307" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="setConsiderExecutionError" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="329" hits="24" branch="false"/>
-								<line number="330" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="shouldExecute" signature="(Lcom/github/dexecutor/core/ExecutionResults;)Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="299" hits="24" branch="false"/>
-							</lines>
-						</method>
-						<method name="status" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Lcom/github/dexecutor/core/ExecutionStatus;" line-rate="0.4" branch-rate="0.25">
-							<lines>
-								<line number="311" hits="17" branch="true" condition-coverage="50% (1/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="312" hits="17" branch="false"/>
-								<line number="313" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="314" hits="0" branch="false"/>
-								<line number="316" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="taskId" signature="()Ljava/lang/Comparable;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="320" hits="45" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="274" hits="24" branch="false"/>
-						<line number="276" hits="24" branch="false"/>
-						<line number="277" hits="24" branch="false"/>
-						<line number="278" hits="24" branch="false"/>
-						<line number="279" hits="24" branch="false"/>
-						<line number="282" hits="24" branch="false"/>
-						<line number="283" hits="24" branch="true" condition-coverage="50% (1/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="284" hits="24" branch="false"/>
-						<line number="285" hits="24" branch="false"/>
-						<line number="286" hits="24" branch="false"/>
-						<line number="287" hits="21" branch="false"/>
-						<line number="288" hits="21" branch="false"/>
-						<line number="289" hits="21" branch="false"/>
-						<line number="291" hits="0" branch="false"/>
-						<line number="292" hits="0" branch="false"/>
-						<line number="294" hits="21" branch="false"/>
-						<line number="299" hits="24" branch="false"/>
-						<line number="303" hits="24" branch="false"/>
-						<line number="304" hits="24" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="305" hits="17" branch="false"/>
-						<line number="306" hits="17" branch="false"/>
-						<line number="307" hits="24" branch="false"/>
-						<line number="311" hits="17" branch="true" condition-coverage="50% (1/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="312" hits="17" branch="false"/>
-						<line number="313" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="314" hits="0" branch="false"/>
-						<line number="316" hits="0" branch="false"/>
-						<line number="320" hits="45" branch="false"/>
-						<line number="324" hits="24" branch="true" condition-coverage="50% (1/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="329" hits="24" branch="false"/>
-						<line number="330" hits="24" branch="false"/>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor$NonTerminatingTask" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="0.75" branch-rate="1.0" complexity="1.8235294117647058">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/DefaultDependentTasksExecutor;Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="218" hits="2" branch="false"/>
-								<line number="219" hits="2" branch="false"/>
-								<line number="220" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Dag$Node;" line-rate="0.625" branch-rate="1.0">
-							<lines>
-								<line number="224" hits="2" branch="false"/>
-								<line number="225" hits="2" branch="false"/>
-								<line number="226" hits="2" branch="false"/>
-								<line number="227" hits="0" branch="false"/>
-								<line number="228" hits="0" branch="false"/>
-								<line number="229" hits="0" branch="false"/>
-								<line number="230" hits="2" branch="false"/>
-								<line number="231" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="215" hits="2" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="215" hits="2" branch="false"/>
-						<line number="218" hits="2" branch="false"/>
-						<line number="219" hits="2" branch="false"/>
-						<line number="220" hits="2" branch="false"/>
-						<line number="224" hits="2" branch="false"/>
-						<line number="225" hits="2" branch="false"/>
-						<line number="226" hits="2" branch="false"/>
-						<line number="227" hits="0" branch="false"/>
-						<line number="228" hits="0" branch="false"/>
-						<line number="229" hits="0" branch="false"/>
-						<line number="230" hits="2" branch="false"/>
-						<line number="231" hits="2" branch="false"/>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor$RetryOnceAndTerminateTask" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="0.625" branch-rate="0.16666666666666666" complexity="1.8235294117647058">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/DefaultDependentTasksExecutor;Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="238" hits="14" branch="false"/>
-								<line number="239" hits="14" branch="false"/>
-								<line number="240" hits="14" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Dag$Node;" line-rate="0.5454545454545454" branch-rate="0.25">
-							<lines>
-								<line number="243" hits="14" branch="false"/>
-								<line number="244" hits="14" branch="false"/>
-								<line number="245" hits="14" branch="true" condition-coverage="50% (1/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="247" hits="14" branch="false"/>
-								<line number="248" hits="0" branch="false"/>
-								<line number="249" hits="0" branch="false"/>
-								<line number="250" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="251" hits="0" branch="false"/>
-								<line number="252" hits="0" branch="false"/>
-								<line number="254" hits="14" branch="false"/>
-								<line number="255" hits="14" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="235" hits="14" branch="false"/>
-							</lines>
-						</method>
-						<method name="getYesNo" signature="(Z)Ljava/lang/String;" line-rate="0.0" branch-rate="0.0">
-							<lines>
-								<line number="259" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="235" hits="14" branch="false"/>
-						<line number="238" hits="14" branch="false"/>
-						<line number="239" hits="14" branch="false"/>
-						<line number="240" hits="14" branch="false"/>
-						<line number="243" hits="14" branch="false"/>
-						<line number="244" hits="14" branch="false"/>
-						<line number="245" hits="14" branch="true" condition-coverage="50% (1/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="247" hits="14" branch="false"/>
-						<line number="248" hits="0" branch="false"/>
-						<line number="249" hits="0" branch="false"/>
-						<line number="250" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-						<line number="251" hits="0" branch="false"/>
-						<line number="252" hits="0" branch="false"/>
-						<line number="254" hits="14" branch="false"/>
-						<line number="255" hits="14" branch="false"/>
-						<line number="259" hits="0" branch="true" condition-coverage="0% (0/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="0%"/>
-							</conditions>
-						</line>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.DefaultDependentTasksExecutor$TerminatingTask" filename="com/github/dexecutor/core/DefaultDependentTasksExecutor.java" line-rate="1.0" branch-rate="1.0" complexity="1.8235294117647058">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/DefaultDependentTasksExecutor;Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="202" hits="8" branch="false"/>
-								<line number="203" hits="8" branch="false"/>
-								<line number="204" hits="8" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Dag$Node;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="207" hits="8" branch="false"/>
-								<line number="208" hits="8" branch="false"/>
-								<line number="209" hits="8" branch="false"/>
-								<line number="210" hits="5" branch="false"/>
-								<line number="211" hits="5" branch="false"/>
-							</lines>
-						</method>
-						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="199" hits="8" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="199" hits="8" branch="false"/>
-						<line number="202" hits="8" branch="false"/>
-						<line number="203" hits="8" branch="false"/>
-						<line number="204" hits="8" branch="false"/>
-						<line number="207" hits="8" branch="false"/>
-						<line number="208" hits="8" branch="false"/>
-						<line number="209" hits="8" branch="false"/>
-						<line number="210" hits="5" branch="false"/>
-						<line number="211" hits="5" branch="false"/>
+						<line number="183" hits="24" branch="false"/>
+						<line number="185" hits="4" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.github.dexecutor.core.DefaultExecutionEngine" filename="com/github/dexecutor/core/DefaultExecutionEngine.java" line-rate="0.5555555555555556" branch-rate="1.0" complexity="1.0">
@@ -978,6 +630,254 @@
 						<line number="26" hits="1" branch="false"/>
 					</lines>
 				</class>
+				<class name="com.github.dexecutor.core.ExecutorTask" filename="com/github/dexecutor/core/ExecutorTask.java" line-rate="0.84375" branch-rate="0.5" complexity="1.875">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="13" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/graph/Node;Lcom/github/dexecutor/core/TaskProvider$Task;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="20" hits="24" branch="false"/>
+								<line number="22" hits="24" branch="false"/>
+								<line number="23" hits="24" branch="false"/>
+								<line number="24" hits="24" branch="false"/>
+								<line number="25" hits="24" branch="false"/>
+							</lines>
+						</method>
+						<method name="execute" signature="()Ljava/lang/Object;" line-rate="0.8181818181818182" branch-rate="0.5">
+							<lines>
+								<line number="28" hits="24" branch="false"/>
+								<line number="29" hits="24" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="30" hits="24" branch="false"/>
+								<line number="31" hits="24" branch="false"/>
+								<line number="32" hits="24" branch="false"/>
+								<line number="33" hits="21" branch="false"/>
+								<line number="34" hits="21" branch="false"/>
+								<line number="35" hits="21" branch="false"/>
+								<line number="37" hits="0" branch="false"/>
+								<line number="38" hits="0" branch="false"/>
+								<line number="40" hits="21" branch="false"/>
+							</lines>
+						</method>
+						<method name="msg" signature="(I)Ljava/lang/String;" line-rate="1.0" branch-rate="0.5">
+							<lines>
+								<line number="70" hits="24" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+							</lines>
+						</method>
+						<method name="parentResults" signature="()Lcom/github/dexecutor/core/ExecutionResults;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="24" branch="false"/>
+								<line number="50" hits="24" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="51" hits="17" branch="false"/>
+								<line number="52" hits="17" branch="false"/>
+								<line number="53" hits="24" branch="false"/>
+							</lines>
+						</method>
+						<method name="setConsiderExecutionError" signature="(Z)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="75" hits="24" branch="false"/>
+								<line number="76" hits="24" branch="false"/>
+							</lines>
+						</method>
+						<method name="shouldExecute" signature="(Lcom/github/dexecutor/core/ExecutionResults;)Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="45" hits="24" branch="false"/>
+							</lines>
+						</method>
+						<method name="status" signature="(Lcom/github/dexecutor/core/graph/Node;)Lcom/github/dexecutor/core/ExecutionStatus;" line-rate="0.4" branch-rate="0.25">
+							<lines>
+								<line number="57" hits="17" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="58" hits="17" branch="false"/>
+								<line number="59" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="60" hits="0" branch="false"/>
+								<line number="62" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="taskId" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="66" hits="45" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="13" hits="1" branch="false"/>
+						<line number="20" hits="24" branch="false"/>
+						<line number="22" hits="24" branch="false"/>
+						<line number="23" hits="24" branch="false"/>
+						<line number="24" hits="24" branch="false"/>
+						<line number="25" hits="24" branch="false"/>
+						<line number="28" hits="24" branch="false"/>
+						<line number="29" hits="24" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="30" hits="24" branch="false"/>
+						<line number="31" hits="24" branch="false"/>
+						<line number="32" hits="24" branch="false"/>
+						<line number="33" hits="21" branch="false"/>
+						<line number="34" hits="21" branch="false"/>
+						<line number="35" hits="21" branch="false"/>
+						<line number="37" hits="0" branch="false"/>
+						<line number="38" hits="0" branch="false"/>
+						<line number="40" hits="21" branch="false"/>
+						<line number="45" hits="24" branch="false"/>
+						<line number="49" hits="24" branch="false"/>
+						<line number="50" hits="24" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="51" hits="17" branch="false"/>
+						<line number="52" hits="17" branch="false"/>
+						<line number="53" hits="24" branch="false"/>
+						<line number="57" hits="17" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="58" hits="17" branch="false"/>
+						<line number="59" hits="0" branch="true" condition-coverage="0% (0/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="0%"/>
+							</conditions>
+						</line>
+						<line number="60" hits="0" branch="false"/>
+						<line number="62" hits="0" branch="false"/>
+						<line number="66" hits="45" branch="false"/>
+						<line number="70" hits="24" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="75" hits="24" branch="false"/>
+						<line number="76" hits="24" branch="false"/>
+					</lines>
+				</class>
+				<class name="com.github.dexecutor.core.NonTerminatingTask" filename="com/github/dexecutor/core/NonTerminatingTask.java" line-rate="0.7857142857142857" branch-rate="1.0" complexity="1.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="38" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/TaskProvider;Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="46" hits="2" branch="false"/>
+								<line number="47" hits="2" branch="false"/>
+								<line number="48" hits="2" branch="false"/>
+								<line number="49" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Node;" line-rate="0.625" branch-rate="1.0">
+							<lines>
+								<line number="52" hits="2" branch="false"/>
+								<line number="53" hits="2" branch="false"/>
+								<line number="54" hits="2" branch="false"/>
+								<line number="55" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="57" hits="0" branch="false"/>
+								<line number="58" hits="2" branch="false"/>
+								<line number="59" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="2" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="37" hits="2" branch="false"/>
+						<line number="38" hits="1" branch="false"/>
+						<line number="46" hits="2" branch="false"/>
+						<line number="47" hits="2" branch="false"/>
+						<line number="48" hits="2" branch="false"/>
+						<line number="49" hits="2" branch="false"/>
+						<line number="52" hits="2" branch="false"/>
+						<line number="53" hits="2" branch="false"/>
+						<line number="54" hits="2" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="57" hits="0" branch="false"/>
+						<line number="58" hits="2" branch="false"/>
+						<line number="59" hits="2" branch="false"/>
+					</lines>
+				</class>
+				<class name="com.github.dexecutor.core.RetryOnceAndTerminateTask" filename="com/github/dexecutor/core/RetryOnceAndTerminateTask.java" line-rate="0.7333333333333333" branch-rate="1.0" complexity="1.5">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="39" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/TaskProvider;Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="43" hits="14" branch="false"/>
+								<line number="44" hits="14" branch="false"/>
+								<line number="45" hits="14" branch="false"/>
+								<line number="46" hits="14" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Node;" line-rate="0.5555555555555556" branch-rate="1.0">
+							<lines>
+								<line number="49" hits="14" branch="false"/>
+								<line number="50" hits="14" branch="false"/>
+								<line number="52" hits="14" branch="false"/>
+								<line number="53" hits="0" branch="false"/>
+								<line number="54" hits="0" branch="false"/>
+								<line number="55" hits="0" branch="false"/>
+								<line number="56" hits="0" branch="false"/>
+								<line number="57" hits="14" branch="false"/>
+								<line number="58" hits="14" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="37" hits="14" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="37" hits="14" branch="false"/>
+						<line number="39" hits="1" branch="false"/>
+						<line number="43" hits="14" branch="false"/>
+						<line number="44" hits="14" branch="false"/>
+						<line number="45" hits="14" branch="false"/>
+						<line number="46" hits="14" branch="false"/>
+						<line number="49" hits="14" branch="false"/>
+						<line number="50" hits="14" branch="false"/>
+						<line number="52" hits="14" branch="false"/>
+						<line number="53" hits="0" branch="false"/>
+						<line number="54" hits="0" branch="false"/>
+						<line number="55" hits="0" branch="false"/>
+						<line number="56" hits="0" branch="false"/>
+						<line number="57" hits="14" branch="false"/>
+						<line number="58" hits="14" branch="false"/>
+					</lines>
+				</class>
 				<class name="com.github.dexecutor.core.TaskExecutionException" filename="com/github/dexecutor/core/TaskExecutionException.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 						<method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -1040,6 +940,86 @@
 						<line number="77" hits="24" branch="false"/>
 					</lines>
 				</class>
+				<class name="com.github.dexecutor.core.TerminatingTask" filename="com/github/dexecutor/core/TerminatingTask.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Lcom/github/dexecutor/core/TaskProvider;Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="40" hits="8" branch="false"/>
+								<line number="41" hits="8" branch="false"/>
+								<line number="42" hits="8" branch="false"/>
+								<line number="43" hits="8" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Lcom/github/dexecutor/core/graph/Node;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="46" hits="8" branch="false"/>
+								<line number="47" hits="8" branch="false"/>
+								<line number="48" hits="8" branch="false"/>
+								<line number="49" hits="5" branch="false"/>
+								<line number="50" hits="5" branch="false"/>
+							</lines>
+						</method>
+						<method name="call" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="34" hits="8" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="34" hits="8" branch="false"/>
+						<line number="40" hits="8" branch="false"/>
+						<line number="41" hits="8" branch="false"/>
+						<line number="42" hits="8" branch="false"/>
+						<line number="43" hits="8" branch="false"/>
+						<line number="46" hits="8" branch="false"/>
+						<line number="47" hits="8" branch="false"/>
+						<line number="48" hits="8" branch="false"/>
+						<line number="49" hits="5" branch="false"/>
+						<line number="50" hits="5" branch="false"/>
+					</lines>
+				</class>
+				<class name="com.github.dexecutor.core.WorkerFactory" filename="com/github/dexecutor/core/WorkerFactory.java" line-rate="0.8333333333333334" branch-rate="1.0" complexity="5.0">
+					<methods>
+						<method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
+							<lines>
+								<line number="30" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="newWorker" signature="(Lcom/github/dexecutor/core/TaskProvider;Lcom/github/dexecutor/core/graph/Node;Lcom/github/dexecutor/core/DependentTasksExecutor$ExecutionBehavior;)Ljava/util/concurrent/Callable;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="33" hits="24" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="34" hits="2" branch="false"/>
+								<line number="35" hits="22" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="36" hits="14" branch="false"/>
+								<line number="38" hits="8" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="30" hits="0" branch="false"/>
+						<line number="33" hits="24" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="34" hits="2" branch="false"/>
+						<line number="35" hits="22" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="36" hits="14" branch="false"/>
+						<line number="38" hits="8" branch="false"/>
+					</lines>
+				</class>
 			</classes>
 		</package>
 		<package name="com.github.dexecutor.core.graph" line-rate="0.9724137931034482" branch-rate="0.88" complexity="1.6818181818181819">
@@ -1048,314 +1028,118 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
 							<lines>
+								<line number="30" hits="11" branch="false"/>
 								<line number="32" hits="11" branch="false"/>
-								<line number="34" hits="11" branch="false"/>
-								<line number="35" hits="11" branch="false"/>
+								<line number="33" hits="11" branch="false"/>
 							</lines>
 						</method>
-						<method name="detectCycle" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="detectCycle" signature="(Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
+								<line number="46" hits="66" branch="false"/>
+								<line number="47" hits="66" branch="false"/>
 								<line number="48" hits="66" branch="false"/>
-								<line number="49" hits="66" branch="false"/>
-								<line number="50" hits="66" branch="false"/>
-								<line number="51" hits="64" branch="false"/>
-								<line number="52" hits="64" branch="false"/>
+								<line number="49" hits="64" branch="false"/>
+								<line number="50" hits="64" branch="false"/>
 							</lines>
 						</method>
-						<method name="doDepthFirstTraversal" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="doDepthFirstTraversal" signature="(Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="55" hits="66" branch="true" condition-coverage="100% (2/2)">
+								<line number="53" hits="66" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="56" hits="51" branch="true" condition-coverage="100% (2/2)">
+								<line number="54" hits="51" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="57" hits="29" branch="false"/>
-								<line number="58" hits="22" branch="true" condition-coverage="100% (2/2)">
+								<line number="55" hits="29" branch="false"/>
+								<line number="56" hits="22" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="59" hits="1" branch="false"/>
-								<line number="61" hits="49" branch="false"/>
-								<line number="62" hits="64" branch="false"/>
+								<line number="57" hits="1" branch="false"/>
+								<line number="59" hits="49" branch="false"/>
+								<line number="60" hits="64" branch="false"/>
 							</lines>
 						</method>
 						<method name="doProcess" signature="(Ljava/util/Collection;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="42" hits="6" branch="true" condition-coverage="100% (2/2)">
+								<line number="40" hits="6" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
-								<line number="43" hits="37" branch="false"/>
-								<line number="44" hits="36" branch="false"/>
-								<line number="45" hits="5" branch="false"/>
+								<line number="41" hits="37" branch="false"/>
+								<line number="42" hits="36" branch="false"/>
+								<line number="43" hits="5" branch="false"/>
 							</lines>
 						</method>
-						<method name="isAlreadyProcessed" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Z" line-rate="1.0" branch-rate="1.0">
+						<method name="isAlreadyProcessed" signature="(Lcom/github/dexecutor/core/graph/Node;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="65" hits="51" branch="false"/>
+								<line number="63" hits="51" branch="false"/>
 							</lines>
 						</method>
-						<method name="isOnStack" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)Z" line-rate="1.0" branch-rate="1.0">
+						<method name="isOnStack" signature="(Lcom/github/dexecutor/core/graph/Node;)Z" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="69" hits="22" branch="false"/>
+								<line number="67" hits="22" branch="false"/>
 							</lines>
 						</method>
 						<method name="validate" signature="(Lcom/github/dexecutor/core/graph/Dag;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
-								<line number="38" hits="6" branch="false"/>
-								<line number="39" hits="5" branch="false"/>
+								<line number="36" hits="6" branch="false"/>
+								<line number="37" hits="5" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
+						<line number="30" hits="11" branch="false"/>
 						<line number="32" hits="11" branch="false"/>
-						<line number="34" hits="11" branch="false"/>
-						<line number="35" hits="11" branch="false"/>
-						<line number="38" hits="6" branch="false"/>
-						<line number="39" hits="5" branch="false"/>
-						<line number="42" hits="6" branch="true" condition-coverage="100% (2/2)">
+						<line number="33" hits="11" branch="false"/>
+						<line number="36" hits="6" branch="false"/>
+						<line number="37" hits="5" branch="false"/>
+						<line number="40" hits="6" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="43" hits="37" branch="false"/>
-						<line number="44" hits="36" branch="false"/>
-						<line number="45" hits="5" branch="false"/>
+						<line number="41" hits="37" branch="false"/>
+						<line number="42" hits="36" branch="false"/>
+						<line number="43" hits="5" branch="false"/>
+						<line number="46" hits="66" branch="false"/>
+						<line number="47" hits="66" branch="false"/>
 						<line number="48" hits="66" branch="false"/>
-						<line number="49" hits="66" branch="false"/>
-						<line number="50" hits="66" branch="false"/>
-						<line number="51" hits="64" branch="false"/>
-						<line number="52" hits="64" branch="false"/>
-						<line number="55" hits="66" branch="true" condition-coverage="100% (2/2)">
+						<line number="49" hits="64" branch="false"/>
+						<line number="50" hits="64" branch="false"/>
+						<line number="53" hits="66" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="56" hits="51" branch="true" condition-coverage="100% (2/2)">
+						<line number="54" hits="51" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="57" hits="29" branch="false"/>
-						<line number="58" hits="22" branch="true" condition-coverage="100% (2/2)">
+						<line number="55" hits="29" branch="false"/>
+						<line number="56" hits="22" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
-						<line number="59" hits="1" branch="false"/>
-						<line number="61" hits="49" branch="false"/>
-						<line number="62" hits="64" branch="false"/>
-						<line number="65" hits="51" branch="false"/>
-						<line number="69" hits="22" branch="false"/>
+						<line number="57" hits="1" branch="false"/>
+						<line number="59" hits="49" branch="false"/>
+						<line number="60" hits="64" branch="false"/>
+						<line number="63" hits="51" branch="false"/>
+						<line number="67" hits="22" branch="false"/>
 					</lines>
 				</class>
-				<class name="com.github.dexecutor.core.graph.Dag" filename="com/github/dexecutor/core/graph/Dag.java" line-rate="1.0" branch-rate="1.0" complexity="1.2608695652173914">
+				<class name="com.github.dexecutor.core.graph.Dag" filename="com/github/dexecutor/core/graph/Dag.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">
 					<methods>
 					</methods>
 					<lines>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.graph.Dag$Node" filename="com/github/dexecutor/core/graph/Dag.java" line-rate="1.0" branch-rate="0.75" complexity="1.2608695652173914">
-					<methods>
-						<method name="&lt;init&gt;" signature="(Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="91" hits="89" branch="false"/>
-								<line number="95" hits="89" branch="false"/>
-								<line number="100" hits="89" branch="false"/>
-								<line number="101" hits="89" branch="false"/>
-								<line number="102" hits="89" branch="false"/>
-							</lines>
-						</method>
-						<method name="addInComingNode" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="108" hits="48" branch="false"/>
-								<line number="109" hits="48" branch="false"/>
-							</lines>
-						</method>
-						<method name="addOutGoingNode" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="115" hits="48" branch="false"/>
-								<line number="116" hits="48" branch="false"/>
-							</lines>
-						</method>
-						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="1.0" branch-rate="0.8333333333333334">
-							<lines>
-								<line number="181" hits="700" branch="true" condition-coverage="100% (2/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-									</conditions>
-								</line>
-								<line number="182" hits="107" branch="false"/>
-								<line number="184" hits="593" branch="true" condition-coverage="75% (3/4)">
-									<conditions>
-										<condition number="0" type="jump" coverage="100%"/>
-										<condition number="1" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="185" hits="1" branch="false"/>
-								<line number="188" hits="592" branch="false"/>
-								<line number="190" hits="592" branch="false"/>
-							</lines>
-						</method>
-						<method name="getInComingNodes" signature="()Ljava/util/Set;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="122" hits="108" branch="false"/>
-							</lines>
-						</method>
-						<method name="getOutGoingNodes" signature="()Ljava/util/Set;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="129" hits="94" branch="false"/>
-							</lines>
-						</method>
-						<method name="getResult" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="140" hits="17" branch="false"/>
-							</lines>
-						</method>
-						<method name="getValue" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="136" hits="148" branch="false"/>
-							</lines>
-						</method>
-						<method name="hashCode" signature="()I" line-rate="1.0" branch-rate="0.5">
-							<lines>
-								<line number="173" hits="110" branch="false"/>
-								<line number="174" hits="110" branch="false"/>
-								<line number="175" hits="110" branch="true" condition-coverage="50% (1/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="50%"/>
-									</conditions>
-								</line>
-								<line number="176" hits="110" branch="false"/>
-							</lines>
-						</method>
-						<method name="isErrored" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="152" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="isSkipped" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="156" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="isSuccess" signature="()Z" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="148" hits="17" branch="false"/>
-							</lines>
-						</method>
-						<method name="setErrored" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="164" hits="2" branch="false"/>
-								<line number="165" hits="2" branch="false"/>
-							</lines>
-						</method>
-						<method name="setResult" signature="(Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="144" hits="26" branch="false"/>
-								<line number="145" hits="26" branch="false"/>
-							</lines>
-						</method>
-						<method name="setSkipped" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="168" hits="1" branch="false"/>
-								<line number="169" hits="1" branch="false"/>
-							</lines>
-						</method>
-						<method name="setSuccess" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="160" hits="22" branch="false"/>
-								<line number="161" hits="22" branch="false"/>
-							</lines>
-						</method>
-						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="195" hits="28" branch="false"/>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="91" hits="89" branch="false"/>
-						<line number="95" hits="89" branch="false"/>
-						<line number="100" hits="89" branch="false"/>
-						<line number="101" hits="89" branch="false"/>
-						<line number="102" hits="89" branch="false"/>
-						<line number="108" hits="48" branch="false"/>
-						<line number="109" hits="48" branch="false"/>
-						<line number="115" hits="48" branch="false"/>
-						<line number="116" hits="48" branch="false"/>
-						<line number="122" hits="108" branch="false"/>
-						<line number="129" hits="94" branch="false"/>
-						<line number="136" hits="148" branch="false"/>
-						<line number="140" hits="17" branch="false"/>
-						<line number="144" hits="26" branch="false"/>
-						<line number="145" hits="26" branch="false"/>
-						<line number="148" hits="17" branch="false"/>
-						<line number="152" hits="2" branch="false"/>
-						<line number="156" hits="2" branch="false"/>
-						<line number="160" hits="22" branch="false"/>
-						<line number="161" hits="22" branch="false"/>
-						<line number="164" hits="2" branch="false"/>
-						<line number="165" hits="2" branch="false"/>
-						<line number="168" hits="1" branch="false"/>
-						<line number="169" hits="1" branch="false"/>
-						<line number="173" hits="110" branch="false"/>
-						<line number="174" hits="110" branch="false"/>
-						<line number="175" hits="110" branch="true" condition-coverage="50% (1/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="176" hits="110" branch="false"/>
-						<line number="181" hits="700" branch="true" condition-coverage="100% (2/2)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-							</conditions>
-						</line>
-						<line number="182" hits="107" branch="false"/>
-						<line number="184" hits="593" branch="true" condition-coverage="75% (3/4)">
-							<conditions>
-								<condition number="0" type="jump" coverage="100%"/>
-								<condition number="1" type="jump" coverage="50%"/>
-							</conditions>
-						</line>
-						<line number="185" hits="1" branch="false"/>
-						<line number="188" hits="592" branch="false"/>
-						<line number="190" hits="592" branch="false"/>
-						<line number="195" hits="28" branch="false"/>
-					</lines>
-				</class>
-				<class name="com.github.dexecutor.core.graph.Dag$NodeStatus" filename="com/github/dexecutor/core/graph/Dag.java" line-rate="1.0" branch-rate="1.0" complexity="1.2608695652173914">
-					<methods>
-						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-								<line number="204" hits="4" branch="false"/>
-								<line number="205" hits="1" branch="false"/>
-							</lines>
-						</method>
-						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-						<method name="valueOf" signature="(Ljava/lang/String;)Lcom/github/dexecutor/core/graph/Dag$NodeStatus;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-						<method name="values" signature="()[Lcom/github/dexecutor/core/graph/Dag$NodeStatus;" line-rate="1.0" branch-rate="1.0">
-							<lines>
-							</lines>
-						</method>
-					</methods>
-					<lines>
-						<line number="204" hits="4" branch="false"/>
-						<line number="205" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.github.dexecutor.core.graph.DefaultDag" filename="com/github/dexecutor/core/graph/DefaultDag.java" line-rate="1.0" branch-rate="1.0" complexity="1.6666666666666667">
@@ -1374,7 +1158,7 @@
 								<line number="49" hits="50" branch="false"/>
 							</lines>
 						</method>
-						<method name="addEdges" signature="(Lcom/github/dexecutor/core/graph/Dag$Node;Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="1.0">
+						<method name="addEdges" signature="(Lcom/github/dexecutor/core/graph/Node;Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
 							<lines>
 								<line number="52" hits="50" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
@@ -1392,7 +1176,7 @@
 								<line number="42" hits="13" branch="false"/>
 							</lines>
 						</method>
-						<method name="addOrGet" signature="(Ljava/lang/Comparable;)Lcom/github/dexecutor/core/graph/Dag$Node;" line-rate="1.0" branch-rate="1.0">
+						<method name="addOrGet" signature="(Ljava/lang/Comparable;)Lcom/github/dexecutor/core/graph/Node;" line-rate="1.0" branch-rate="1.0">
 							<lines>
 								<line number="59" hits="113" branch="false"/>
 								<line number="60" hits="113" branch="true" condition-coverage="100% (2/2)">
@@ -1411,7 +1195,7 @@
 								<line number="90" hits="7" branch="false"/>
 							</lines>
 						</method>
-						<method name="createNode" signature="(Ljava/lang/Comparable;)Lcom/github/dexecutor/core/graph/Dag$Node;" line-rate="1.0" branch-rate="1.0">
+						<method name="createNode" signature="(Ljava/lang/Comparable;)Lcom/github/dexecutor/core/graph/Node;" line-rate="1.0" branch-rate="1.0">
 							<lines>
 								<line number="70" hits="60" branch="false"/>
 								<line number="71" hits="60" branch="false"/>
@@ -1532,7 +1316,7 @@
 								<line number="40" hits="9" branch="false"/>
 							</lines>
 						</method>
-						<method name="doTraverse" signature="(Ljava/util/List;Lcom/github/dexecutor/core/graph/Dag$Node;)V" line-rate="1.0" branch-rate="0.7142857142857143">
+						<method name="doTraverse" signature="(Ljava/util/List;Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="0.7142857142857143">
 							<lines>
 								<line number="68" hits="1" branch="false"/>
 								<line number="69" hits="1" branch="false"/>
@@ -1728,6 +1512,202 @@
 						<line number="101" hits="2" branch="false"/>
 						<line number="102" hits="2" branch="false"/>
 						<line number="103" hits="1" branch="false"/>
+					</lines>
+				</class>
+				<class name="com.github.dexecutor.core.graph.Node" filename="com/github/dexecutor/core/graph/Node.java" line-rate="1.0" branch-rate="0.75" complexity="1.3529411764705883">
+					<methods>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="33" hits="89" branch="false"/>
+								<line number="37" hits="89" branch="false"/>
+								<line number="42" hits="89" branch="false"/>
+								<line number="43" hits="89" branch="false"/>
+								<line number="44" hits="89" branch="false"/>
+							</lines>
+						</method>
+						<method name="addInComingNode" signature="(Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="50" hits="48" branch="false"/>
+								<line number="51" hits="48" branch="false"/>
+							</lines>
+						</method>
+						<method name="addOutGoingNode" signature="(Lcom/github/dexecutor/core/graph/Node;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="57" hits="48" branch="false"/>
+								<line number="58" hits="48" branch="false"/>
+							</lines>
+						</method>
+						<method name="equals" signature="(Ljava/lang/Object;)Z" line-rate="1.0" branch-rate="0.8333333333333334">
+							<lines>
+								<line number="123" hits="700" branch="true" condition-coverage="100% (2/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+									</conditions>
+								</line>
+								<line number="124" hits="107" branch="false"/>
+								<line number="126" hits="593" branch="true" condition-coverage="75% (3/4)">
+									<conditions>
+										<condition number="0" type="jump" coverage="100%"/>
+										<condition number="1" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="127" hits="1" branch="false"/>
+								<line number="130" hits="592" branch="false"/>
+								<line number="132" hits="592" branch="false"/>
+							</lines>
+						</method>
+						<method name="getInComingNodes" signature="()Ljava/util/Set;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="64" hits="108" branch="false"/>
+							</lines>
+						</method>
+						<method name="getOutGoingNodes" signature="()Ljava/util/Set;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="71" hits="94" branch="false"/>
+							</lines>
+						</method>
+						<method name="getResult" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="82" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="getValue" signature="()Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="78" hits="134" branch="false"/>
+							</lines>
+						</method>
+						<method name="hashCode" signature="()I" line-rate="1.0" branch-rate="0.5">
+							<lines>
+								<line number="115" hits="110" branch="false"/>
+								<line number="116" hits="110" branch="false"/>
+								<line number="117" hits="110" branch="true" condition-coverage="50% (1/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="50%"/>
+									</conditions>
+								</line>
+								<line number="118" hits="110" branch="false"/>
+							</lines>
+						</method>
+						<method name="isErrored" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="94" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="isSkipped" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="98" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="isSuccess" signature="()Z" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="90" hits="17" branch="false"/>
+							</lines>
+						</method>
+						<method name="setErrored" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="106" hits="2" branch="false"/>
+								<line number="107" hits="2" branch="false"/>
+							</lines>
+						</method>
+						<method name="setResult" signature="(Ljava/lang/Object;)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="86" hits="26" branch="false"/>
+								<line number="87" hits="26" branch="false"/>
+							</lines>
+						</method>
+						<method name="setSkipped" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="110" hits="1" branch="false"/>
+								<line number="111" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="setSuccess" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="102" hits="22" branch="false"/>
+								<line number="103" hits="22" branch="false"/>
+							</lines>
+						</method>
+						<method name="toString" signature="()Ljava/lang/String;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="137" hits="28" branch="false"/>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="33" hits="89" branch="false"/>
+						<line number="37" hits="89" branch="false"/>
+						<line number="42" hits="89" branch="false"/>
+						<line number="43" hits="89" branch="false"/>
+						<line number="44" hits="89" branch="false"/>
+						<line number="50" hits="48" branch="false"/>
+						<line number="51" hits="48" branch="false"/>
+						<line number="57" hits="48" branch="false"/>
+						<line number="58" hits="48" branch="false"/>
+						<line number="64" hits="108" branch="false"/>
+						<line number="71" hits="94" branch="false"/>
+						<line number="78" hits="134" branch="false"/>
+						<line number="82" hits="17" branch="false"/>
+						<line number="86" hits="26" branch="false"/>
+						<line number="87" hits="26" branch="false"/>
+						<line number="90" hits="17" branch="false"/>
+						<line number="94" hits="2" branch="false"/>
+						<line number="98" hits="2" branch="false"/>
+						<line number="102" hits="22" branch="false"/>
+						<line number="103" hits="22" branch="false"/>
+						<line number="106" hits="2" branch="false"/>
+						<line number="107" hits="2" branch="false"/>
+						<line number="110" hits="1" branch="false"/>
+						<line number="111" hits="1" branch="false"/>
+						<line number="115" hits="110" branch="false"/>
+						<line number="116" hits="110" branch="false"/>
+						<line number="117" hits="110" branch="true" condition-coverage="50% (1/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="118" hits="110" branch="false"/>
+						<line number="123" hits="700" branch="true" condition-coverage="100% (2/2)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+							</conditions>
+						</line>
+						<line number="124" hits="107" branch="false"/>
+						<line number="126" hits="593" branch="true" condition-coverage="75% (3/4)">
+							<conditions>
+								<condition number="0" type="jump" coverage="100%"/>
+								<condition number="1" type="jump" coverage="50%"/>
+							</conditions>
+						</line>
+						<line number="127" hits="1" branch="false"/>
+						<line number="130" hits="592" branch="false"/>
+						<line number="132" hits="592" branch="false"/>
+						<line number="137" hits="28" branch="false"/>
+					</lines>
+				</class>
+				<class name="com.github.dexecutor.core.graph.Node$NodeStatus" filename="com/github/dexecutor/core/graph/Node.java" line-rate="1.0" branch-rate="1.0" complexity="1.3529411764705883">
+					<methods>
+						<method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+								<line number="145" hits="4" branch="false"/>
+								<line number="146" hits="1" branch="false"/>
+							</lines>
+						</method>
+						<method name="&lt;init&gt;" signature="(Ljava/lang/String;I)V" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="valueOf" signature="(Ljava/lang/String;)Lcom/github/dexecutor/core/graph/Node$NodeStatus;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+						<method name="values" signature="()[Lcom/github/dexecutor/core/graph/Node$NodeStatus;" line-rate="1.0" branch-rate="1.0">
+							<lines>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="145" hits="4" branch="false"/>
+						<line number="146" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="com.github.dexecutor.core.graph.Traversar" filename="com/github/dexecutor/core/graph/Traversar.java" line-rate="1.0" branch-rate="1.0" complexity="1.0">

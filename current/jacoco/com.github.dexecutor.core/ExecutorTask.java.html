@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutorTask.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">ExecutorTask.java</span></div><h1>ExecutorTask.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.core;
+
+import java.io.Serializable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.dexecutor.core.TaskProvider.Task;
+import com.github.dexecutor.core.graph.Node;
+
+class ExecutorTask&lt;T,R&gt; extends Task&lt;T, R&gt; implements Serializable {
+	
+<span class="fc" id="L13">	private static final Logger logger = LoggerFactory.getLogger(ExecutorTask.class);</span>
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private final Task&lt;T, R&gt; task;
+	private final Node&lt;T, R&gt; node;
+<span class="fc" id="L20">	private int retryCount = 0;</span>
+
+<span class="fc" id="L22">	public ExecutorTask(final Node&lt;T, R&gt; node, final Task&lt;T, R&gt; task) {</span>
+<span class="fc" id="L23">		this.task = task;</span>
+<span class="fc" id="L24">		this.node = node;</span>
+<span class="fc" id="L25">	}</span>
+
+	public R execute() {
+<span class="fc" id="L28">		R result = null;</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		if (shouldExecute(parentResults())) {</span>
+<span class="fc" id="L30">			logger.debug(&quot;{} Node # {}&quot;, msg(this.retryCount), this.taskId());</span>
+<span class="fc" id="L31">			this.retryCount ++;</span>
+<span class="fc" id="L32">			result = this.task.execute();</span>
+<span class="fc" id="L33">			this.node.setSuccess();</span>
+<span class="fc" id="L34">			this.node.setResult(result);</span>
+<span class="fc" id="L35">			logger.debug(&quot;Node # {}, Execution Done!&quot;, this.taskId());</span>
+		} else {
+<span class="nc" id="L37">			logger.debug(&quot;Execution Skipped for node # {} &quot;, this.taskId());</span>
+<span class="nc" id="L38">			this.node.setSkipped();</span>
+		}			
+<span class="fc" id="L40">		return result;</span>
+	}
+
+	@Override
+	public boolean shouldExecute(final ExecutionResults&lt;T, R&gt; parentResults) {
+<span class="fc" id="L45">		return task.shouldExecute(parentResults);</span>
+	}
+	
+	private ExecutionResults&lt;T, R&gt; parentResults() {
+<span class="fc" id="L49">		ExecutionResults&lt;T, R&gt; result = new ExecutionResults&lt;T, R&gt;();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">		for (Node&lt;T, R&gt; in : this.node.getInComingNodes()) {</span>
+<span class="fc" id="L51">			result.add(new ExecutionResult&lt;T, R&gt;(in.getValue(), in.getResult(), status(in)));</span>
+<span class="fc" id="L52">		}</span>
+<span class="fc" id="L53">		return result;</span>
+	}
+
+	private ExecutionStatus status(final Node&lt;T, R&gt; incomingNode) {
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">		if (incomingNode.isSuccess()) {</span>
+<span class="fc" id="L58">			return ExecutionStatus.SUCCESS;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">		} else if (incomingNode.isErrored()) {</span>
+<span class="nc" id="L60">			return ExecutionStatus.ERRORED;</span>
+		}
+<span class="nc" id="L62">		return ExecutionStatus.SKIPPED;</span>
+	}
+
+	private T taskId() {
+<span class="fc" id="L66">		return this.node.getValue();</span>
+	}
+
+	private String msg(int retryCount) {
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">		return retryCount &gt; 0 ? &quot;Retrying(&quot; + retryCount+ &quot;) &quot; : &quot;Executing&quot;;</span>
+	}
+
+	@Override
+	void setConsiderExecutionError(boolean considerExecutionError) {
+<span class="fc" id="L75">		this.task.setConsiderExecutionError(considerExecutionError);</span>
+<span class="fc" id="L76">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
