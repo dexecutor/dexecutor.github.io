@@ -25,6 +25,7 @@ import com.github.dexecutor.core.graph.CyclicValidator;
 import com.github.dexecutor.core.graph.LevelOrderTraversar;
 import com.github.dexecutor.core.graph.Traversar;
 import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.TaskProvider;
 
 /**
  * &lt;p&gt;Configuration Object for Dexecutor framework. At a minimum it needs {@code ExecutorService} and {@code TaskProvider}, rest are optional and takes default values&lt;/p&gt;
@@ -48,67 +49,67 @@ public class DependentTasksExecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt
 	/**
 	 * Validator for validating the consturcted graph, defaults to detecting Cyclic checks
 	 */
-<span class="pc" id="L51">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
+<span class="pc" id="L52">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
 	/**
 	 * Traversar used to traverse the graph while printing it on a Writer
 	 */
-<span class="pc" id="L55">	private Traversar&lt;T, R&gt; traversar = new LevelOrderTraversar&lt;T, R&gt;();</span>
+<span class="pc" id="L56">	private Traversar&lt;T, R&gt; traversar = new LevelOrderTraversar&lt;T, R&gt;();</span>
 	/**
 	 * Construct the object with mandatory params, rest are optional
 	 * @param executorService @ExecutorService
 	 * @param taskProvider @TaskProvider
 	 */
-<span class="fc" id="L61">	public DependentTasksExecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
-<span class="fc" id="L62">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
-<span class="fc" id="L63">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="fc" id="L64">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(executorService);</span>
-<span class="fc" id="L65">		this.taskProvider = taskProvider;</span>
-<span class="fc" id="L66">	}</span>
-	
+<span class="nc" id="L62">	public DependentTasksExecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="nc" id="L63">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="nc" id="L64">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="nc" id="L65">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(executorService);</span>
+<span class="nc" id="L66">		this.taskProvider = taskProvider;</span>
+<span class="nc" id="L67">	}</span>
+
 	/**
 	 * Construct the object with mandatory params, rest are optional
 	 * @param executor  @ExecutionEngine
 	 * @param taskProvider @TaskProvider
 	 */
-<span class="nc" id="L73">	public DependentTasksExecutorConfig(final ExecutionEngine&lt;T, R&gt; executor, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
-<span class="nc" id="L74">		this.executionEngine = executor;</span>
-<span class="nc" id="L75">		this.taskProvider = taskProvider;</span>
-<span class="nc" id="L76">	}</span>
+<span class="fc" id="L74">	public DependentTasksExecutorConfig(final ExecutionEngine&lt;T, R&gt; executor, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L75">		this.executionEngine = executor;</span>
+<span class="fc" id="L76">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L77">	}</span>
 
 	void validate() {
-<span class="fc" id="L79">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
-<span class="fc" id="L80">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="fc" id="L81">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
-<span class="fc" id="L82">		checkNotNull(this.traversar, &quot;Traversar should not be null&quot;);</span>
-<span class="fc" id="L83">	}</span>
+<span class="fc" id="L80">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L81">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L82">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
+<span class="fc" id="L83">		checkNotNull(this.traversar, &quot;Traversar should not be null&quot;);</span>
+<span class="fc" id="L84">	}</span>
 
 	ExecutionEngine&lt;T, R&gt; getExecutorEngine() {
-<span class="fc" id="L86">		return this.executionEngine;</span>
+<span class="fc" id="L87">		return this.executionEngine;</span>
 	}
 
 	TaskProvider&lt;T, R&gt; getTaskProvider() {
-<span class="fc" id="L90">		return this.taskProvider;</span>
+<span class="fc" id="L91">		return this.taskProvider;</span>
 	}
 
 	Validator&lt;T, R&gt; getValidator() {
-<span class="fc" id="L94">		return this.validator;</span>
+<span class="fc" id="L95">		return this.validator;</span>
 	}
 	/**
 	 * change the validator to that of specified
 	 * @param validator
 	 */
 	public void setValidator(final Validator&lt;T, R&gt; validator) {
-<span class="fc" id="L101">		this.validator = validator;</span>
-<span class="fc" id="L102">	}</span>
+<span class="fc" id="L102">		this.validator = validator;</span>
+<span class="fc" id="L103">	}</span>
 	Traversar&lt;T, R&gt; getTraversar() {
-<span class="fc" id="L104">		return this.traversar;</span>
+<span class="fc" id="L105">		return this.traversar;</span>
 	}
 	/**
 	 * Change the traversar to that of specified
 	 * @param traversar
 	 */
 	public void setTraversar(final Traversar&lt;T, R&gt; traversar) {
-<span class="fc" id="L111">		this.traversar = traversar;</span>
-<span class="fc" id="L112">	}</span>
+<span class="fc" id="L112">		this.traversar = traversar;</span>
+<span class="fc" id="L113">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

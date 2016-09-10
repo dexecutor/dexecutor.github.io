@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultDependentTasksExecutor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DefaultDependentTasksExecutor.java</span></div><h1>DefaultDependentTasksExecutor.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core;
+
+import java.io.Writer;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.dexecutor.core.graph.Dag;
+import com.github.dexecutor.core.graph.DefaultDag;
+import com.github.dexecutor.core.graph.Node;
+import com.github.dexecutor.core.graph.Traversar;
+import com.github.dexecutor.core.graph.Validator;
+
+/**
+ * Default implementation of @DependentTasksExecutor
+ * 
+ * @author Nadeem Mohammad
+ * 
+ * @since 0.0.1
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public final class DefaultDependentTasksExecutor &lt;T extends Comparable&lt;T&gt;, R&gt; implements DependentTasksExecutor&lt;T&gt; {
+
+<span class="fc" id="L50">	private static final Logger logger = LoggerFactory.getLogger(DefaultDependentTasksExecutor.class);</span>
+
+	private ExecutionEngine&lt;T, R&gt; executionEngine;
+	private TaskProvider&lt;T, R&gt; taskProvider;
+	private Validator&lt;T, R&gt; validator;
+	private Traversar&lt;T, R&gt; traversar;
+	private Dag&lt;T, R&gt; graph;
+
+<span class="fc" id="L58">	private Collection&lt;Node&lt;T, R&gt;&gt; processedNodes = new CopyOnWriteArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L59">	private AtomicInteger nodesCount = new AtomicInteger(0);</span>
+	/**
+	 * Creates the Executor with bare minimum required params
+	 * @param executorService
+	 * @param taskProvider
+	 */
+	public DefaultDependentTasksExecutor(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {
+<span class="fc" id="L66">		this(new DependentTasksExecutorConfig&lt;T, R&gt;(executorService, taskProvider));</span>
+<span class="fc" id="L67">	}</span>
+	/**
+	 * Creates the Executor with Config
+	 * @param config
+	 */
+<span class="fc" id="L72">	public DefaultDependentTasksExecutor(final DependentTasksExecutorConfig&lt;T, R&gt; config) {</span>
+<span class="fc" id="L73">		config.validate();</span>
+<span class="fc" id="L74">		this.executionEngine = config.getExecutorEngine();</span>
+<span class="fc" id="L75">		this.taskProvider = config.getTaskProvider();</span>
+<span class="fc" id="L76">		this.validator = config.getValidator();</span>
+<span class="fc" id="L77">		this.traversar = config.getTraversar();</span>
+<span class="fc" id="L78">		this.graph = new DefaultDag&lt;T, R&gt;();</span>
+<span class="fc" id="L79">	}</span>
+
+	public void print(final Writer writer) {
+<span class="fc" id="L82">		this.traversar.traverse(this.graph, writer);</span>
+<span class="fc" id="L83">	}</span>
+
+	public void addIndependent(final T nodeValue) {
+<span class="fc" id="L86">		this.graph.addIndependent(nodeValue);</span>
+<span class="fc" id="L87">	}</span>
+
+	public void addDependency(final T evalFirstNode, final T evalLaterNode) {
+<span class="fc" id="L90">		this.graph.addDependency(evalFirstNode, evalLaterNode);</span>
+<span class="fc" id="L91">	}</span>
+
+	public void addAsDependentOnAllLeafNodes(final T nodeValue) {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
+<span class="fc" id="L95">			addIndependent(nodeValue);</span>
+		} else {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getLeafNodes()) {</span>
+<span class="fc" id="L98">				addDependency(node.getValue(), nodeValue);</span>
+<span class="fc" id="L99">			}</span>
+		}
+<span class="fc" id="L101">	}</span>
+
+	@Override
+	public void addAsDependencyToAllInitialNodes(final T nodeValue) {
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
+<span class="fc" id="L106">			addIndependent(nodeValue);</span>
+		} else {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getInitialNodes()) {</span>
+<span class="fc" id="L109">				addDependency(nodeValue, node.getValue());</span>
+<span class="fc" id="L110">			}</span>
+		}		
+<span class="fc" id="L112">	}</span>
+
+	private boolean isAlreadyProcessed(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L115">		return this.processedNodes.contains(node);</span>
+	}
+
+	private boolean areAlreadyProcessed(final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L119">        return this.processedNodes.containsAll(nodes);</span>
+    }
+
+	public void execute(final ExecutionBehavior behavior) {
+<span class="fc" id="L123">		validate();</span>
+
+<span class="fc" id="L125">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = this.graph.getInitialNodes();</span>
+
+<span class="fc" id="L127">		long start = new Date().getTime();</span>
+		
+<span class="fc" id="L129">		doProcessNodes(behavior, initialNodes);</span>
+
+<span class="fc" id="L131">		long end = new Date().getTime();</span>
+
+<span class="fc" id="L133">		logger.debug(&quot;Total Time taken to process {} jobs is {} ms.&quot;, graph.size(), end - start);</span>
+<span class="fc" id="L134">		logger.debug(&quot;Processed Nodes Ordering {}&quot;, this.processedNodes);</span>
+<span class="fc" id="L135">	}</span>
+
+	private void validate() {
+<span class="fc" id="L138">		this.validator.validate(this.graph);</span>
+<span class="fc" id="L139">	}</span>
+
+	private void doProcessNodes(final ExecutionBehavior behavior, final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L142">		doExecute(nodes, behavior);</span>
+<span class="fc" id="L143">		doWaitForExecution(behavior);	</span>
+<span class="fc" id="L144">	}</span>
+
+	private void doExecute(final Collection&lt;Node&lt;T, R&gt;&gt; nodes, final ExecutionBehavior behavior) {
+<span class="fc bfc" id="L147" title="All 2 branches covered.">		for (Node&lt;T, R&gt; node : nodes) {</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">			if (shouldProcess(node) ) {</span>
+<span class="fc" id="L149">				nodesCount.incrementAndGet();</span>
+<span class="fc" id="L150">				logger.debug(&quot;Going to schedule {} node&quot;, node.getValue());</span>
+<span class="fc" id="L151">				this.executionEngine.submit(WorkerFactory.newWorker(this.taskProvider, node, behavior));</span>
+				
+			} else {
+<span class="fc" id="L154">				logger.debug(&quot;node {} depends on {}&quot;, node.getValue(), node.getInComingNodes());</span>
+			}
+<span class="fc" id="L156">		}		</span>
+<span class="fc" id="L157">	}</span>
+
+	private boolean shouldProcess(final Node&lt;T, R&gt; node) {
+<span class="pc bpc" id="L160" title="2 of 6 branches missed.">		return !this.executionEngine.isShutdown() &amp;&amp; !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);</span>
+	}
+
+	private boolean allIncomingNodesProcessed(final Node&lt;T, R&gt; node) {
+<span class="fc bfc" id="L164" title="All 4 branches covered.">		if (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {</span>
+<span class="fc" id="L165">			return true;</span>
+		}
+<span class="fc" id="L167">		return false;</span>
+	}
+
+	private void doWaitForExecution(final ExecutionBehavior behavior) {
+<span class="fc" id="L171">		int cuurentCount = 0;</span>
+<span class="fc bfc" id="L172" title="All 2 branches covered.">		while (cuurentCount != nodesCount.get()) {</span>
+			try {
+<span class="fc" id="L174">				Future&lt;Node&lt;T, R&gt;&gt; future = this.executionEngine.take();</span>
+<span class="fc" id="L175">				Node&lt;T, R&gt; processedNode = future.get();</span>
+<span class="fc" id="L176">				logger.debug(&quot;Processing of node {} done&quot;, processedNode.getValue());</span>
+<span class="fc" id="L177">				cuurentCount++;</span>
+<span class="fc" id="L178">				this.processedNodes.add(processedNode);</span>
+<span class="fc" id="L179">				doExecute(processedNode.getOutGoingNodes(), behavior);</span>
+<span class="fc" id="L180">			} catch (Exception e) {</span>
+<span class="fc" id="L181">				cuurentCount++;</span>
+<span class="fc" id="L182">				logger.error(&quot;Task interrupted&quot;, e);</span>
+<span class="fc" id="L183">			}</span>
+		}
+<span class="fc" id="L185">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

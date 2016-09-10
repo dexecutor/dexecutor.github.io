@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,6 +33,12 @@ import com.github.dexecutor.core.graph.DefaultDag;
 import com.github.dexecutor.core.graph.Node;
 import com.github.dexecutor.core.graph.Traversar;
 import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.ExecutionResult;
+import com.github.dexecutor.core.task.ExecutionResults;
+import com.github.dexecutor.core.task.ExecutionStatus;
+import com.github.dexecutor.core.task.Task;
+import com.github.dexecutor.core.task.TaskProvider;
+import com.github.dexecutor.core.task.TaskFactory;
 
 /**
  * Default implementation of @DependentTasksExecutor
@@ -47,141 +52,189 @@ import com.github.dexecutor.core.graph.Validator;
  */
 public final class DefaultDependentTasksExecutor &lt;T extends Comparable&lt;T&gt;, R&gt; implements DependentTasksExecutor&lt;T&gt; {
 
-<span class="fc" id="L50">	private static final Logger logger = LoggerFactory.getLogger(DefaultDependentTasksExecutor.class);</span>
-
-	private ExecutionEngine&lt;T, R&gt; executionEngine;
+<span class="fc" id="L55">	private static final Logger logger = LoggerFactory.getLogger(DefaultDependentTasksExecutor.class);</span>
+	
 	private TaskProvider&lt;T, R&gt; taskProvider;
+	private ExecutionEngine&lt;T, R&gt; executionEngine;
 	private Validator&lt;T, R&gt; validator;
 	private Traversar&lt;T, R&gt; traversar;
 	private Dag&lt;T, R&gt; graph;
 
-<span class="fc" id="L58">	private Collection&lt;Node&lt;T, R&gt;&gt; processedNodes = new CopyOnWriteArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
-<span class="fc" id="L59">	private AtomicInteger nodesCount = new AtomicInteger(0);</span>
-	/**
-	 * Creates the Executor with bare minimum required params
-	 * @param executorService
-	 * @param taskProvider
-	 */
-	public DefaultDependentTasksExecutor(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {
-<span class="fc" id="L66">		this(new DependentTasksExecutorConfig&lt;T, R&gt;(executorService, taskProvider));</span>
-<span class="fc" id="L67">	}</span>
+<span class="fc" id="L63">	private Collection&lt;Node&lt;T, R&gt;&gt; processedNodes = new CopyOnWriteArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L64">	private AtomicInteger nodesCount = new AtomicInteger(0);</span>
+
+	public DefaultDependentTasksExecutor(ExecutionEngine&lt;T, R&gt; executionEngine, TaskProvider&lt;T, R&gt; taskProvider) {
+<span class="fc" id="L67">		this(new DependentTasksExecutorConfig&lt;&gt;(executionEngine, taskProvider));</span>
+<span class="fc" id="L68">	}</span>
+
 	/**
 	 * Creates the Executor with Config
 	 * @param config
 	 */
-<span class="fc" id="L72">	public DefaultDependentTasksExecutor(final DependentTasksExecutorConfig&lt;T, R&gt; config) {</span>
-<span class="fc" id="L73">		config.validate();</span>
-<span class="fc" id="L74">		this.executionEngine = config.getExecutorEngine();</span>
-<span class="fc" id="L75">		this.taskProvider = config.getTaskProvider();</span>
-<span class="fc" id="L76">		this.validator = config.getValidator();</span>
-<span class="fc" id="L77">		this.traversar = config.getTraversar();</span>
-<span class="fc" id="L78">		this.graph = new DefaultDag&lt;T, R&gt;();</span>
-<span class="fc" id="L79">	}</span>
+<span class="fc" id="L74">	public DefaultDependentTasksExecutor(final DependentTasksExecutorConfig&lt;T, R&gt; config) {</span>
+<span class="fc" id="L75">		config.validate();</span>
+<span class="fc" id="L76">		this.executionEngine = config.getExecutorEngine();</span>
+<span class="fc" id="L77">		this.validator = config.getValidator();</span>
+<span class="fc" id="L78">		this.traversar = config.getTraversar();</span>
+<span class="fc" id="L79">		this.graph = new DefaultDag&lt;T, R&gt;();</span>
+<span class="fc" id="L80">		this.taskProvider = config.getTaskProvider();</span>
+<span class="fc" id="L81">	}</span>
 
 	public void print(final Writer writer) {
-<span class="fc" id="L82">		this.traversar.traverse(this.graph, writer);</span>
-<span class="fc" id="L83">	}</span>
+<span class="fc" id="L84">		this.traversar.traverse(this.graph, writer);</span>
+<span class="fc" id="L85">	}</span>
 
 	public void addIndependent(final T nodeValue) {
-<span class="fc" id="L86">		this.graph.addIndependent(nodeValue);</span>
-<span class="fc" id="L87">	}</span>
+<span class="fc" id="L88">		this.graph.addIndependent(nodeValue);</span>
+<span class="fc" id="L89">	}</span>
 
 	public void addDependency(final T evalFirstNode, final T evalLaterNode) {
-<span class="fc" id="L90">		this.graph.addDependency(evalFirstNode, evalLaterNode);</span>
-<span class="fc" id="L91">	}</span>
+<span class="fc" id="L92">		this.graph.addDependency(evalFirstNode, evalLaterNode);</span>
+<span class="fc" id="L93">	}</span>
 
 	public void addAsDependentOnAllLeafNodes(final T nodeValue) {
-<span class="fc bfc" id="L94" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
-<span class="fc" id="L95">			addIndependent(nodeValue);</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
+<span class="fc" id="L97">			addIndependent(nodeValue);</span>
 		} else {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getLeafNodes()) {</span>
-<span class="fc" id="L98">				addDependency(node.getValue(), nodeValue);</span>
-<span class="fc" id="L99">			}</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getLeafNodes()) {</span>
+<span class="fc" id="L100">				addDependency(node.getValue(), nodeValue);</span>
+<span class="fc" id="L101">			}</span>
 		}
-<span class="fc" id="L101">	}</span>
+<span class="fc" id="L103">	}</span>
 
 	@Override
 	public void addAsDependencyToAllInitialNodes(final T nodeValue) {
-<span class="fc bfc" id="L105" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
-<span class="fc" id="L106">			addIndependent(nodeValue);</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">		if (this.graph.size() == 0) {</span>
+<span class="fc" id="L108">			addIndependent(nodeValue);</span>
 		} else {
-<span class="fc bfc" id="L108" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getInitialNodes()) {</span>
-<span class="fc" id="L109">				addDependency(nodeValue, node.getValue());</span>
-<span class="fc" id="L110">			}</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">			for (Node&lt;T, R&gt; node : this.graph.getInitialNodes()) {</span>
+<span class="fc" id="L111">				addDependency(nodeValue, node.getValue());</span>
+<span class="fc" id="L112">			}</span>
 		}		
-<span class="fc" id="L112">	}</span>
-
-	private boolean isAlreadyProcessed(final Node&lt;T, R&gt; node) {
-<span class="fc" id="L115">		return this.processedNodes.contains(node);</span>
-	}
-
-	private boolean areAlreadyProcessed(final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
-<span class="fc" id="L119">        return this.processedNodes.containsAll(nodes);</span>
-    }
+<span class="fc" id="L114">	}</span>
 
 	public void execute(final ExecutionBehavior behavior) {
-<span class="fc" id="L123">		validate();</span>
+<span class="fc" id="L117">		validate();</span>
 
-<span class="fc" id="L125">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = this.graph.getInitialNodes();</span>
+<span class="fc" id="L119">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = this.graph.getInitialNodes();</span>
 
-<span class="fc" id="L127">		long start = new Date().getTime();</span>
-		
-<span class="fc" id="L129">		doProcessNodes(behavior, initialNodes);</span>
+<span class="fc" id="L121">		long start = new Date().getTime();</span>
 
-<span class="fc" id="L131">		long end = new Date().getTime();</span>
+<span class="fc" id="L123">		doProcessNodes(behavior, initialNodes);</span>
 
-<span class="fc" id="L133">		logger.debug(&quot;Total Time taken to process {} jobs is {} ms.&quot;, graph.size(), end - start);</span>
-<span class="fc" id="L134">		logger.debug(&quot;Processed Nodes Ordering {}&quot;, this.processedNodes);</span>
-<span class="fc" id="L135">	}</span>
+<span class="fc" id="L125">		long end = new Date().getTime();</span>
+
+<span class="fc" id="L127">		logger.debug(&quot;Total Time taken to process {} jobs is {} ms.&quot;, graph.size(), end - start);</span>
+<span class="fc" id="L128">		logger.debug(&quot;Processed Nodes Ordering {}&quot;, this.processedNodes);</span>
+<span class="fc" id="L129">	}</span>
 
 	private void validate() {
-<span class="fc" id="L138">		this.validator.validate(this.graph);</span>
-<span class="fc" id="L139">	}</span>
+<span class="fc" id="L132">		this.validator.validate(this.graph);</span>
+<span class="fc" id="L133">	}</span>
 
 	private void doProcessNodes(final ExecutionBehavior behavior, final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
-<span class="fc" id="L142">		doExecute(nodes, behavior);</span>
-<span class="fc" id="L143">		doWaitForExecution(behavior);	</span>
-<span class="fc" id="L144">	}</span>
+<span class="fc" id="L136">		doExecute(nodes, behavior);</span>
+<span class="fc" id="L137">		doWaitForExecution(behavior);	</span>
+<span class="fc" id="L138">	}</span>
 
 	private void doExecute(final Collection&lt;Node&lt;T, R&gt;&gt; nodes, final ExecutionBehavior behavior) {
-<span class="fc bfc" id="L147" title="All 2 branches covered.">		for (Node&lt;T, R&gt; node : nodes) {</span>
-<span class="fc bfc" id="L148" title="All 2 branches covered.">			if (shouldProcess(node) ) {</span>
-<span class="fc" id="L149">				nodesCount.incrementAndGet();</span>
-<span class="fc" id="L150">				logger.debug(&quot;Going to schedule {} node&quot;, node.getValue());</span>
-<span class="fc" id="L151">				this.executionEngine.submit(WorkerFactory.newWorker(this.taskProvider, node, behavior));</span>
-				
-			} else {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">		for (Node&lt;T, R&gt; node : nodes) {</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">			if (shouldProcess(node) ) {</span>
+<span class="fc" id="L143">				nodesCount.incrementAndGet();</span>
+<span class="fc" id="L144">				Task&lt;T, R&gt; task = newTask(behavior, node);</span>
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">				if (shouldExecute(node, task)) {</span>
+<span class="fc" id="L146">					logger.debug(&quot;Going to schedule {} node&quot;, node.getValue());</span>
+<span class="fc" id="L147">					this.executionEngine.submit(task);</span>
+				} else {
+<span class="nc" id="L149">					node.setSkipped();</span>
+<span class="nc" id="L150">					task.setSkipped();</span>
+<span class="nc" id="L151">					logger.debug(&quot;Execution Skipped for node # {} &quot;, node.getValue());</span>
+				}
+<span class="fc" id="L153">			} else {</span>
 <span class="fc" id="L154">				logger.debug(&quot;node {} depends on {}&quot;, node.getValue(), node.getInComingNodes());</span>
 			}
 <span class="fc" id="L156">		}		</span>
 <span class="fc" id="L157">	}</span>
 
+	private Task&lt;T, R&gt; newTask(final ExecutionBehavior behavior, Node&lt;T, R&gt; node) {
+<span class="fc" id="L160">		Task&lt;T, R&gt; task = this.taskProvider.provid(node.getValue());</span>
+<span class="fc" id="L161">		task.setId(node.getValue());</span>
+<span class="fc" id="L162">		task.setExecutionBehavior(behavior);</span>
+<span class="fc" id="L163">		return TaskFactory.newWorker(task);</span>
+	}
+
+	private boolean shouldExecute(Node&lt;T, R&gt; node, Task&lt;T, R&gt; task) {
+<span class="pc bpc" id="L167" title="1 of 2 branches missed.">		if (task.shouldExecute(parentResults(node))) {</span>
+<span class="fc" id="L168">			return true;</span>
+		}
+<span class="nc" id="L170">		return false;</span>
+	}
+
 	private boolean shouldProcess(final Node&lt;T, R&gt; node) {
-<span class="pc bpc" id="L160" title="2 of 6 branches missed.">		return !this.executionEngine.isShutdown() &amp;&amp; !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);</span>
+<span class="pc bpc" id="L174" title="1 of 4 branches missed.">		return !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);</span>
 	}
 
 	private boolean allIncomingNodesProcessed(final Node&lt;T, R&gt; node) {
-<span class="fc bfc" id="L164" title="All 4 branches covered.">		if (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {</span>
-<span class="fc" id="L165">			return true;</span>
+<span class="fc bfc" id="L178" title="All 4 branches covered.">		if (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {</span>
+<span class="fc" id="L179">			return true;</span>
 		}
-<span class="fc" id="L167">		return false;</span>
+<span class="fc" id="L181">		return false;</span>
+	}
+
+	private boolean isAlreadyProcessed(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L185">		return this.processedNodes.contains(node);</span>
+	}
+
+	private boolean areAlreadyProcessed(final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L189">        return this.processedNodes.containsAll(nodes);</span>
+    }
+
+	private ExecutionResults&lt;T, R&gt; parentResults(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L193">		ExecutionResults&lt;T, R&gt; parentResult = new ExecutionResults&lt;T, R&gt;();</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">		for (Node&lt;T, R&gt; pNode : node.getInComingNodes()) {</span>
+<span class="fc" id="L195">			parentResult.add(new ExecutionResult&lt;T, R&gt;(pNode.getValue(), pNode.getResult(), status(pNode)));</span>
+<span class="fc" id="L196">		}</span>
+<span class="fc" id="L197">		return parentResult;</span>
+	}
+
+	private ExecutionStatus status(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L201">		ExecutionStatus status = ExecutionStatus.SUCCESS;</span>
+<span class="pc bpc" id="L202" title="1 of 2 branches missed.">		if (node.isErrored()) {</span>
+<span class="nc" id="L203">			status = ExecutionStatus.ERRORED;</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">		} else if (node.isSkipped()) {</span>
+<span class="nc" id="L205">			status = ExecutionStatus.SKIPPED;</span>
+		}
+<span class="fc" id="L207">		return status;</span>
 	}
 
 	private void doWaitForExecution(final ExecutionBehavior behavior) {
-<span class="fc" id="L171">		int cuurentCount = 0;</span>
-<span class="fc bfc" id="L172" title="All 2 branches covered.">		while (cuurentCount != nodesCount.get()) {</span>
+<span class="fc" id="L211">		int cuurentCount = 0;</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">		while (cuurentCount != nodesCount.get()) {</span>
 			try {
-<span class="fc" id="L174">				Future&lt;Node&lt;T, R&gt;&gt; future = this.executionEngine.take();</span>
-<span class="fc" id="L175">				Node&lt;T, R&gt; processedNode = future.get();</span>
-<span class="fc" id="L176">				logger.debug(&quot;Processing of node {} done&quot;, processedNode.getValue());</span>
-<span class="fc" id="L177">				cuurentCount++;</span>
-<span class="fc" id="L178">				this.processedNodes.add(processedNode);</span>
-<span class="fc" id="L179">				doExecute(processedNode.getOutGoingNodes(), behavior);</span>
-<span class="fc" id="L180">			} catch (Exception e) {</span>
-<span class="fc" id="L181">				cuurentCount++;</span>
-<span class="fc" id="L182">				logger.error(&quot;Task interrupted&quot;, e);</span>
-<span class="fc" id="L183">			}</span>
+<span class="fc" id="L214">				Future&lt;ExecutionResult&lt;T, R&gt;&gt; future = this.executionEngine.take();</span>
+<span class="fc" id="L215">				ExecutionResult&lt;T, R&gt; executionResult = future.get();</span>
+<span class="fc" id="L216">				logger.debug(&quot;Processing of node {} done&quot;, executionResult.getId());</span>
+<span class="fc" id="L217">				cuurentCount++;</span>
+<span class="fc" id="L218">				Node&lt;T, R&gt; processedNode = this.graph.get(executionResult.getId());</span>
+<span class="fc" id="L219">				updateNode(executionResult, processedNode);</span>
+<span class="fc" id="L220">				this.processedNodes.add(processedNode);</span>
+<span class="fc" id="L221">				doExecute(processedNode.getOutGoingNodes(), behavior);</span>
+<span class="fc" id="L222">			} catch (Exception e) {</span>
+<span class="fc" id="L223">				cuurentCount++;</span>
+<span class="fc" id="L224">				logger.error(&quot;Task interrupted&quot;, e);</span>
+<span class="fc" id="L225">			}</span>
 		}
-<span class="fc" id="L185">	}</span>
+<span class="fc" id="L227">	}</span>
+
+	private void updateNode(final ExecutionResult&lt;T, R&gt; executionResult, final Node&lt;T, R&gt; processedNode) {
+<span class="fc" id="L230">		processedNode.setResult(executionResult.getResult());</span>
+<span class="pc bpc" id="L231" title="1 of 2 branches missed.">		if(executionResult.isErrored()) {</span>
+<span class="nc" id="L232">			processedNode.setErrored();</span>
+<span class="pc bpc" id="L233" title="1 of 2 branches missed.">		} else if(executionResult.isSkipped()) {</span>
+<span class="nc" id="L234">			processedNode.setSkipped();</span>
+		} else {
+<span class="fc" id="L236">			processedNode.setSuccess();</span>
+		}
+<span class="fc" id="L238">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

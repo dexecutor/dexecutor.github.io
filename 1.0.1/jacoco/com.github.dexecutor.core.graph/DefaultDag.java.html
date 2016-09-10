@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultDag.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core.graph</a> &gt; <span class="el_source">DefaultDag.java</span></div><h1>DefaultDag.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core.graph;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+/**
+ * Default implementation of Graph
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+<span class="fc" id="L36">public final class DefaultDag&lt;T extends Comparable&lt;T&gt;, R&gt; implements Dag&lt;T, R&gt; {</span>
+
+<span class="fc" id="L38">	private Map&lt;T, Node&lt;T, R&gt;&gt; nodes = new HashMap&lt;T, Node&lt;T, R&gt;&gt;();</span>
+
+	public void addIndependent(final T nodeValue) {
+<span class="fc" id="L41">		addOrGet(nodeValue);</span>
+<span class="fc" id="L42">	}</span>
+
+	public void addDependency(final T evalFirstNode, final T evalLaterNode) {
+<span class="fc" id="L45">		Node&lt;T, R&gt; firstNode = addOrGet(evalFirstNode);</span>
+<span class="fc" id="L46">		Node&lt;T, R&gt; afterNode = addOrGet(evalLaterNode);</span>
+
+<span class="fc" id="L48">		addEdges(firstNode, afterNode);</span>
+<span class="fc" id="L49">	}</span>
+
+	private void addEdges(final Node&lt;T, R&gt; firstNode, final Node&lt;T, R&gt; afterNode) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">		if (!firstNode.equals(afterNode)) {</span>
+<span class="fc" id="L53">			firstNode.addOutGoingNode(afterNode);</span>
+<span class="fc" id="L54">			afterNode.addInComingNode(firstNode);			</span>
+		}
+<span class="fc" id="L56">	}</span>
+
+	private Node&lt;T, R&gt; addOrGet(final T nodeValue) {
+<span class="fc" id="L59">		Node&lt;T, R&gt; graphNode = null;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">		if (this.nodes.containsKey(nodeValue)) {</span>
+<span class="fc" id="L61">			graphNode = this.nodes.get(nodeValue);</span>
+		} else {
+<span class="fc" id="L63">			graphNode = createNode(nodeValue);</span>
+<span class="fc" id="L64">			this.nodes.put(nodeValue, graphNode);</span>
+		}
+<span class="fc" id="L66">		return graphNode;</span>
+	}
+
+	private Node&lt;T, R&gt; createNode(final T value) {
+<span class="fc" id="L70">		Node&lt;T, R&gt; node = new Node&lt;T, R&gt;(value);</span>
+<span class="fc" id="L71">		return node;</span>
+	}
+
+	public Set&lt;Node&lt;T, R&gt;&gt; getInitialNodes() {
+<span class="fc" id="L75">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = new LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">		for (Entry&lt;T, Node&lt;T, R&gt;&gt; entry : this.nodes.entrySet()) {</span>
+<span class="fc" id="L77">			Node&lt;T, R&gt; node = entry.getValue();</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">			if (node.getInComingNodes().isEmpty()) {				</span>
+<span class="fc" id="L79">				initialNodes.add(node);</span>
+			}
+<span class="fc" id="L81">		}</span>
+<span class="fc" id="L82">		return initialNodes;</span>
+	}
+
+	public int size() {
+<span class="fc" id="L86">		return this.nodes.size();</span>
+	}
+
+	public Collection&lt;Node&lt;T, R&gt;&gt; allNodes() {
+<span class="fc" id="L90">		return new ArrayList&lt;Node&lt;T, R&gt;&gt;(this.nodes.values());</span>
+	}
+
+	public Set&lt;Node&lt;T, R&gt;&gt; getLeafNodes() {
+<span class="fc" id="L94">		Set&lt;Node&lt;T, R&gt;&gt; leafNodes = new LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">		for (Entry&lt;T, Node&lt;T, R&gt;&gt; entry : this.nodes.entrySet()) {</span>
+<span class="fc" id="L96">			Node&lt;T, R&gt; node = entry.getValue();</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">			if (node.getOutGoingNodes().isEmpty()) {				</span>
+<span class="fc" id="L98">				leafNodes.add(node);</span>
+			}
+<span class="fc" id="L100">		}</span>
+<span class="fc" id="L101">		return leafNodes;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
