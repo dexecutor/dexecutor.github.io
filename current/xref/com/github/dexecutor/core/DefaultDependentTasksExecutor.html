@@ -45,8 +45,8 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.ExecutionResults;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.ExecutionStatus;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.Task;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.TaskProvider;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.TaskFactory;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.TaskFactory;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> com.github.dexecutor.core.task.TaskProvider;
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * Default implementation of @DependentTasksExecutor</em>
@@ -157,94 +157,96 @@
 <a class="jxr_linenumber" name="L149" href="#L149">149</a> 					node.setSkipped();
 <a class="jxr_linenumber" name="L150" href="#L150">150</a> 					task.setSkipped();
 <a class="jxr_linenumber" name="L151" href="#L151">151</a> 					logger.debug(<span class="jxr_string">"Execution Skipped for node # {} "</span>, node.getValue());
-<a class="jxr_linenumber" name="L152" href="#L152">152</a> 				}
-<a class="jxr_linenumber" name="L153" href="#L153">153</a> 			} <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L154" href="#L154">154</a> 				logger.debug(<span class="jxr_string">"node {} depends on {}"</span>, node.getValue(), node.getInComingNodes());
-<a class="jxr_linenumber" name="L155" href="#L155">155</a> 			}
-<a class="jxr_linenumber" name="L156" href="#L156">156</a> 		}		
-<a class="jxr_linenumber" name="L157" href="#L157">157</a> 	}
-<a class="jxr_linenumber" name="L158" href="#L158">158</a> 
-<a class="jxr_linenumber" name="L159" href="#L159">159</a> 	<strong class="jxr_keyword">private</strong> Task&lt;T, R&gt; newTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/DependentTasksExecutor.html">ExecutionBehavior</a> behavior, Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L160" href="#L160">160</a> 		Task&lt;T, R&gt; task = <strong class="jxr_keyword">this</strong>.taskProvider.provid(node.getValue());
-<a class="jxr_linenumber" name="L161" href="#L161">161</a> 		task.setId(node.getValue());
-<a class="jxr_linenumber" name="L162" href="#L162">162</a> 		task.setExecutionBehavior(behavior);
-<a class="jxr_linenumber" name="L163" href="#L163">163</a> 		<strong class="jxr_keyword">return</strong> TaskFactory.newWorker(task);
-<a class="jxr_linenumber" name="L164" href="#L164">164</a> 	}
-<a class="jxr_linenumber" name="L165" href="#L165">165</a> 
-<a class="jxr_linenumber" name="L166" href="#L166">166</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldExecute(Node&lt;T, R&gt; node, Task&lt;T, R&gt; task) {
-<a class="jxr_linenumber" name="L167" href="#L167">167</a> 		<strong class="jxr_keyword">if</strong> (task.shouldExecute(parentResults(node))) {
-<a class="jxr_linenumber" name="L168" href="#L168">168</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L169" href="#L169">169</a> 		}
-<a class="jxr_linenumber" name="L170" href="#L170">170</a> 		<strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L171" href="#L171">171</a> 	}
-<a class="jxr_linenumber" name="L172" href="#L172">172</a> 
-<a class="jxr_linenumber" name="L173" href="#L173">173</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldProcess(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L174" href="#L174">174</a> 		<strong class="jxr_keyword">return</strong> !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);
-<a class="jxr_linenumber" name="L175" href="#L175">175</a> 	}
-<a class="jxr_linenumber" name="L176" href="#L176">176</a> 
-<a class="jxr_linenumber" name="L177" href="#L177">177</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allIncomingNodesProcessed(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L178" href="#L178">178</a> 		<strong class="jxr_keyword">if</strong> (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {
-<a class="jxr_linenumber" name="L179" href="#L179">179</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
-<a class="jxr_linenumber" name="L180" href="#L180">180</a> 		}
-<a class="jxr_linenumber" name="L181" href="#L181">181</a> 		<strong class="jxr_keyword">return</strong> false;
-<a class="jxr_linenumber" name="L182" href="#L182">182</a> 	}
-<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
-<a class="jxr_linenumber" name="L184" href="#L184">184</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isAlreadyProcessed(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L185" href="#L185">185</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.processedNodes.contains(node);
-<a class="jxr_linenumber" name="L186" href="#L186">186</a> 	}
-<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
-<a class="jxr_linenumber" name="L188" href="#L188">188</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areAlreadyProcessed(<strong class="jxr_keyword">final</strong> Set&lt;Node&lt;T, R&gt;&gt; nodes) {
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.processedNodes.containsAll(nodes);
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>     }
-<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
-<a class="jxr_linenumber" name="L192" href="#L192">192</a> 	<strong class="jxr_keyword">private</strong> ExecutionResults&lt;T, R&gt; parentResults(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> 		ExecutionResults&lt;T, R&gt; parentResult = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;T, R&gt;();
-<a class="jxr_linenumber" name="L194" href="#L194">194</a> 		<strong class="jxr_keyword">for</strong> (Node&lt;T, R&gt; pNode : node.getInComingNodes()) {
-<a class="jxr_linenumber" name="L195" href="#L195">195</a> 			parentResult.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;T, R&gt;(pNode.getValue(), pNode.getResult(), status(pNode)));
-<a class="jxr_linenumber" name="L196" href="#L196">196</a> 		}
-<a class="jxr_linenumber" name="L197" href="#L197">197</a> 		<strong class="jxr_keyword">return</strong> parentResult;
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 	}
-<a class="jxr_linenumber" name="L199" href="#L199">199</a> 
-<a class="jxr_linenumber" name="L200" href="#L200">200</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../com/github/dexecutor/core/task/ExecutionStatus.html">ExecutionStatus</a> status(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L201" href="#L201">201</a> 		ExecutionStatus status = ExecutionStatus.SUCCESS;
-<a class="jxr_linenumber" name="L202" href="#L202">202</a> 		<strong class="jxr_keyword">if</strong> (node.isErrored()) {
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 			status = ExecutionStatus.ERRORED;
-<a class="jxr_linenumber" name="L204" href="#L204">204</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (node.isSkipped()) {
-<a class="jxr_linenumber" name="L205" href="#L205">205</a> 			status = ExecutionStatus.SKIPPED;
-<a class="jxr_linenumber" name="L206" href="#L206">206</a> 		}
-<a class="jxr_linenumber" name="L207" href="#L207">207</a> 		<strong class="jxr_keyword">return</strong> status;
-<a class="jxr_linenumber" name="L208" href="#L208">208</a> 	}
-<a class="jxr_linenumber" name="L209" href="#L209">209</a> 
-<a class="jxr_linenumber" name="L210" href="#L210">210</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doWaitForExecution(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/DependentTasksExecutor.html">ExecutionBehavior</a> behavior) {
-<a class="jxr_linenumber" name="L211" href="#L211">211</a> 		<strong class="jxr_keyword">int</strong> cuurentCount = 0;
-<a class="jxr_linenumber" name="L212" href="#L212">212</a> 		<strong class="jxr_keyword">while</strong> (cuurentCount != nodesCount.get()) {
-<a class="jxr_linenumber" name="L213" href="#L213">213</a> 			<strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L214" href="#L214">214</a> 				Future&lt;ExecutionResult&lt;T, R&gt;&gt; future = <strong class="jxr_keyword">this</strong>.executionEngine.take();
-<a class="jxr_linenumber" name="L215" href="#L215">215</a> 				ExecutionResult&lt;T, R&gt; executionResult = future.get();
-<a class="jxr_linenumber" name="L216" href="#L216">216</a> 				logger.debug(<span class="jxr_string">"Processing of node {} done"</span>, executionResult.getId());
-<a class="jxr_linenumber" name="L217" href="#L217">217</a> 				cuurentCount++;
-<a class="jxr_linenumber" name="L218" href="#L218">218</a> 				Node&lt;T, R&gt; processedNode = <strong class="jxr_keyword">this</strong>.graph.get(executionResult.getId());
-<a class="jxr_linenumber" name="L219" href="#L219">219</a> 				updateNode(executionResult, processedNode);
-<a class="jxr_linenumber" name="L220" href="#L220">220</a> 				<strong class="jxr_keyword">this</strong>.processedNodes.add(processedNode);
-<a class="jxr_linenumber" name="L221" href="#L221">221</a> 				doExecute(processedNode.getOutGoingNodes(), behavior);
-<a class="jxr_linenumber" name="L222" href="#L222">222</a> 			} <strong class="jxr_keyword">catch</strong> (Exception e) {
-<a class="jxr_linenumber" name="L223" href="#L223">223</a> 				cuurentCount++;
-<a class="jxr_linenumber" name="L224" href="#L224">224</a> 				logger.error(<span class="jxr_string">"Task interrupted"</span>, e);
-<a class="jxr_linenumber" name="L225" href="#L225">225</a> 			}
-<a class="jxr_linenumber" name="L226" href="#L226">226</a> 		}
-<a class="jxr_linenumber" name="L227" href="#L227">227</a> 	}
-<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
-<a class="jxr_linenumber" name="L229" href="#L229">229</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateNode(<strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
-<a class="jxr_linenumber" name="L230" href="#L230">230</a> 		processedNode.setResult(executionResult.getResult());
-<a class="jxr_linenumber" name="L231" href="#L231">231</a> 		<strong class="jxr_keyword">if</strong>(executionResult.isErrored()) {
-<a class="jxr_linenumber" name="L232" href="#L232">232</a> 			processedNode.setErrored();
-<a class="jxr_linenumber" name="L233" href="#L233">233</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(executionResult.isSkipped()) {
-<a class="jxr_linenumber" name="L234" href="#L234">234</a> 			processedNode.setSkipped();
-<a class="jxr_linenumber" name="L235" href="#L235">235</a> 		} <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L236" href="#L236">236</a> 			processedNode.setSuccess();
-<a class="jxr_linenumber" name="L237" href="#L237">237</a> 		}
-<a class="jxr_linenumber" name="L238" href="#L238">238</a> 	}
-<a class="jxr_linenumber" name="L239" href="#L239">239</a> }
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> 					<strong class="jxr_keyword">this</strong>.processedNodes.add(node);
+<a class="jxr_linenumber" name="L153" href="#L153">153</a> 					doExecute(node.getOutGoingNodes(), behavior);
+<a class="jxr_linenumber" name="L154" href="#L154">154</a> 				}
+<a class="jxr_linenumber" name="L155" href="#L155">155</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L156" href="#L156">156</a> 				logger.debug(<span class="jxr_string">"node {} depends on {}"</span>, node.getValue(), node.getInComingNodes());
+<a class="jxr_linenumber" name="L157" href="#L157">157</a> 			}
+<a class="jxr_linenumber" name="L158" href="#L158">158</a> 		}
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 	}
+<a class="jxr_linenumber" name="L160" href="#L160">160</a> 
+<a class="jxr_linenumber" name="L161" href="#L161">161</a> 	<strong class="jxr_keyword">private</strong> Task&lt;T, R&gt; newTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/DependentTasksExecutor.html">ExecutionBehavior</a> behavior, Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L162" href="#L162">162</a> 		Task&lt;T, R&gt; task = <strong class="jxr_keyword">this</strong>.taskProvider.provideTask(node.getValue());
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 		task.setId(node.getValue());
+<a class="jxr_linenumber" name="L164" href="#L164">164</a> 		task.setExecutionBehavior(behavior);
+<a class="jxr_linenumber" name="L165" href="#L165">165</a> 		<strong class="jxr_keyword">return</strong> TaskFactory.newWorker(task);
+<a class="jxr_linenumber" name="L166" href="#L166">166</a> 	}
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
+<a class="jxr_linenumber" name="L168" href="#L168">168</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldExecute(Node&lt;T, R&gt; node, Task&lt;T, R&gt; task) {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a> 		<strong class="jxr_keyword">if</strong> (task.shouldExecute(parentResults(node))) {
+<a class="jxr_linenumber" name="L170" href="#L170">170</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> 		}
+<a class="jxr_linenumber" name="L172" href="#L172">172</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L173" href="#L173">173</a> 	}
+<a class="jxr_linenumber" name="L174" href="#L174">174</a> 
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldProcess(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L176" href="#L176">176</a> 		<strong class="jxr_keyword">return</strong> !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);
+<a class="jxr_linenumber" name="L177" href="#L177">177</a> 	}
+<a class="jxr_linenumber" name="L178" href="#L178">178</a> 
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> allIncomingNodesProcessed(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L180" href="#L180">180</a> 		<strong class="jxr_keyword">if</strong> (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a> 			<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L182" href="#L182">182</a> 		}
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 		<strong class="jxr_keyword">return</strong> false;
+<a class="jxr_linenumber" name="L184" href="#L184">184</a> 	}
+<a class="jxr_linenumber" name="L185" href="#L185">185</a> 
+<a class="jxr_linenumber" name="L186" href="#L186">186</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> isAlreadyProcessed(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.processedNodes.contains(node);
+<a class="jxr_linenumber" name="L188" href="#L188">188</a> 	}
+<a class="jxr_linenumber" name="L189" href="#L189">189</a> 
+<a class="jxr_linenumber" name="L190" href="#L190">190</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> areAlreadyProcessed(<strong class="jxr_keyword">final</strong> Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>         <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">this</strong>.processedNodes.containsAll(nodes);
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
+<a class="jxr_linenumber" name="L193" href="#L193">193</a> 
+<a class="jxr_linenumber" name="L194" href="#L194">194</a> 	<strong class="jxr_keyword">private</strong> ExecutionResults&lt;T, R&gt; parentResults(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L195" href="#L195">195</a> 		ExecutionResults&lt;T, R&gt; parentResult = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;T, R&gt;();
+<a class="jxr_linenumber" name="L196" href="#L196">196</a> 		<strong class="jxr_keyword">for</strong> (Node&lt;T, R&gt; pNode : node.getInComingNodes()) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a> 			parentResult.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;T, R&gt;(pNode.getValue(), pNode.getResult(), status(pNode)));
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> 		}
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> 		<strong class="jxr_keyword">return</strong> parentResult;
+<a class="jxr_linenumber" name="L200" href="#L200">200</a> 	}
+<a class="jxr_linenumber" name="L201" href="#L201">201</a> 
+<a class="jxr_linenumber" name="L202" href="#L202">202</a> 	<strong class="jxr_keyword">private</strong> <a href="../../../../com/github/dexecutor/core/task/ExecutionStatus.html">ExecutionStatus</a> status(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 		ExecutionStatus status = ExecutionStatus.SUCCESS;
+<a class="jxr_linenumber" name="L204" href="#L204">204</a> 		<strong class="jxr_keyword">if</strong> (node.isErrored()) {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a> 			status = ExecutionStatus.ERRORED;
+<a class="jxr_linenumber" name="L206" href="#L206">206</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (node.isSkipped()) {
+<a class="jxr_linenumber" name="L207" href="#L207">207</a> 			status = ExecutionStatus.SKIPPED;
+<a class="jxr_linenumber" name="L208" href="#L208">208</a> 		}
+<a class="jxr_linenumber" name="L209" href="#L209">209</a> 		<strong class="jxr_keyword">return</strong> status;
+<a class="jxr_linenumber" name="L210" href="#L210">210</a> 	}
+<a class="jxr_linenumber" name="L211" href="#L211">211</a> 
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doWaitForExecution(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/DependentTasksExecutor.html">ExecutionBehavior</a> behavior) {
+<a class="jxr_linenumber" name="L213" href="#L213">213</a> 		<strong class="jxr_keyword">int</strong> cuurentCount = 0;
+<a class="jxr_linenumber" name="L214" href="#L214">214</a> 		<strong class="jxr_keyword">while</strong> (cuurentCount != nodesCount.get()) {
+<a class="jxr_linenumber" name="L215" href="#L215">215</a> 			<strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> 				Future&lt;ExecutionResult&lt;T, R&gt;&gt; future = <strong class="jxr_keyword">this</strong>.executionEngine.take();
+<a class="jxr_linenumber" name="L217" href="#L217">217</a> 				ExecutionResult&lt;T, R&gt; executionResult = future.get();
+<a class="jxr_linenumber" name="L218" href="#L218">218</a> 				logger.debug(<span class="jxr_string">"Processing of node {} done"</span>, executionResult.getId());
+<a class="jxr_linenumber" name="L219" href="#L219">219</a> 				cuurentCount++;
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 				Node&lt;T, R&gt; processedNode = <strong class="jxr_keyword">this</strong>.graph.get(executionResult.getId());
+<a class="jxr_linenumber" name="L221" href="#L221">221</a> 				updateNode(executionResult, processedNode);
+<a class="jxr_linenumber" name="L222" href="#L222">222</a> 				<strong class="jxr_keyword">this</strong>.processedNodes.add(processedNode);
+<a class="jxr_linenumber" name="L223" href="#L223">223</a> 				doExecute(processedNode.getOutGoingNodes(), behavior);
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> 			} <strong class="jxr_keyword">catch</strong> (Exception e) {
+<a class="jxr_linenumber" name="L225" href="#L225">225</a> 				cuurentCount++;
+<a class="jxr_linenumber" name="L226" href="#L226">226</a> 				logger.error(<span class="jxr_string">"Task interrupted"</span>, e);
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> 			}
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> 		}
+<a class="jxr_linenumber" name="L229" href="#L229">229</a> 	}
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> 
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateNode(<strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> 		processedNode.setResult(executionResult.getResult());
+<a class="jxr_linenumber" name="L233" href="#L233">233</a> 		<strong class="jxr_keyword">if</strong>(executionResult.isErrored()) {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a> 			processedNode.setErrored();
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(executionResult.isSkipped()) {
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> 			processedNode.setSkipped();
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 		} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L238" href="#L238">238</a> 			processedNode.setSuccess();
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> 		}
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 	}
+<a class="jxr_linenumber" name="L241" href="#L241">241</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016 <a href="https://github.com/dexecutor">Dexecutor</a>. All rights reserved.</div>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractDelegatingTask.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core.task</a> &gt; <span class="el_source">AbstractDelegatingTask.java</span></div><h1>AbstractDelegatingTask.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.core.task;
+
+import com.github.dexecutor.core.DependentTasksExecutor.ExecutionBehavior;
+
+abstract class AbstractDelegatingTask &lt;T extends Comparable&lt;T&gt;, R&gt; extends Task&lt;T, R&gt; {
+
+	private static final long serialVersionUID = 1L;
+
+	private Task&lt;T, R&gt; task;
+	
+<span class="fc" id="L11">	public AbstractDelegatingTask(final Task&lt;T, R&gt; task) {</span>
+<span class="fc" id="L12">		this.task = task;</span>
+<span class="fc" id="L13">	}</span>
+	
+	protected Task&lt;T, R&gt; getTargetTask() {
+<span class="fc" id="L16">		return this.task;</span>
+	}
+	
+	
+	public void setId(final T id) {
+<span class="nc" id="L21">		this.task.setId(id);</span>
+<span class="nc" id="L22">	}</span>
+
+	public T getId() {;
+<span class="fc" id="L25">		return this.task.getId();</span>
+	}
+
+	public void setErrored() {
+<span class="nc" id="L29">		this.task.setErrored();</span>
+<span class="nc" id="L30">	}</span>
+
+	public void setSkipped() {
+<span class="nc" id="L33">		this.task.setSkipped();</span>
+<span class="nc" id="L34">	}</span>
+
+	public ExecutionStatus getStatus() {
+<span class="fc" id="L37">		return this.task.getStatus();</span>
+	}
+
+	public ExecutionBehavior getExecutionBehavior() {
+<span class="nc" id="L41">		return this.task.getExecutionBehavior();</span>
+	}
+
+	public void setExecutionBehavior(ExecutionBehavior executionBehavior) {
+<span class="nc" id="L45">		this.task.setExecutionBehavior(executionBehavior);</span>
+<span class="nc" id="L46">	}</span>
+
+	public  boolean shouldConsiderExecutionError() {
+<span class="nc" id="L49">		return this.task.shouldConsiderExecutionError();</span>
+	}
+
+	void setConsiderExecutionError(boolean considerExecutionError) {
+<span class="fc" id="L53">		this.task.setConsiderExecutionError(considerExecutionError);</span>
+<span class="fc" id="L54">	}</span>
+	
+	public boolean shouldExecute(final ExecutionResults&lt;T, R&gt; parentResults) {
+<span class="fc" id="L57">		return this.task.shouldExecute(parentResults);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

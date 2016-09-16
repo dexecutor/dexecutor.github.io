@@ -65,17 +65,35 @@ import java.util.List;
 <span class="fc" id="L65">			return true;</span>
 		}
 	}
+	
+	/**
+	 * @return {@code true} If any parent is skipped
+	 * {@code false} if no parent is skipped
+	 * 
+	 * @return
+	 */
+	public boolean anyParentSkipped() {
+<span class="fc" id="L76">		boolean parentSkipped = false;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">		for (ExecutionResult&lt;T, R&gt; parent : results) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">			if (parent.isSkipped()) {</span>
+<span class="fc" id="L79">				parentSkipped = true;</span>
+<span class="fc" id="L80">				break;</span>
+			}
+<span class="fc" id="L82">		}</span>
+		
+<span class="fc" id="L84">		return parentSkipped;</span>
+	}
 	/**
 	 * 
 	 * @return all result in the collection
 	 */
 	public List&lt;ExecutionResult&lt;T, R&gt;&gt; getAll() {
-<span class="fc" id="L73">		return new ArrayList&lt;ExecutionResult&lt;T, R&gt;&gt;(this.results);</span>
+<span class="fc" id="L91">		return new ArrayList&lt;ExecutionResult&lt;T, R&gt;&gt;(this.results);</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L78">		return this.results.toString();</span>
+<span class="fc" id="L96">		return this.results.toString();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

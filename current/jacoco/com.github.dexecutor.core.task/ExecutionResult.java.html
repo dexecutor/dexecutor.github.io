@@ -32,11 +32,11 @@ public class ExecutionResult &lt;T, R&gt; implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private T id;
 	private R result;
-<span class="pc" id="L35">	private ExecutionStatus status = ExecutionStatus.SUCCESS;</span>
+<span class="fc" id="L35">	private ExecutionStatus status = ExecutionStatus.SUCCESS;</span>
 
-<span class="nc" id="L37">	public ExecutionResult(final T id) {</span>
-<span class="nc" id="L38">		this.id = id;</span>
-<span class="nc" id="L39">	}</span>
+<span class="fc" id="L37">	public ExecutionResult(final T id) {</span>
+<span class="fc" id="L38">		this.id = id;</span>
+<span class="fc" id="L39">	}</span>
 
 	public ExecutionResult(final T id, final R result) {
 <span class="fc" id="L42">		this(id, result, ExecutionStatus.SUCCESS);</span>

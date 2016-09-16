@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DependentTasksExecutorConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DependentTasksExecutorConfig.java</span></div><h1>DependentTasksExecutorConfig.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core;
+
+import static com.github.dexecutor.core.support.Preconditions.checkNotNull;
+
+import java.util.concurrent.ExecutorService;
+
+import com.github.dexecutor.core.graph.CyclicValidator;
+import com.github.dexecutor.core.graph.LevelOrderTraversar;
+import com.github.dexecutor.core.graph.Traversar;
+import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.TaskProvider;
+
+/**
+ * &lt;p&gt;Configuration Object for Dexecutor framework. At a minimum it needs {@code ExecutorService} and {@code TaskProvider}, rest are optional and takes default values&lt;/p&gt;
+ * &lt;p&gt;This provides way to hook in your own {@code Validator} and {@code Traversar}&lt;/p&gt;
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public class DependentTasksExecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
+	/**
+	 * executor is the main platform on which tasks are executed
+	 */
+	private ExecutionEngine&lt;T, R&gt; executionEngine;
+
+	/**
+	 * When it comes to task execution, task provider would be consulted to provide task objects for execution
+	 */
+	private TaskProvider&lt;T, R&gt; taskProvider;
+	/**
+	 * Validator for validating the consturcted graph, defaults to detecting Cyclic checks
+	 */
+<span class="pc" id="L52">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
+	/**
+	 * Traversar used to traverse the graph while printing it on a Writer
+	 */
+<span class="pc" id="L56">	private Traversar&lt;T, R&gt; traversar = new LevelOrderTraversar&lt;T, R&gt;();</span>
+	/**
+	 * Construct the object with mandatory params, rest are optional
+	 * @param executorService @ExecutorService
+	 * @param taskProvider @TaskProvider
+	 */
+<span class="nc" id="L62">	public DependentTasksExecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="nc" id="L63">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="nc" id="L64">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="nc" id="L65">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(executorService);</span>
+<span class="nc" id="L66">		this.taskProvider = taskProvider;</span>
+<span class="nc" id="L67">	}</span>
+
+	/**
+	 * Construct the object with mandatory params, rest are optional
+	 * @param executor  @ExecutionEngine
+	 * @param taskProvider @TaskProvider
+	 */
+<span class="fc" id="L74">	public DependentTasksExecutorConfig(final ExecutionEngine&lt;T, R&gt; executor, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L75">		this.executionEngine = executor;</span>
+<span class="fc" id="L76">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L77">	}</span>
+
+	void validate() {
+<span class="fc" id="L80">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L81">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L82">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
+<span class="fc" id="L83">		checkNotNull(this.traversar, &quot;Traversar should not be null&quot;);</span>
+<span class="fc" id="L84">	}</span>
+
+	ExecutionEngine&lt;T, R&gt; getExecutorEngine() {
+<span class="fc" id="L87">		return this.executionEngine;</span>
+	}
+
+	TaskProvider&lt;T, R&gt; getTaskProvider() {
+<span class="fc" id="L91">		return this.taskProvider;</span>
+	}
+
+	Validator&lt;T, R&gt; getValidator() {
+<span class="fc" id="L95">		return this.validator;</span>
+	}
+	/**
+	 * change the validator to that of specified
+	 * @param validator
+	 */
+	public void setValidator(final Validator&lt;T, R&gt; validator) {
+<span class="fc" id="L102">		this.validator = validator;</span>
+<span class="fc" id="L103">	}</span>
+	Traversar&lt;T, R&gt; getTraversar() {
+<span class="fc" id="L105">		return this.traversar;</span>
+	}
+	/**
+	 * Change the traversar to that of specified
+	 * @param traversar
+	 */
+	public void setTraversar(final Traversar&lt;T, R&gt; traversar) {
+<span class="fc" id="L112">		this.traversar = traversar;</span>
+<span class="fc" id="L113">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

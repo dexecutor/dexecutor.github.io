@@ -43,9 +43,9 @@ class NonTerminatingTask &lt;T extends Comparable&lt;T&gt;, R&gt; extends Abstra
 		try {
 <span class="fc" id="L44">			getTargetTask().setConsiderExecutionError(false);</span>
 <span class="fc" id="L45">			result = getTargetTask().execute();</span>
-<span class="nc" id="L46">		} catch(Exception ex) {</span>
-<span class="nc" id="L47">			getTargetTask().setErrored();</span>
-<span class="nc" id="L48">			logger.error(&quot;Exception caught, executing Node # &quot; + this.getId(), ex);</span>
+<span class="fc" id="L46">		} catch(Exception ex) {</span>
+<span class="fc" id="L47">			getTargetTask().setErrored();</span>
+<span class="fc" id="L48">			logger.error(&quot;Exception caught, executing Node # &quot; + this.getId(), ex);</span>
 <span class="fc" id="L49">		}</span>
 <span class="fc" id="L50">		return result;</span>
 	}

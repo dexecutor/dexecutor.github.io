@@ -18,43 +18,47 @@ abstract class AbstractDelegatingTask &lt;T extends Comparable&lt;T&gt;, R&gt; e
 	
 	
 	public void setId(final T id) {
-<span class="nc" id="L21">		this.task.setId(id);</span>
-<span class="nc" id="L22">	}</span>
+<span class="fc" id="L21">		this.task.setId(id);</span>
+<span class="fc" id="L22">	}</span>
 
 	public T getId() {;
 <span class="fc" id="L25">		return this.task.getId();</span>
 	}
 
 	public void setErrored() {
-<span class="nc" id="L29">		this.task.setErrored();</span>
-<span class="nc" id="L30">	}</span>
+<span class="fc" id="L29">		this.task.setErrored();</span>
+<span class="fc" id="L30">	}</span>
 
 	public void setSkipped() {
-<span class="nc" id="L33">		this.task.setSkipped();</span>
-<span class="nc" id="L34">	}</span>
+<span class="fc" id="L33">		this.task.setSkipped();</span>
+<span class="fc" id="L34">	}</span>
+	
+	public void setSuccess() {
+<span class="fc" id="L37">		this.task.setSuccess();</span>
+<span class="fc" id="L38">	}</span>
 
 	public ExecutionStatus getStatus() {
-<span class="fc" id="L37">		return this.task.getStatus();</span>
+<span class="fc" id="L41">		return this.task.getStatus();</span>
 	}
 
 	public ExecutionBehavior getExecutionBehavior() {
-<span class="nc" id="L41">		return this.task.getExecutionBehavior();</span>
+<span class="fc" id="L45">		return this.task.getExecutionBehavior();</span>
 	}
 
 	public void setExecutionBehavior(ExecutionBehavior executionBehavior) {
-<span class="nc" id="L45">		this.task.setExecutionBehavior(executionBehavior);</span>
-<span class="nc" id="L46">	}</span>
+<span class="fc" id="L49">		this.task.setExecutionBehavior(executionBehavior);</span>
+<span class="fc" id="L50">	}</span>
 
 	public  boolean shouldConsiderExecutionError() {
-<span class="nc" id="L49">		return this.task.shouldConsiderExecutionError();</span>
+<span class="fc" id="L53">		return this.task.shouldConsiderExecutionError();</span>
 	}
 
 	void setConsiderExecutionError(boolean considerExecutionError) {
-<span class="fc" id="L53">		this.task.setConsiderExecutionError(considerExecutionError);</span>
-<span class="fc" id="L54">	}</span>
+<span class="fc" id="L57">		this.task.setConsiderExecutionError(considerExecutionError);</span>
+<span class="fc" id="L58">	}</span>
 	
 	public boolean shouldExecute(final ExecutionResults&lt;T, R&gt; parentResults) {
-<span class="fc" id="L57">		return this.task.shouldExecute(parentResults);</span>
+<span class="fc" id="L61">		return this.task.shouldExecute(parentResults);</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

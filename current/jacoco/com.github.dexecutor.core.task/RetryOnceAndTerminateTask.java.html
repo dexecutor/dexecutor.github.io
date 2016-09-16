@@ -43,9 +43,9 @@ class RetryOnceAndTerminateTask&lt;T extends Comparable&lt;T&gt;, R&gt; extends 
 <span class="fc" id="L43">		getTargetTask().setConsiderExecutionError(false);</span>
 		try {
 <span class="fc" id="L45">			result = getTargetTask().execute();</span>
-<span class="nc" id="L46">		} catch(Exception ex) {</span>
-<span class="nc" id="L47">			logger.error(&quot;Exception caught, executing node # &quot; + getId() + &quot; Retry would happen&quot;, ex);</span>
-<span class="nc" id="L48">			getTargetTask().setConsiderExecutionError(true);</span>
+<span class="fc" id="L46">		} catch(Exception ex) {</span>
+<span class="fc" id="L47">			logger.error(&quot;Exception caught, executing node # &quot; + getId() + &quot; Retry would happen&quot;, ex);</span>
+<span class="fc" id="L48">			getTargetTask().setConsiderExecutionError(true);</span>
 <span class="nc" id="L49">			getTargetTask().execute();</span>
 <span class="fc" id="L50">		}</span>
 <span class="fc" id="L51">		return result;</span>

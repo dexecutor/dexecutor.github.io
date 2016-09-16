@@ -49,22 +49,22 @@ public class DependentTasksExecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt
 	/**
 	 * Validator for validating the consturcted graph, defaults to detecting Cyclic checks
 	 */
-<span class="pc" id="L52">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
+<span class="fc" id="L52">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
 	/**
 	 * Traversar used to traverse the graph while printing it on a Writer
 	 */
-<span class="pc" id="L56">	private Traversar&lt;T, R&gt; traversar = new LevelOrderTraversar&lt;T, R&gt;();</span>
+<span class="fc" id="L56">	private Traversar&lt;T, R&gt; traversar = new LevelOrderTraversar&lt;T, R&gt;();</span>
 	/**
 	 * Construct the object with mandatory params, rest are optional
 	 * @param executorService @ExecutorService
 	 * @param taskProvider @TaskProvider
 	 */
-<span class="nc" id="L62">	public DependentTasksExecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
-<span class="nc" id="L63">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
-<span class="nc" id="L64">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="nc" id="L65">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(executorService);</span>
-<span class="nc" id="L66">		this.taskProvider = taskProvider;</span>
-<span class="nc" id="L67">	}</span>
+<span class="fc" id="L62">	public DependentTasksExecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L63">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="fc" id="L64">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L65">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(executorService);</span>
+<span class="fc" id="L66">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L67">	}</span>
 
 	/**
 	 * Construct the object with mandatory params, rest are optional
