@@ -203,7 +203,7 @@
 <a class="jxr_linenumber" name="L195" href="#L195">195</a> 		<strong class="jxr_keyword">for</strong> (Node&lt;T, R&gt; node : nodes) {
 <a class="jxr_linenumber" name="L196" href="#L196">196</a> 			<strong class="jxr_keyword">if</strong> (shouldProcess(node)) {				
 <a class="jxr_linenumber" name="L197" href="#L197">197</a> 				Task&lt;T, R&gt; task = newTask(config, node);
-<a class="jxr_linenumber" name="L198" href="#L198">198</a> 				<strong class="jxr_keyword">if</strong> (shouldExecute(node, task)) {
+<a class="jxr_linenumber" name="L198" href="#L198">198</a> 				<strong class="jxr_keyword">if</strong> (shouldExecute(node, task)) {					
 <a class="jxr_linenumber" name="L199" href="#L199">199</a> 					nodesCount.incrementAndGet();
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 					logger.debug(<span class="jxr_string">"Going to schedule {} node"</span>, node.getValue());
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 					<strong class="jxr_keyword">this</strong>.executionEngine.submit(task);
@@ -265,100 +265,114 @@
 <a class="jxr_linenumber" name="L257" href="#L257">257</a> 
 <a class="jxr_linenumber" name="L258" href="#L258">258</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> doWaitForExecution(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config) {
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> 		<strong class="jxr_keyword">while</strong> (nodesCount.get() &gt; 0) {
-<a class="jxr_linenumber" name="L260" href="#L260">260</a> 			ExecutionResult&lt;T, R&gt; executionResult = <strong class="jxr_keyword">this</strong>.executionEngine.processResult();
-<a class="jxr_linenumber" name="L261" href="#L261">261</a> 			nodesCount.decrementAndGet();
-<a class="jxr_linenumber" name="L262" href="#L262">262</a> 			logger.debug(<span class="jxr_string">"Processing of node {} done, with status {}"</span>, executionResult.getId(), executionResult.getStatus());
-<a class="jxr_linenumber" name="L263" href="#L263">263</a> 
-<a class="jxr_linenumber" name="L264" href="#L264">264</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode = <strong class="jxr_keyword">this</strong>.graph.get(executionResult.getId());
-<a class="jxr_linenumber" name="L265" href="#L265">265</a> 			updateNode(executionResult, processedNode);
-<a class="jxr_linenumber" name="L266" href="#L266">266</a> 			<strong class="jxr_keyword">this</strong>.processedNodes.add(processedNode);
-<a class="jxr_linenumber" name="L267" href="#L267">267</a> 
-<a class="jxr_linenumber" name="L268" href="#L268">268</a> 			<strong class="jxr_keyword">if</strong> (executionResult.isSuccess() &amp;&amp; !<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError() &amp;&amp; !<strong class="jxr_keyword">this</strong>.continueAfterSuccess.isEmpty()) {
-<a class="jxr_linenumber" name="L269" href="#L269">269</a> 				Collection&lt;Node&lt;T, R&gt;&gt; recover = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;(<strong class="jxr_keyword">this</strong>.continueAfterSuccess);	
-<a class="jxr_linenumber" name="L270" href="#L270">270</a> 				<strong class="jxr_keyword">this</strong>.continueAfterSuccess.clear();
-<a class="jxr_linenumber" name="L271" href="#L271">271</a> 				doExecute(recover, config);
-<a class="jxr_linenumber" name="L272" href="#L272">272</a> 			}
-<a class="jxr_linenumber" name="L273" href="#L273">273</a> 
-<a class="jxr_linenumber" name="L274" href="#L274">274</a> 			<strong class="jxr_keyword">if</strong> (config.isNonTerminating() ||  (!<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError())) {
-<a class="jxr_linenumber" name="L275" href="#L275">275</a> 				doExecute(processedNode.getOutGoingNodes(), config);				
-<a class="jxr_linenumber" name="L276" href="#L276">276</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError() &amp;&amp; executionResult.isSuccess()) { 
-<a class="jxr_linenumber" name="L277" href="#L277">277</a> 				<strong class="jxr_keyword">this</strong>.continueAfterSuccess.addAll(processedNode.getOutGoingNodes());
-<a class="jxr_linenumber" name="L278" href="#L278">278</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (shouldDoImmediateRetry(config, executionResult, processedNode)) {
-<a class="jxr_linenumber" name="L279" href="#L279">279</a> 				logger.debug(<span class="jxr_string">"Submitting for Immediate retry, node {}"</span>, executionResult.getId());
-<a class="jxr_linenumber" name="L280" href="#L280">280</a> 				submitForImmediateRetry(config, processedNode);
-<a class="jxr_linenumber" name="L281" href="#L281">281</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (shouldScheduleRetry(config, executionResult, processedNode)) {
-<a class="jxr_linenumber" name="L282" href="#L282">282</a> 				logger.debug(<span class="jxr_string">"Submitting for Scheduled retry, node {}"</span>, executionResult.getId());
-<a class="jxr_linenumber" name="L283" href="#L283">283</a> 				submitForScheduledRetry(config, processedNode);
-<a class="jxr_linenumber" name="L284" href="#L284">284</a> 			}
-<a class="jxr_linenumber" name="L285" href="#L285">285</a> 		}
-<a class="jxr_linenumber" name="L286" href="#L286">286</a> 	}
-<a class="jxr_linenumber" name="L287" href="#L287">287</a> 
-<a class="jxr_linenumber" name="L288" href="#L288">288</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldScheduleRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult,
-<a class="jxr_linenumber" name="L289" href="#L289">289</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
-<a class="jxr_linenumber" name="L290" href="#L290">290</a> 		<strong class="jxr_keyword">return</strong> executionResult.isErrored() &amp;&amp; config.isScheduledRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));
-<a class="jxr_linenumber" name="L291" href="#L291">291</a> 	}
-<a class="jxr_linenumber" name="L292" href="#L292">292</a> 
-<a class="jxr_linenumber" name="L293" href="#L293">293</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldDoImmediateRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult,
-<a class="jxr_linenumber" name="L294" href="#L294">294</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
-<a class="jxr_linenumber" name="L295" href="#L295">295</a> 		<strong class="jxr_keyword">return</strong> executionResult.isErrored() &amp;&amp; config.isImmediatelyRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));
-<a class="jxr_linenumber" name="L296" href="#L296">296</a> 	}
-<a class="jxr_linenumber" name="L297" href="#L297">297</a> 
-<a class="jxr_linenumber" name="L298" href="#L298">298</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> submitForImmediateRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L299" href="#L299">299</a> 		Task&lt;T, R&gt; task = newTask(config, node);
-<a class="jxr_linenumber" name="L300" href="#L300">300</a> 		<strong class="jxr_keyword">this</strong>.immediatelyRetryExecutor.submit(retryingTask(config, task));
-<a class="jxr_linenumber" name="L301" href="#L301">301</a> 	}
-<a class="jxr_linenumber" name="L302" href="#L302">302</a> 
-<a class="jxr_linenumber" name="L303" href="#L303">303</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> submitForScheduledRetry(<a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L304" href="#L304">304</a> 		Task&lt;T, R&gt; task = newTask(config, node);
-<a class="jxr_linenumber" name="L305" href="#L305">305</a> 		<strong class="jxr_keyword">this</strong>.scheduledRetryExecutor.schedule(retryingTask(config, task), config.getRetryDelay().getDuration(), config.getRetryDelay().getTimeUnit());		
-<a class="jxr_linenumber" name="L306" href="#L306">306</a> 	}
-<a class="jxr_linenumber" name="L307" href="#L307">307</a> 
-<a class="jxr_linenumber" name="L308" href="#L308">308</a> 	<strong class="jxr_keyword">private</strong> Task&lt;T, R&gt; newTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L309" href="#L309">309</a> 		Task&lt;T, R&gt; task = <strong class="jxr_keyword">this</strong>.taskProvider.provideTask(node.getValue());
-<a class="jxr_linenumber" name="L310" href="#L310">310</a> 		task.setId(node.getValue());
-<a class="jxr_linenumber" name="L311" href="#L311">311</a> 		<strong class="jxr_keyword">return</strong> TaskFactory.newWorker(task);
-<a class="jxr_linenumber" name="L312" href="#L312">312</a> 	}
-<a class="jxr_linenumber" name="L313" href="#L313">313</a> 
-<a class="jxr_linenumber" name="L314" href="#L314">314</a> 	<strong class="jxr_keyword">private</strong> Runnable retryingTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Task&lt;T, R&gt; task) {
-<a class="jxr_linenumber" name="L315" href="#L315">315</a> 		nodesCount.incrementAndGet();
-<a class="jxr_linenumber" name="L316" href="#L316">316</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Runnable() {
-<a class="jxr_linenumber" name="L317" href="#L317">317</a> 			@Override
-<a class="jxr_linenumber" name="L318" href="#L318">318</a> 			<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
-<a class="jxr_linenumber" name="L319" href="#L319">319</a> 				executionEngine.submit(task);
-<a class="jxr_linenumber" name="L320" href="#L320">320</a> 			}
-<a class="jxr_linenumber" name="L321" href="#L321">321</a> 		};
-<a class="jxr_linenumber" name="L322" href="#L322">322</a> 	}
-<a class="jxr_linenumber" name="L323" href="#L323">323</a> 
-<a class="jxr_linenumber" name="L324" href="#L324">324</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateExecutionCount(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L325" href="#L325">325</a> 		Integer count = getExecutionCount(node);
-<a class="jxr_linenumber" name="L326" href="#L326">326</a> 		<strong class="jxr_keyword">if</strong> (count == <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L327" href="#L327">327</a> 			count = 0;
-<a class="jxr_linenumber" name="L328" href="#L328">328</a> 		} <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L329" href="#L329">329</a> 			count++;
-<a class="jxr_linenumber" name="L330" href="#L330">330</a> 		}
-<a class="jxr_linenumber" name="L331" href="#L331">331</a> 		node.setData(count);
-<a class="jxr_linenumber" name="L332" href="#L332">332</a> 	}
-<a class="jxr_linenumber" name="L333" href="#L333">333</a> 
-<a class="jxr_linenumber" name="L334" href="#L334">334</a> 	<strong class="jxr_keyword">private</strong> Integer getExecutionCount(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
-<a class="jxr_linenumber" name="L335" href="#L335">335</a> 		<strong class="jxr_keyword">return</strong> (Integer) node.getData();
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> 			
+<a class="jxr_linenumber" name="L261" href="#L261">261</a> 			ExecutionResult&lt;T, R&gt; executionResult = <strong class="jxr_keyword">this</strong>.executionEngine.processResult();
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> 			nodesCount.decrementAndGet();
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> 			logger.debug(<span class="jxr_string">"Processing of node {} done, with status {}"</span>, executionResult.getId(), executionResult.getStatus());
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
+<a class="jxr_linenumber" name="L265" href="#L265">265</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode = <strong class="jxr_keyword">this</strong>.graph.get(executionResult.getId());
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> 			updateNode(executionResult, processedNode);
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> 			<strong class="jxr_keyword">this</strong>.processedNodes.add(processedNode);
+<a class="jxr_linenumber" name="L268" href="#L268">268</a> 
+<a class="jxr_linenumber" name="L269" href="#L269">269</a> 			<strong class="jxr_keyword">if</strong> (executionResult.isSuccess() &amp;&amp; !<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError() &amp;&amp; !<strong class="jxr_keyword">this</strong>.continueAfterSuccess.isEmpty()) {
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> 				Collection&lt;Node&lt;T, R&gt;&gt; recover = <strong class="jxr_keyword">new</strong> HashSet&lt;&gt;(<strong class="jxr_keyword">this</strong>.continueAfterSuccess);	
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> 				<strong class="jxr_keyword">this</strong>.continueAfterSuccess.clear();
+<a class="jxr_linenumber" name="L272" href="#L272">272</a> 				doExecute(recover, config);
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> 			}
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> 
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> 			<strong class="jxr_keyword">if</strong> (config.isNonTerminating() ||  (!<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError())) {
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> 				doExecute(processedNode.getOutGoingNodes(), config);				
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.executionEngine.isAnyTaskInError() &amp;&amp; executionResult.isSuccess()) { 
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> 				<strong class="jxr_keyword">this</strong>.continueAfterSuccess.addAll(processedNode.getOutGoingNodes());
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (shouldDoImmediateRetry(config, executionResult, processedNode)) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a> 				logger.debug(<span class="jxr_string">"Submitting for Immediate retry, node {}"</span>, executionResult.getId());
+<a class="jxr_linenumber" name="L281" href="#L281">281</a> 				submitForImmediateRetry(config, processedNode);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> 			} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong> (shouldScheduleRetry(config, executionResult, processedNode)) {
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> 				logger.debug(<span class="jxr_string">"Submitting for Scheduled retry, node {}"</span>, executionResult.getId());
+<a class="jxr_linenumber" name="L284" href="#L284">284</a> 				submitForScheduledRetry(config, processedNode);
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 			}
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> 		}
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> 	}
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> 
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldScheduleRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult,
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> 		<strong class="jxr_keyword">return</strong> executionResult.isErrored() &amp;&amp; config.isScheduledRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> 	}
+<a class="jxr_linenumber" name="L293" href="#L293">293</a> 
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> shouldDoImmediateRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult,
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> 			<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
+<a class="jxr_linenumber" name="L296" href="#L296">296</a> 		<strong class="jxr_keyword">return</strong> executionResult.isErrored() &amp;&amp; config.isImmediatelyRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));
+<a class="jxr_linenumber" name="L297" href="#L297">297</a> 	}
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> submitForImmediateRetry(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L300" href="#L300">300</a> 		Task&lt;T, R&gt; task = newTask(config, node);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a> 		<strong class="jxr_keyword">this</strong>.immediatelyRetryExecutor.submit(retryingTask(config, task));
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> 	}
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> submitForScheduledRetry(<a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> 		Task&lt;T, R&gt; task = newTask(config, node);
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> 		<strong class="jxr_keyword">this</strong>.scheduledRetryExecutor.schedule(retryingTask(config, task), config.getRetryDelay().getDuration(), config.getRetryDelay().getTimeUnit());		
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> 	}
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> 
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> 	<strong class="jxr_keyword">private</strong> Task&lt;T, R&gt; newTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> 		Task&lt;T, R&gt; task = <strong class="jxr_keyword">this</strong>.taskProvider.provideTask(node.getValue());
+<a class="jxr_linenumber" name="L311" href="#L311">311</a> 		task.setId(node.getValue());
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> 		updateConsiderExecutionStatus(config, task);
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> 		<strong class="jxr_keyword">return</strong> TaskFactory.newWorker(task);
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> 	}
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> 
+<a class="jxr_linenumber" name="L316" href="#L316">316</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateConsiderExecutionStatus(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Task&lt;T, R&gt; task) {
+<a class="jxr_linenumber" name="L317" href="#L317">317</a> 		<strong class="jxr_keyword">if</strong> (config.isImmediatelyRetrying() || config.isScheduledRetrying()) {
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> 			Node&lt;T, R&gt; node = <strong class="jxr_keyword">this</strong>.graph.get(task.getId());
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> 			Integer currentCount = getExecutionCount(node);
+<a class="jxr_linenumber" name="L320" href="#L320">320</a> 			<strong class="jxr_keyword">if</strong> (currentCount &lt; config.getRetryCount()) {
+<a class="jxr_linenumber" name="L321" href="#L321">321</a> 				task.setConsiderExecutionError(false);
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> 			} <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> 				task.setConsiderExecutionError(<strong class="jxr_keyword">true</strong>);
+<a class="jxr_linenumber" name="L324" href="#L324">324</a> 			}
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 		}
+<a class="jxr_linenumber" name="L326" href="#L326">326</a> 	}
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> 
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> 	<strong class="jxr_keyword">private</strong> Runnable retryingTask(<strong class="jxr_keyword">final</strong> <a href="../../../../com/github/dexecutor/core/ExecutionConfig.html">ExecutionConfig</a> config, <strong class="jxr_keyword">final</strong> Task&lt;T, R&gt; task) {
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> 		nodesCount.incrementAndGet();
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> 		<strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> Runnable() {
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> 			@Override
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 			<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> run() {
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> 				executionEngine.submit(task);
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> 			}
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> 		};
 <a class="jxr_linenumber" name="L336" href="#L336">336</a> 	}
 <a class="jxr_linenumber" name="L337" href="#L337">337</a> 
-<a class="jxr_linenumber" name="L338" href="#L338">338</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateNode(<strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
-<a class="jxr_linenumber" name="L339" href="#L339">339</a> 		updateExecutionCount(processedNode);
-<a class="jxr_linenumber" name="L340" href="#L340">340</a> 		processedNode.setResult(executionResult.getResult());
-<a class="jxr_linenumber" name="L341" href="#L341">341</a> 		<strong class="jxr_keyword">if</strong>(executionResult.isErrored()) {
-<a class="jxr_linenumber" name="L342" href="#L342">342</a> 			processedNode.setErrored();
-<a class="jxr_linenumber" name="L343" href="#L343">343</a> 		} <strong class="jxr_keyword">else</strong> <strong class="jxr_keyword">if</strong>(executionResult.isSkipped()) {
-<a class="jxr_linenumber" name="L344" href="#L344">344</a> 			processedNode.setSkipped();
-<a class="jxr_linenumber" name="L345" href="#L345">345</a> 		} <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L346" href="#L346">346</a> 			processedNode.setSuccess();
-<a class="jxr_linenumber" name="L347" href="#L347">347</a> 		}
-<a class="jxr_linenumber" name="L348" href="#L348">348</a> 	}
-<a class="jxr_linenumber" name="L349" href="#L349">349</a> 
-<a class="jxr_linenumber" name="L350" href="#L350">350</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> enum <a href="../../../../com/github/dexecutor/core/DefaultDependentTasksExecutor.html">Phase</a> {
-<a class="jxr_linenumber" name="L351" href="#L351">351</a> 		BUILDING, RUNNING, TERMINATED;
-<a class="jxr_linenumber" name="L352" href="#L352">352</a> 	}
-<a class="jxr_linenumber" name="L353" href="#L353">353</a> }
+<a class="jxr_linenumber" name="L338" href="#L338">338</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateExecutionCount(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L339" href="#L339">339</a> 		Integer count = getExecutionCount(node);
+<a class="jxr_linenumber" name="L340" href="#L340">340</a> 		count++;
+<a class="jxr_linenumber" name="L341" href="#L341">341</a> 		node.setData(count);
+<a class="jxr_linenumber" name="L342" href="#L342">342</a> 	}
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
+<a class="jxr_linenumber" name="L344" href="#L344">344</a> 	<strong class="jxr_keyword">private</strong> Integer getExecutionCount(<strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; node) {
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> 		Integer count = (Integer) node.getData();
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> 		<strong class="jxr_keyword">if</strong> (count == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> 			count = 0;
+<a class="jxr_linenumber" name="L348" href="#L348">348</a> 		}
+<a class="jxr_linenumber" name="L349" href="#L349">349</a> 		<strong class="jxr_keyword">return</strong> count;
+<a class="jxr_linenumber" name="L350" href="#L350">350</a> 	}
+<a class="jxr_linenumber" name="L351" href="#L351">351</a> 
+<a class="jxr_linenumber" name="L352" href="#L352">352</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">void</strong> updateNode(<strong class="jxr_keyword">final</strong> ExecutionResult&lt;T, R&gt; executionResult, <strong class="jxr_keyword">final</strong> Node&lt;T, R&gt; processedNode) {
+<a class="jxr_linenumber" name="L353" href="#L353">353</a> 		updateExecutionCount(processedNode);
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> 		processedNode.setResult(executionResult.getResult());
+<a class="jxr_linenumber" name="L355" href="#L355">355</a> 		<strong class="jxr_keyword">if</strong>(executionResult.isErrored()) {
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> 			processedNode.setErrored();
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> 		}<em class="jxr_comment">/* else if(executionResult.isSkipped()) {</em>
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_comment">			processedNode.setSkipped();</em>
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_comment">		}*/</em> <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L360" href="#L360">360</a> 			processedNode.setSuccess();
+<a class="jxr_linenumber" name="L361" href="#L361">361</a> 		}
+<a class="jxr_linenumber" name="L362" href="#L362">362</a> 	}
+<a class="jxr_linenumber" name="L363" href="#L363">363</a> 
+<a class="jxr_linenumber" name="L364" href="#L364">364</a> 	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> enum <a href="../../../../com/github/dexecutor/core/DefaultDependentTasksExecutor.html">Phase</a> {
+<a class="jxr_linenumber" name="L365" href="#L365">365</a> 		BUILDING, RUNNING, TERMINATED;
+<a class="jxr_linenumber" name="L366" href="#L366">366</a> 	}
+<a class="jxr_linenumber" name="L367" href="#L367">367</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2016 <a href="https://github.com/dexecutor">Dexecutor</a>. All rights reserved.</div>
