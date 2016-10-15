@@ -40,21 +40,21 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  	
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  	@Test
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> immediateRetryPoolThreadsCountIsOne() {
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		DependentTasksExecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DependentTasksExecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  		DexecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DexecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  		config.setImmediateRetryPoolThreadsCount(1);
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  		assertThat(config.getImmediateRetryPoolThreadsCount(), equalTo(1));
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  	}
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  	
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  	@Test
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> scheduledRetryPoolThreadsCount() {
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  		DependentTasksExecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DependentTasksExecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  		DexecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DexecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  		config.setScheduledRetryPoolThreadsCount(1);;
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  		assertThat(config.getScheduledRetryPoolThreadsCount(), equalTo(1));
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  	}
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  	@Test(expected= IllegalArgumentException.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shouldThrowIllegalArgumentExceptionWhenValidatorIsNull() {
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		DependentTasksExecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DependentTasksExecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  		DexecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DexecutorConfig&lt;String, String&gt;(Executors.newCachedThreadPool(), newTaskProvider());
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  		config.setValidator(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  		config.validate();
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  	}
@@ -62,7 +62,7 @@
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  	@Test(expected= IllegalArgumentException.<strong class="jxr_keyword">class</strong>)
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> shouldThrowIllegalArgumentExceptionWhenTraversarIsNull() {
-<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		DependentTasksExecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DependentTasksExecutorConfig&lt;String, String&gt;(<strong class="jxr_keyword">new</strong> DefaultExecutionEngine&lt;String, String&gt;(Executors.newCachedThreadPool()), newTaskProvider());
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  		DexecutorConfig&lt;String, String&gt; config = <strong class="jxr_keyword">new</strong> DexecutorConfig&lt;String, String&gt;(<strong class="jxr_keyword">new</strong> DefaultExecutionEngine&lt;String, String&gt;(Executors.newCachedThreadPool()), newTaskProvider());
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  		config.setTraversar(<strong class="jxr_keyword">null</strong>);
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  		config.validate();
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  	}
