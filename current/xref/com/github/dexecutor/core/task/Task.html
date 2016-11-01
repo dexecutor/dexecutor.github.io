@@ -39,12 +39,12 @@
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  	<strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">long</strong> serialVersionUID = 1L;
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  	<em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">	 * id of the task, this would be same as that of {@Node} id</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">	 * id of the task, this would be same as that of {@code Node} id</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  	<strong class="jxr_keyword">private</strong> T id;
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment">	 * Sets the new id</em>
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">	 * @param id</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment">	 * @param id the task id</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setId(<strong class="jxr_keyword">final</strong> T id) {
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  		<strong class="jxr_keyword">this</strong>.id = id;
@@ -76,7 +76,7 @@
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_javadoccomment">	 * sets whether execution errors should be considered or not?</em>
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  <em class="jxr_javadoccomment">	 * </em>
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">	 * @param considerExecutionError</em>
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_javadoccomment">	 * @param considerExecutionError the new value</em>
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_javadoccomment">	 */</em>
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setConsiderExecutionError(<strong class="jxr_keyword">boolean</strong> considerExecutionError) {
 <a class="jxr_linenumber" name="L74" href="#L74">74</a>  		<strong class="jxr_keyword">this</strong>.considerExecutionError = considerExecutionError;
@@ -84,7 +84,7 @@
 <a class="jxr_linenumber" name="L76" href="#L76">76</a>  	<em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_javadoccomment">	 * Defines whether or not this task should be executed</em>
 <a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_javadoccomment">	 * </em>
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">	 * @param parentResults</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_javadoccomment">	 * @param parentResults parent execution results</em>
 <a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_javadoccomment">	 * </em>
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">	 * @return {@code true} If this task should be executed</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_javadoccomment">	 * {@code false} If the task should be skipped</em>
