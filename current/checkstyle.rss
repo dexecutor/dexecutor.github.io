@@ -6,10 +6,10 @@
     <link>https://github.com/dexecutor/dexecutor-core</link>
     <description>Dependent Tasks Executor Core - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2016 Dexecutor</copyright>
+    <copyright>&#169;2016 - 2017 Dexecutor</copyright>
     <item>
       <title>File: 77,
-             Errors: 2410,
+             Errors: 2489,
              Warnings: 0,
              Infos: 0
       </title>
@@ -192,7 +192,7 @@
                   0
                 </td>
                 <td>
-                  202
+                  212
                 </td>
               </tr>
                           <tr>
@@ -220,7 +220,7 @@
                   0
                 </td>
                 <td>
-                  75
+                  73
                 </td>
               </tr>
                           <tr>
@@ -262,7 +262,7 @@
                   0
                 </td>
                 <td>
-                  160
+                  166
                 </td>
               </tr>
                           <tr>
@@ -388,7 +388,7 @@
                   0
                 </td>
                 <td>
-                  46
+                  44
                 </td>
               </tr>
                           <tr>
@@ -430,7 +430,7 @@
                   0
                 </td>
                 <td>
-                  174
+                  186
                 </td>
               </tr>
                           <tr>
@@ -486,7 +486,7 @@
                   0
                 </td>
                 <td>
-                  83
+                  85
                 </td>
               </tr>
                           <tr>
@@ -570,7 +570,7 @@
                   0
                 </td>
                 <td>
-                  375
+                  376
                 </td>
               </tr>
                           <tr>
@@ -598,7 +598,7 @@
                   0
                 </td>
                 <td>
-                  13
+                  12
                 </td>
               </tr>
                           <tr>
@@ -794,7 +794,7 @@
                   0
                 </td>
                 <td>
-                  33
+                  36
                 </td>
               </tr>
                           <tr>
@@ -1004,7 +1004,7 @@
                   0
                 </td>
                 <td>
-                  111
+                  161
                 </td>
               </tr>
                           <tr>

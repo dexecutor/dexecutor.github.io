@@ -38,14 +38,14 @@
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  	@Test
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testThereIsParentResult() {
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  		ExecutionResults&lt;Integer, Integer&gt; results = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;Integer, Integer&gt;();
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		results.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;Integer, Integer&gt;(1, 1));
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		assertThat(results.hasAnyParentResult(), equalTo(<strong class="jxr_keyword">true</strong>));
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  		results.add(ExecutionResult.success(1, 1));
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  		assertThat(results.hasAnyResult(), equalTo(<strong class="jxr_keyword">true</strong>));
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  	}
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  	
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  	@Test
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testThereIsNoParentResult() {
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  		ExecutionResults&lt;Integer, Integer&gt; results = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;Integer, Integer&gt;();
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  		assertThat(results.hasAnyParentResult(), equalTo(false));
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  		assertThat(results.hasAnyResult(), equalTo(false));
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  	}
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  	
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  	@Test
@@ -57,27 +57,27 @@
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  	@Test
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGetFirstIsNotNull() {
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  		ExecutionResults&lt;Integer, Integer&gt; results = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;Integer, Integer&gt;();
-<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		results.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;Integer, Integer&gt;(1, 1));
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  		results.add(ExecutionResult.success(1, 1));
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  		assertNotNull(results.getFirst());
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  	}
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  	
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>  	@Test
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testGetAllShouldReturnOneObject() {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  		ExecutionResults&lt;Integer, Integer&gt; results = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;Integer, Integer&gt;();
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		results.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;Integer, Integer&gt;(1, 1));
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  		results.add(ExecutionResult.success(1, 1));
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  		assertThat(results.getAll().size(), equalTo(1));
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  	}
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  	
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  	@Test
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  	<strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testToStringIsNotNull() {
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  		ExecutionResults&lt;Integer, Integer&gt; results = <strong class="jxr_keyword">new</strong> ExecutionResults&lt;Integer, Integer&gt;();
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		results.add(<strong class="jxr_keyword">new</strong> ExecutionResult&lt;Integer, Integer&gt;(1, 1));
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		results.add(ExecutionResult.success(1, 1));
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  		assertNotNull(results.toString());
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>  	}
 <a class="jxr_linenumber" name="L69" href="#L69">69</a>  
 <a class="jxr_linenumber" name="L70" href="#L70">70</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2016 <a href="https://github.com/dexecutor">Dexecutor</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2016&#x2013;2017 <a href="https://github.com/dexecutor">Dexecutor</a>. All rights reserved.</div>
 </body>
 </html>
