@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultDexecutorState.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DefaultDexecutorState.java</span></div><h1>DefaultDexecutorState.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.github.dexecutor.core;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import com.github.dexecutor.core.graph.Dag;
+import com.github.dexecutor.core.graph.DefaultDag;
+import com.github.dexecutor.core.graph.Node;
+import com.github.dexecutor.core.graph.Traversar;
+import com.github.dexecutor.core.graph.TraversarAction;
+import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.ExecutionResult;
+import com.github.dexecutor.core.task.ExecutionResults;
+
+public class DefaultDexecutorState&lt;T extends Comparable&lt;T&gt;, R&gt; implements DexecutorState &lt;T, R&gt; {
+
+	private Phase currentPhase;
+	private final Dag&lt;T, R&gt; graph;
+	private final AtomicInteger nodesCount;
+	private final Collection&lt;Node&lt;T, R&gt;&gt; processedNodes;
+	private final Collection&lt;Node&lt;T, R&gt;&gt; discontinuedNodes;
+	private final Collection&lt;ExecutionResult&lt;T, R&gt;&gt; erroredTasks;
+
+<span class="fc" id="L44">	public DefaultDexecutorState() {</span>
+<span class="fc" id="L45">		this.graph =  new DefaultDag&lt;&gt;();</span>
+<span class="fc" id="L46">		this.currentPhase = Phase.BUILDING;</span>
+<span class="fc" id="L47">		this.nodesCount = new AtomicInteger(0);</span>
+<span class="fc" id="L48">		this.processedNodes = new CopyOnWriteArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L49">		this.discontinuedNodes = new CopyOnWriteArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L50">		this.erroredTasks = new CopyOnWriteArraySet&lt;ExecutionResult&lt;T, R&gt;&gt;();</span>
+<span class="fc" id="L51">	}</span>
+
+	public void addIndependent(final T nodeValue) {
+<span class="fc" id="L54">		this.graph.addIndependent(nodeValue);</span>
+<span class="fc" id="L55">	}</span>
+	
+	public void addDependency(final T evalFirstValue, final T evalAfterValue) {
+<span class="fc" id="L58">		this.graph.addDependency(evalFirstValue, evalAfterValue);</span>
+<span class="fc" id="L59">	}</span>
+	
+	public void addAsDependentOnAllLeafNodes(final T nodeValue) {
+<span class="fc" id="L62">		this.graph.addAsDependentOnAllLeafNodes(nodeValue);</span>
+<span class="fc" id="L63">	}</span>
+	
+	public void addAsDependencyToAllInitialNodes(final T nodeValue) {
+<span class="fc" id="L66">		this.graph.addAsDependencyToAllInitialNodes(nodeValue);</span>
+<span class="fc" id="L67">	}</span>
+
+	public void setCurrentPhase(final Phase currentPhase) {
+<span class="fc" id="L70">		this.currentPhase = currentPhase;</span>
+<span class="fc" id="L71">	}</span>
+
+	public Phase getCurrentPhase() {
+<span class="fc" id="L74">		return this.currentPhase;</span>
+	}
+	
+	public Set&lt;Node&lt;T, R&gt;&gt; getInitialNodes() {
+<span class="fc" id="L78">		return this.graph.getInitialNodes();</span>
+	}
+	
+	public Set&lt;Node&lt;T, R&gt;&gt; getNonProcessedRootNodes() {
+<span class="fc" id="L82">		return this.graph.getNonProcessedRootNodes();</span>
+	}
+	
+	public int graphSize() {
+<span class="fc" id="L86">		return this.graph.size();</span>
+	}
+	
+	public Node&lt;T, R&gt; getGraphNode(final T id) {
+<span class="fc" id="L90">		return this.graph.get(id);</span>
+	}
+
+	public void incrementUnProcessedNodesCount() {
+<span class="fc" id="L94">		this.nodesCount.incrementAndGet();</span>
+<span class="fc" id="L95">	}</span>
+	public void decrementUnProcessedNodesCount() {
+<span class="fc" id="L97">		this.nodesCount.decrementAndGet();</span>
+<span class="fc" id="L98">	}</span>
+	
+	public int getUnProcessedNodesCount() {
+<span class="fc" id="L101">		return this.nodesCount.get();</span>
+	}
+	
+	public boolean shouldProcess(final Node&lt;T, R&gt; node) {
+<span class="pc bpc" id="L105" title="1 of 4 branches missed.">		return !isAlreadyProcessed(node) &amp;&amp; allIncomingNodesProcessed(node);</span>
+	}
+
+	private boolean isAlreadyProcessed(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L109">		return this.processedNodes.contains(node);</span>
+	}
+
+	private boolean allIncomingNodesProcessed(final Node&lt;T, R&gt; node) {
+<span class="fc bfc" id="L113" title="All 4 branches covered.">		if (node.getInComingNodes().isEmpty() || areAlreadyProcessed(node.getInComingNodes())) {</span>
+<span class="fc" id="L114">			return true;</span>
+		}
+<span class="fc" id="L116">		return false;</span>
+	}
+
+	private boolean areAlreadyProcessed(final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L120">        return this.processedNodes.containsAll(nodes);</span>
+    }
+	
+	public void markProcessingDone(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L124">		this.processedNodes.add(node);</span>
+<span class="fc" id="L125">	}</span>
+
+	public Collection&lt;Node&lt;T, R&gt;&gt; getProcessedNodes() {
+<span class="fc" id="L128">		return new ArrayList&lt;&gt;(this.processedNodes);</span>
+	}
+	
+	public boolean isDiscontinuedNodesNotEmpty() {
+<span class="fc bfc" id="L132" title="All 2 branches covered.">		return !this.discontinuedNodes.isEmpty();</span>
+	}
+	
+	public Collection&lt;Node&lt;T, R&gt;&gt; getDiscontinuedNodes() {
+<span class="fc" id="L136">		return new ArrayList&lt;Node&lt;T, R&gt;&gt;(this.discontinuedNodes);</span>
+	}
+	
+	public void markDiscontinuedNodesProcessed() {
+<span class="fc" id="L140">		this.discontinuedNodes.clear();</span>
+<span class="fc" id="L141">	}</span>
+
+	public void processAfterNoError(final Collection&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L144">		this.discontinuedNodes.addAll(nodes);</span>
+<span class="fc" id="L145">	}</span>
+
+	public void print(final Traversar&lt;T, R&gt; traversar, final TraversarAction&lt;T, R&gt; action) {
+<span class="fc" id="L148">		traversar.traverse(this.graph, action);</span>
+<span class="fc" id="L149">	}</span>
+
+	public void validate(final Validator&lt;T, R&gt; validator) {
+<span class="fc" id="L152">		validator.validate(this.graph);		</span>
+<span class="fc" id="L153">	}</span>
+
+	@Override
+	public void addErrored(final ExecutionResult&lt;T, R&gt; task) {
+<span class="fc" id="L157">		this.erroredTasks.add(task);		</span>
+<span class="fc" id="L158">	}</span>
+
+	@Override
+	public void removeErrored(final ExecutionResult&lt;T, R&gt; task) {
+<span class="fc" id="L162">		this.erroredTasks.remove(task);		</span>
+<span class="fc" id="L163">	}</span>
+
+	@Override
+	public int erroredCount() {
+<span class="fc" id="L167">		return this.erroredTasks.size();</span>
+	}
+
+	@Override
+	public ExecutionResults&lt;T, R&gt; getErrored() {
+<span class="fc" id="L172">		ExecutionResults&lt;T, R&gt; result = new ExecutionResults&lt;&gt;();</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">		for (ExecutionResult&lt;T, R&gt; r : this.erroredTasks) {</span>
+<span class="fc" id="L174">			result.add(r);</span>
+<span class="fc" id="L175">		}</span>
+<span class="fc" id="L176">		return result;</span>
+	}
+
+	@Override
+	public void forcedStop() {
+			
+<span class="fc" id="L182">	}	</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

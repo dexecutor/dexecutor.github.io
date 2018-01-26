@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutionConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">ExecutionConfig.java</span></div><h1>ExecutionConfig.java</h1><pre class="source lang-java linenums">package com.github.dexecutor.core;
+
+import static com.github.dexecutor.core.support.Preconditions.*;
+
+<span class="fc" id="L5">public class ExecutionConfig {</span>
+
+	private ExecutionBehavior executionBehavior;
+<span class="fc" id="L8">	private int retryCount = 0;</span>
+<span class="fc" id="L9">	private Duration retryDelay = Duration.MINIMAL_DURATION; </span>
+
+<span class="fc" id="L11">	public static final ExecutionConfig TERMINATING = new ExecutionConfig().terminating();</span>
+<span class="fc" id="L12">	public static final ExecutionConfig NON_TERMINATING = new ExecutionConfig().nonTerminating();</span>
+	
+	/**
+	 * 
+	 * @return {@code ExecutionConfig} representing non-terminating execution behavior
+	 */
+	public ExecutionConfig nonTerminating() {
+<span class="fc" id="L19">		this.executionBehavior = ExecutionBehavior.NON_TERMINATING;</span>
+<span class="fc" id="L20">		return this;</span>
+	}
+	
+	/**
+	 * 
+	 * @return {@code ExecutionConfig} representing terminating execution behaivor
+	 */
+	public ExecutionConfig terminating() {
+<span class="fc" id="L28">		this.executionBehavior = ExecutionBehavior.TERMINATING;</span>
+<span class="fc" id="L29">		return this;</span>
+	}
+	
+	/**
+	 * @param count number of times retry should happen
+	 * @return {@code ExecutionConfig} representing immediate retry execution behaivor
+	 */
+	public ExecutionConfig immediateRetrying(int count) {
+<span class="fc" id="L37">		this.executionBehavior = ExecutionBehavior.IMMEDIATE_RETRY_TERMINATING;</span>
+<span class="fc" id="L38">		this.retryCount = count;</span>
+<span class="fc" id="L39">		return this;</span>
+	}
+	
+	/**
+	 * 
+	 * @param count the number of times retry should happen
+	 * @param delay the delay
+	 * @return {@code ExecutionConfig} representing scheduled retry terminating execution behaivor
+	 */
+	public ExecutionConfig scheduledRetrying(int count, Duration delay) {
+<span class="fc" id="L49">		this.executionBehavior = ExecutionBehavior.SCHEDULED_RETRY_TERMINATING;</span>
+<span class="fc" id="L50">		this.retryCount = count;</span>
+<span class="fc" id="L51">		this.retryDelay = delay;</span>
+<span class="fc" id="L52">		return this;</span>
+	}
+	/**
+	 * 
+	 * @return the execution behavior
+	 */
+	public ExecutionBehavior getExecutionBehavior() {
+<span class="fc" id="L59">		return executionBehavior;</span>
+	}
+	/**
+	 * 
+	 * @return the retry count
+	 */
+	public int getRetryCount() {
+<span class="fc" id="L66">		return retryCount;</span>
+	}
+	/**
+	 * 
+	 * @return the retry delay
+	 */
+	public Duration getRetryDelay() {
+<span class="fc" id="L73">		return retryDelay;</span>
+	}
+
+	/**
+	 * 
+	 * @return {@code true} if the {@code ExecutionBehavior} is TERMINATING
+	 * 			{@code false} otherwise
+	 */
+	public boolean isTerminating() {
+<span class="fc" id="L82">		return ExecutionBehavior.TERMINATING.equals(this.executionBehavior);</span>
+	}
+	/**
+	 * 
+	 * @return {@code true} if the {@code ExecutionBehavior} is NON_TERMINATING
+	 * 			{@code false} otherwise
+	 */
+	public boolean isNonTerminating() {
+<span class="fc" id="L90">		return ExecutionBehavior.NON_TERMINATING.equals(this.executionBehavior);</span>
+	}
+	/**
+	 * 
+	 * @return {@code true} if the {@code ExecutionBehavior} is IMMEDIATE_RETRY_TERMINATING
+	 * 			{@code false} otherwise
+	 */
+	public boolean isImmediatelyRetrying() {
+<span class="fc" id="L98">		return ExecutionBehavior.IMMEDIATE_RETRY_TERMINATING.equals(this.executionBehavior);</span>
+	}
+	
+	/**
+	 * 
+	 * @return {@code true} if the {@code ExecutionBehavior} is SCHEDULED_RETRY_TERMINATING
+	 * 			{@code false} otherwise
+	 */
+	public boolean isScheduledRetrying() {
+<span class="fc" id="L107">		return ExecutionBehavior.SCHEDULED_RETRY_TERMINATING.equals(this.executionBehavior);</span>
+	}
+	/**
+	 * 
+	 * @param currentCount the current count
+	 * @return {@code true} if a retry should be attempted, based on current retries already happened.
+	 * 			{@code false} otherwise
+	 */
+	public boolean shouldRetry(int currentCount) {
+<span class="pc bpc" id="L116" title="1 of 4 branches missed.">		return this.retryCount != 0 &amp;&amp; this.retryCount &gt;= currentCount;</span>
+	}
+	/**
+	 * Does basic validation to make sure object is valid
+	 */
+	public void validate() {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		if (isScheduledRetrying()) {</span>
+<span class="fc" id="L123">			checkNotNull(this.retryDelay, &quot;retryDelay should be specified for &quot; + ExecutionBehavior.SCHEDULED_RETRY_TERMINATING);</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">			checkArgument(this.getRetryDelay().getDuration() &gt; 0, &quot;Retry delay duration should be greater than ZERO&quot;);</span>
+		}
+<span class="fc" id="L126">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

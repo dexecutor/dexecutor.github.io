@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultDexecutor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DefaultDexecutor.java</span></div><h1>DefaultDexecutor.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.dexecutor.core.graph.Node;
+import com.github.dexecutor.core.graph.Traversar;
+import com.github.dexecutor.core.graph.TraversarAction;
+import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.ExecutionResult;
+import com.github.dexecutor.core.task.ExecutionResults;
+import com.github.dexecutor.core.task.ExecutionStatus;
+import com.github.dexecutor.core.task.Task;
+import com.github.dexecutor.core.task.TaskFactory;
+import com.github.dexecutor.core.task.TaskProvider;
+
+/**
+ * Default implementation of @Dexecutor
+ * 
+ * @author Nadeem Mohammad
+ * 
+ * @since 0.0.1
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public class DefaultDexecutor &lt;T extends Comparable&lt;T&gt;, R&gt; implements Dexecutor&lt;T, R&gt; {
+
+<span class="fc" id="L55">	private static final Logger logger = LoggerFactory.getLogger(DefaultDexecutor.class);</span>
+
+	private final Validator&lt;T, R&gt; validator;
+	private final TaskProvider&lt;T, R&gt; taskProvider;
+	private final ExecutionEngine&lt;T, R&gt; executionEngine;
+	private final ExecutorService immediatelyRetryExecutor;
+	private final ScheduledExecutorService scheduledRetryExecutor;
+
+	private final DexecutorState&lt;T, R&gt; state;
+
+	/**
+	 * Creates the Executor with Config
+	 * @param config based on which dexecutor would  be constructed
+	 */
+<span class="fc" id="L69">	public DefaultDexecutor(final DexecutorConfig&lt;T, R&gt; config) {</span>
+<span class="fc" id="L70">		config.validate();</span>
+
+<span class="fc" id="L72">		this.immediatelyRetryExecutor = Executors.newFixedThreadPool(config.getImmediateRetryPoolThreadsCount());</span>
+<span class="fc" id="L73">		this.scheduledRetryExecutor = Executors.newScheduledThreadPool(config.getScheduledRetryPoolThreadsCount());</span>
+
+<span class="fc" id="L75">		this.executionEngine = config.getExecutorEngine();</span>
+<span class="fc" id="L76">		this.validator = config.getValidator();</span>
+<span class="fc" id="L77">		this.taskProvider = config.getTaskProvider();</span>
+<span class="fc" id="L78">		this.state = config.getDexecutorState();</span>
+<span class="fc" id="L79">	}</span>
+
+	public void print(final Traversar&lt;T, R&gt; traversar, final TraversarAction&lt;T, R&gt; action) {
+<span class="fc" id="L82">		this.state.print(traversar, action);</span>
+<span class="fc" id="L83">	}</span>
+
+	public void addIndependent(final T nodeValue) {
+<span class="fc" id="L86">		checkValidPhase();</span>
+<span class="fc" id="L87">		this.state.addIndependent(nodeValue);</span>
+<span class="fc" id="L88">	}</span>
+
+	public void addDependency(final T evalFirstNode, final T evalLaterNode) {
+<span class="fc" id="L91">		checkValidPhase();</span>
+<span class="fc" id="L92">		this.state.addDependency(evalFirstNode, evalLaterNode);</span>
+<span class="fc" id="L93">	}</span>
+
+	public void addAsDependentOnAllLeafNodes(final T nodeValue) {
+<span class="fc" id="L96">		checkValidPhase();</span>
+<span class="fc" id="L97">		this.state.addAsDependentOnAllLeafNodes(nodeValue);		</span>
+<span class="fc" id="L98">	}</span>
+
+	@Override
+	public void addAsDependencyToAllInitialNodes(final T nodeValue) {
+<span class="fc" id="L102">		checkValidPhase();</span>
+<span class="fc" id="L103">		this.state.addAsDependencyToAllInitialNodes(nodeValue);				</span>
+<span class="fc" id="L104">	}</span>
+
+	@Override
+	public void recoverExecution(final ExecutionConfig config) {
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		if (Phase.TERMINATED.equals(this.state.getCurrentPhase())) {</span>
+<span class="fc" id="L109">			throw new IllegalStateException(&quot;Can't recover terminated dexecutor&quot;);		</span>
+		} else {	
+<span class="fc" id="L111">			logger.debug(&quot;Recovering Dexecutor.&quot;);</span>
+<span class="fc" id="L112">			doWaitForExecution(config);</span>
+<span class="fc" id="L113">			doExecute(this.state.getNonProcessedRootNodes(), config);</span>
+<span class="fc" id="L114">			doWaitForExecution(config);</span>
+<span class="fc" id="L115">			logger.debug(&quot;Processed Nodes Ordering {}&quot;, this.state.getProcessedNodes());</span>
+		}
+<span class="fc" id="L117">	}</span>
+
+	public ExecutionResults&lt;T, R&gt; execute(final ExecutionConfig config) {
+<span class="fc" id="L120">		validate(config);</span>
+
+<span class="fc" id="L122">		this.state.setCurrentPhase(Phase.RUNNING);</span>
+
+<span class="fc" id="L124">		Set&lt;Node&lt;T, R&gt;&gt; initialNodes = this.state.getInitialNodes();</span>
+
+<span class="fc" id="L126">		long start = new Date().getTime();</span>
+
+<span class="fc" id="L128">		doProcessNodes(config, initialNodes);</span>
+<span class="fc" id="L129">		shutdownExecutors();</span>
+
+<span class="fc" id="L131">		long end = new Date().getTime();</span>
+
+<span class="fc" id="L133">		this.state.setCurrentPhase(Phase.TERMINATED);</span>
+
+<span class="fc" id="L135">		logger.debug(&quot;Total Time taken to process {} jobs is {} ms.&quot;, this.state.graphSize(), end - start);</span>
+<span class="fc" id="L136">		logger.debug(&quot;Processed Nodes Ordering {}&quot;, this.state.getProcessedNodes());</span>
+		
+<span class="fc" id="L138">		return this.state.getErrored();</span>
+	}
+
+	private void shutdownExecutors() {
+<span class="fc" id="L142">		this.immediatelyRetryExecutor.shutdown();</span>
+<span class="fc" id="L143">		this.scheduledRetryExecutor.shutdown();</span>
+		try {
+<span class="fc" id="L145">			this.immediatelyRetryExecutor.awaitTermination(1, TimeUnit.NANOSECONDS);</span>
+<span class="fc" id="L146">			this.scheduledRetryExecutor.awaitTermination(1, TimeUnit.NANOSECONDS);</span>
+<span class="fc" id="L147">		} catch (InterruptedException e) {</span>
+<span class="fc" id="L148">			logger.error(&quot;Error Shuting down Executor&quot;, e);</span>
+<span class="fc" id="L149">		}		</span>
+<span class="fc" id="L150">	}</span>
+
+	private void validate(final ExecutionConfig config) {
+<span class="fc" id="L153">		config.validate();</span>
+<span class="fc" id="L154">		checkValidPhase();</span>
+<span class="fc" id="L155">		this.state.validate(this.validator);</span>
+<span class="fc" id="L156">	}</span>
+
+	private void checkValidPhase() {
+<span class="fc" id="L159">		throwExceptionIfTerminated();</span>
+<span class="fc" id="L160">		throwExceptionIfRunning();</span>
+<span class="fc" id="L161">	}</span>
+
+	private void throwExceptionIfRunning() {
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">		if (Phase.RUNNING.equals(this.state.getCurrentPhase())) {</span>
+<span class="nc" id="L165">			throw new IllegalStateException(&quot;Dexecutor is already running!&quot;);</span>
+		}
+<span class="fc" id="L167">	}</span>
+
+	private void throwExceptionIfTerminated() {
+<span class="fc bfc" id="L170" title="All 2 branches covered.">		if (Phase.TERMINATED.equals(this.state.getCurrentPhase())) {</span>
+<span class="fc" id="L171">			throw new IllegalStateException(&quot;Dexecutor has been terminated!&quot;);</span>
+		}
+<span class="fc" id="L173">	}</span>
+
+	private void doProcessNodes(final ExecutionConfig config, final Set&lt;Node&lt;T, R&gt;&gt; nodes) {
+<span class="fc" id="L176">		doExecute(nodes, config);</span>
+<span class="fc" id="L177">		doWaitForExecution(config);	</span>
+<span class="fc" id="L178">	}</span>
+
+	private void doExecute(final Collection&lt;Node&lt;T, R&gt;&gt; nodes, final ExecutionConfig config) {
+<span class="fc bfc" id="L181" title="All 2 branches covered.">		for (Node&lt;T, R&gt; node : nodes) {</span>
+<span class="fc" id="L182">			forceStopIfRequired();</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">			if (this.state.shouldProcess(node)) {				</span>
+<span class="fc" id="L184">				Task&lt;T, R&gt; task = newTask(config, node);</span>
+<span class="pc bpc" id="L185" title="1 of 4 branches missed.">				if (node.isNotProcessed() &amp;&amp; shouldExecute(node, task)) {					</span>
+<span class="fc" id="L186">					this.state.incrementUnProcessedNodesCount();</span>
+<span class="fc" id="L187">					logger.debug(&quot;Going to schedule {} node&quot;, node.getValue());</span>
+<span class="fc" id="L188">					this.executionEngine.submit(task);</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">				} else if (node.isNotProcessed()){</span>
+<span class="fc" id="L190">					node.setSkipped();</span>
+<span class="fc" id="L191">					logger.debug(&quot;Execution Skipped for node # {} &quot;, node.getValue());</span>
+<span class="fc" id="L192">					this.state.markProcessingDone(node);</span>
+<span class="fc" id="L193">					doExecute(node.getOutGoingNodes(), config);</span>
+				}
+<span class="fc" id="L195">			} else {</span>
+<span class="fc" id="L196">				logger.debug(&quot;node {} depends on {}&quot;, node.getValue(), node.getInComingNodes());</span>
+			}
+<span class="fc" id="L198">		}</span>
+<span class="fc" id="L199">	}</span>
+
+	private boolean shouldExecute(final Node&lt;T, R&gt; node, final Task&lt;T, R&gt; task) {
+<span class="fc bfc" id="L202" title="All 2 branches covered.">		if (task.shouldExecute(parentResults(node))) {</span>
+<span class="fc" id="L203">			return true;</span>
+		}
+<span class="fc" id="L205">		return false;</span>
+	}
+
+	private ExecutionResults&lt;T, R&gt; parentResults(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L209">		ExecutionResults&lt;T, R&gt; parentResult = new ExecutionResults&lt;T, R&gt;();</span>
+<span class="fc bfc" id="L210" title="All 2 branches covered.">		for (Node&lt;T, R&gt; pNode : node.getInComingNodes()) {</span>
+<span class="fc" id="L211">			parentResult.add(new ExecutionResult&lt;T, R&gt;(pNode.getValue(), pNode.getResult(), status(pNode)));</span>
+<span class="fc" id="L212">		}</span>
+<span class="fc" id="L213">		return parentResult;</span>
+	}
+
+	private ExecutionStatus status(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L217">		ExecutionStatus status = ExecutionStatus.SUCCESS;</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">		if (node.isErrored()) {</span>
+<span class="fc" id="L219">			status = ExecutionStatus.ERRORED;</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">		} else if (node.isSkipped()) {</span>
+<span class="fc" id="L221">			status = ExecutionStatus.SKIPPED;</span>
+		}
+<span class="fc" id="L223">		return status;</span>
+	}
+
+	private void doWaitForExecution(final ExecutionConfig config) {
+<span class="fc bfc" id="L227" title="All 2 branches covered.">		while (state.getUnProcessedNodesCount() &gt; 0) {</span>
+<span class="fc" id="L228">			forceStopIfRequired();</span>
+<span class="fc" id="L229">			ExecutionResult&lt;T, R&gt; executionResult = this.executionEngine.processResult();			</span>
+<span class="fc" id="L230">			doAfterExecutionDone(config, executionResult);</span>
+<span class="fc" id="L231">		}</span>
+<span class="fc" id="L232">	}</span>
+
+	//Check if it can run in separate thread
+	private void doAfterExecutionDone(final ExecutionConfig config, final ExecutionResult&lt;T, R&gt; executionResult) {
+<span class="fc" id="L236">		logger.debug(&quot;Processing of node {} done, with status {}&quot;, executionResult.getId(), executionResult.getStatus());</span>
+<span class="fc" id="L237">		state.decrementUnProcessedNodesCount();</span>
+		
+<span class="fc" id="L239">		final Node&lt;T, R&gt; processedNode = state.getGraphNode(executionResult.getId());</span>
+<span class="fc" id="L240">		updateNode(executionResult, processedNode);</span>
+<span class="fc" id="L241">		state.markProcessingDone(processedNode);</span>
+
+<span class="fc bfc" id="L243" title="All 6 branches covered.">		if (executionResult.isSuccess() &amp;&amp; !executionEngine.isAnyTaskInError() &amp;&amp; state.isDiscontinuedNodesNotEmpty()) {</span>
+<span class="fc" id="L244">			Collection&lt;Node&lt;T, R&gt;&gt; recover = new HashSet&lt;&gt;(state.getDiscontinuedNodes());	</span>
+<span class="fc" id="L245">			state.markDiscontinuedNodesProcessed();</span>
+<span class="fc" id="L246">			doExecute(recover, config);</span>
+		}
+
+<span class="fc bfc" id="L249" title="All 4 branches covered.">		if (config.isNonTerminating() || !executionEngine.isAnyTaskInError()) {</span>
+<span class="fc" id="L250">			doExecute(processedNode.getOutGoingNodes(), config);				</span>
+<span class="pc bpc" id="L251" title="1 of 4 branches missed.">		} else if (executionEngine.isAnyTaskInError() &amp;&amp; executionResult.isSuccess()) { </span>
+<span class="fc" id="L252">			state.processAfterNoError(processedNode.getOutGoingNodes());</span>
+<span class="fc bfc" id="L253" title="All 2 branches covered.">		} else if (shouldDoImmediateRetry(config, executionResult, processedNode)) {</span>
+<span class="fc" id="L254">			logger.debug(&quot;Submitting for Immediate retry, node {}&quot;, executionResult.getId());</span>
+<span class="fc" id="L255">			submitForImmediateRetry(config, processedNode);</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">		} else if (shouldScheduleRetry(config, executionResult, processedNode)) {</span>
+<span class="fc" id="L257">			logger.debug(&quot;Submitting for Scheduled retry, node {}&quot;, executionResult.getId());</span>
+<span class="fc" id="L258">			submitForScheduledRetry(config, processedNode);</span>
+		}
+<span class="fc" id="L260">	}</span>
+
+	private boolean shouldScheduleRetry(final ExecutionConfig config, final ExecutionResult&lt;T, R&gt; executionResult,
+			final Node&lt;T, R&gt; processedNode) {
+<span class="pc bpc" id="L264" title="1 of 6 branches missed.">		return executionResult.isErrored() &amp;&amp; config.isScheduledRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));</span>
+	}
+
+	private boolean shouldDoImmediateRetry(final ExecutionConfig config, final ExecutionResult&lt;T, R&gt; executionResult,
+			final Node&lt;T, R&gt; processedNode) {
+<span class="pc bpc" id="L269" title="1 of 6 branches missed.">		return executionResult.isErrored() &amp;&amp; config.isImmediatelyRetrying() &amp;&amp; config.shouldRetry(getExecutionCount(processedNode));</span>
+	}
+
+	private void submitForImmediateRetry(final ExecutionConfig config, final Node&lt;T, R&gt; node) {
+<span class="fc" id="L273">		Task&lt;T, R&gt; task = newTask(config, node);		</span>
+<span class="fc" id="L274">		this.immediatelyRetryExecutor.submit(retryingTask(task));</span>
+<span class="fc" id="L275">	}</span>
+
+	private void submitForScheduledRetry(final ExecutionConfig config, final Node&lt;T, R&gt; node) {
+<span class="fc" id="L278">		Task&lt;T, R&gt; task = newTask(config, node);</span>
+<span class="fc" id="L279">		this.scheduledRetryExecutor.schedule(retryingTask(task), config.getRetryDelay().getDuration(), config.getRetryDelay().getTimeUnit());</span>
+<span class="fc" id="L280">	}</span>
+
+	private Task&lt;T, R&gt; newTask(final ExecutionConfig config, final Node&lt;T, R&gt; node) {
+<span class="fc" id="L283">		Task&lt;T, R&gt; task = this.taskProvider.provideTask(node.getValue());</span>
+<span class="fc" id="L284">		task.setId(node.getValue());</span>
+<span class="fc" id="L285">		updateConsiderExecutionStatus(config, task);</span>
+<span class="fc" id="L286">		return TaskFactory.newWorker(task);</span>
+	}
+
+	private void updateConsiderExecutionStatus(final ExecutionConfig config, final Task&lt;T, R&gt; task) {
+<span class="fc bfc" id="L290" title="All 4 branches covered.">		if (config.isImmediatelyRetrying() || config.isScheduledRetrying()) {</span>
+<span class="fc" id="L291">			Node&lt;T, R&gt; node = this.state.getGraphNode(task.getId());</span>
+<span class="fc" id="L292">			Integer currentCount = getExecutionCount(node);</span>
+<span class="fc bfc" id="L293" title="All 2 branches covered.">			if (currentCount &lt; config.getRetryCount()) {</span>
+<span class="fc" id="L294">				task.setConsiderExecutionError(false);</span>
+			} else {
+<span class="fc" id="L296">				task.setConsiderExecutionError(true);</span>
+			}
+		}
+<span class="fc" id="L299">	}</span>
+
+	private Runnable retryingTask(final Task&lt;T, R&gt; task) {
+<span class="fc" id="L302">		this.state.incrementUnProcessedNodesCount();</span>
+<span class="fc" id="L303">		return new Runnable() {</span>
+			@Override
+			public void run() {
+<span class="fc" id="L306">				executionEngine.submit(task);</span>
+<span class="fc" id="L307">			}</span>
+		};
+	}
+
+	private void updateExecutionCount(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L312">		Integer count = getExecutionCount(node);</span>
+<span class="fc" id="L313">		count++;</span>
+<span class="fc" id="L314">		node.setData(count);</span>
+<span class="fc" id="L315">	}</span>
+
+	private Integer getExecutionCount(final Node&lt;T, R&gt; node) {
+<span class="fc" id="L318">		Integer count = (Integer) node.getData();</span>
+<span class="fc bfc" id="L319" title="All 2 branches covered.">		if (count == null) {</span>
+<span class="fc" id="L320">			count = 0;</span>
+		}
+<span class="fc" id="L322">		return count;</span>
+	}
+
+	private void updateNode(final ExecutionResult&lt;T, R&gt; executionResult, final Node&lt;T, R&gt; processedNode) {
+<span class="fc" id="L326">		updateExecutionCount(processedNode);</span>
+<span class="fc" id="L327">		processedNode.setResult(executionResult.getResult());</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">		if(executionResult.isErrored()) {</span>
+<span class="fc" id="L329">			processedNode.setErrored();</span>
+		} else {
+<span class="fc" id="L331">			processedNode.setSuccess();</span>
+		}
+<span class="fc" id="L333">	}</span>
+
+	private void forceStopIfRequired() {
+<span class="fc bfc" id="L336" title="All 2 branches covered.">		if (!shouldContinueProcessingNodes()) {</span>
+<span class="fc" id="L337">			this.state.forcedStop();</span>
+<span class="fc" id="L338">			this.immediatelyRetryExecutor.shutdownNow();</span>
+<span class="fc" id="L339">			this.scheduledRetryExecutor.shutdownNow();</span>
+<span class="fc" id="L340">			throw new IllegalStateException(&quot;Forced to Stop the instance of Dexecutor!&quot;);</span>
+		}		
+<span class="fc" id="L342">	}</span>
+	/**
+	 * Override this method if force stop is required
+	 * 
+	 * @return {@code true} if processing should continue otherwise {@code false}
+	 */
+	protected boolean shouldContinueProcessingNodes() {
+<span class="fc" id="L349">		return true;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

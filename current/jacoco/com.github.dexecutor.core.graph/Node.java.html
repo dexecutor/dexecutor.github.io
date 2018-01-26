@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Node.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core.graph</a> &gt; <span class="el_source">Node.java</span></div><h1>Node.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core.graph;
+
+import java.io.Serializable;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+
+/**
+ * A node representation in this graph, every node may have set of incoming edges and outgoing edges, a node is represented by unique value
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public final class Node&lt;T, R&gt; implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Unique id of the node
+	 */
+	private T value;
+	/**
+	 * Execution result of this node
+	 */
+	private R result;
+	/**
+	 * Execution status of this node
+	 */
+	private NodeStatus status;
+	/**
+	 * Arbitray data of this node
+	 */
+	private Object data;
+	/**
+	 * incoming dependencies for this node
+	 */
+<span class="fc" id="L55">    private Set&lt;Node&lt;T, R&gt;&gt; inComingEdges = new LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();</span>
+    /**
+     * outgoing dependencies for this node
+     */
+<span class="fc" id="L59">    private Set&lt;Node&lt;T, R&gt;&gt; outGoingEdges = new LinkedHashSet&lt;Node&lt;T, R&gt;&gt;();</span>
+    /**
+     * Constructs the node with the given node Id
+     * @param val the new unique id
+     */
+<span class="fc" id="L64">    public Node(final T val) {</span>
+<span class="fc" id="L65">		this.value = val;</span>
+<span class="fc" id="L66">	}</span>
+    /**
+     * Add the given node, to the set of incoming nodes
+     * @param node add as dependency to the node
+     */
+    public void addInComingNode(final Node&lt;T, R&gt; node) {	        
+<span class="fc" id="L72">        this.inComingEdges.add(node);</span>
+<span class="fc" id="L73">    }</span>
+    /**
+     * add the given to the set of out going nodes
+     * @param node add as dependency to the node
+     */
+    public void addOutGoingNode(final Node&lt;T, R&gt; node) {	        
+<span class="fc" id="L79">        this.outGoingEdges.add(node);</span>
+<span class="fc" id="L80">    }</span>
+    /**
+     * 
+     * @return the set of incoming nodes
+     */
+    public Set&lt;Node&lt;T, R&gt;&gt; getInComingNodes() {
+<span class="fc" id="L86">        return this.inComingEdges;</span>
+    }
+    /**
+     * 
+     * @return set of out going nodes
+     */
+    public Set&lt;Node&lt;T, R&gt;&gt; getOutGoingNodes() {
+<span class="fc" id="L93">        return this.outGoingEdges;</span>
+    }
+    /**
+     * 
+     * @return the node's value
+     */
+	public T getValue() {
+<span class="fc" id="L100">		return this.value;</span>
+	}
+	 /**
+     * 
+     * @return the node's execution result
+     */
+	public R getResult() {
+<span class="fc" id="L107">		return result;</span>
+	}
+	/**
+     * @param result the new result
+     * sets the node's execution result to a new value
+     */
+	public void setResult(final R result) {
+<span class="fc" id="L114">		this.result = result;</span>
+<span class="fc" id="L115">	}</span>
+	/**
+	 * 
+	 * @return {@code true} if the node is non processed
+	 */
+	public boolean isNotProcessed() {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">		return !isProcessed();</span>
+	}
+
+	public boolean isProcessed() {
+<span class="fc bfc" id="L125" title="All 2 branches covered.">		return this.status != null;</span>
+	}
+	/**
+     * 
+     * @return {@code true} if the node's execution result us SUCCESS
+     * 			{@code false} otherwise
+     */
+	public boolean isSuccess() {
+<span class="fc" id="L133">		return NodeStatus.SUCCESS.equals(this.status);</span>
+	}
+	/**
+     * 
+     * @return {@code true} if the node's execution result us ERRORED
+     * 			{@code false} otherwise
+     */
+	public boolean isErrored() {
+<span class="fc" id="L141">		return NodeStatus.ERRORED.equals(this.status);</span>
+	}
+	/**
+     * 
+     * @return {@code true} if the node's execution result us SKIPPED
+     * 			{@code false} otherwise
+     */
+	public boolean isSkipped() {
+<span class="fc" id="L149">		return NodeStatus.SKIPPED.equals(this.status);</span>
+	}
+	
+	/**
+	 * Sets the node's execution result to SUCCESS
+	 */
+	public void setSuccess() {
+<span class="fc" id="L156">		this.status = NodeStatus.SUCCESS;</span>
+<span class="fc" id="L157">	}</span>
+	/**
+	 * Sets the node's execution result to ERRORED
+	 */
+	public void setErrored() {
+<span class="fc" id="L162">		this.status = NodeStatus.ERRORED;</span>
+<span class="fc" id="L163">	}</span>
+	
+	/**
+	 * Sets the node's execution result to SKIPPED
+	 */
+	public void setSkipped() {
+<span class="fc" id="L169">		this.status = NodeStatus.SKIPPED;</span>
+<span class="fc" id="L170">	}</span>
+	
+	 /**
+     * 
+     * @return the node's data
+     */
+	public Object getData() {
+<span class="fc" id="L177">		return data;</span>
+	}
+	
+	/**
+	 * @param data the data
+	 * Sets the node's data to a new value
+	 */
+	public void setData(Object data) {
+<span class="fc" id="L185">		this.data = data;</span>
+<span class="fc" id="L186">	}</span>
+
+	@Override
+	public int hashCode() {
+<span class="fc" id="L190">		final int prime = 31;</span>
+<span class="fc" id="L191">		int result = 1;</span>
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">		result = prime * result + ((this.value == null) ? 0 : this.value.hashCode());</span>
+<span class="fc" id="L193">		return result;</span>
+	}
+
+	@Override
+	public boolean equals(final Object obj) {
+<span class="fc bfc" id="L198" title="All 2 branches covered.">		if (obj == this) {</span>
+<span class="fc" id="L199">			return true;</span>
+		}
+<span class="pc bpc" id="L201" title="1 of 4 branches missed.">		if (obj == null || obj.getClass() != this.getClass()) {</span>
+<span class="fc" id="L202">			return false;</span>
+		}
+		@SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L205">		Node&lt;T, R&gt; other = (Node&lt;T, R&gt;) obj;</span>
+
+<span class="fc" id="L207">		return this.value.equals(other.value);</span>
+	}
+
+    @Override
+    public String toString() {
+<span class="fc" id="L212">    	return String.valueOf(this.value);</span>
+    }
+    /**
+     * Represents node's execution status
+     * &lt;ul&gt;
+     * 		&lt;li&gt; &lt;code&gt; ERRORED:&lt;/code&gt; Node's execution was in error&lt;/li&gt;
+     * 		&lt;li&gt; &lt;code&gt; SKIPPED:&lt;/code&gt;Node's  execution was skipped&lt;/li&gt;
+     * 		&lt;li&gt; &lt;code&gt; SUCCESS:&lt;/code&gt;Node's  execution was success&lt;/li&gt;
+     * &lt;/ul&gt;
+     * 
+     * @author Nadeem Mohammad
+     *
+     */
+<span class="pc" id="L225">    enum NodeStatus {</span>
+<span class="fc" id="L226">    	ERRORED,SKIPPED,SUCCESS;</span>
+    }	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
