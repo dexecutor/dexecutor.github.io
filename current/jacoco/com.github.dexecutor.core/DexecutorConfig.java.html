@@ -34,7 +34,7 @@ import com.github.dexecutor.core.task.TaskProvider;
  * @param &lt;T&gt; Type of Node/Task ID
  * @param &lt;R&gt; Type of Node/Task result
  */
-public class DexecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
+public class DexecutorConfig&lt;T, R&gt; {
 	
 	/**
 	 * Number of threads that should handle the immediate retry.
@@ -61,17 +61,22 @@ public class DexecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
 <span class="fc" id="L61">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
 
 <span class="fc" id="L63">	private DexecutorState&lt;T, R&gt; dexecutorState = new DefaultDexecutorState&lt;T, R&gt;();</span>
+
 	/**
 	 * Construct the object with mandatory params, rest are optional
 	 * @param executorService provided executor service
 	 * @param taskProvider provided task provider
 	 */
-<span class="fc" id="L69">	public DexecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
-<span class="fc" id="L70">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
-<span class="fc" id="L71">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="fc" id="L72">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(this.dexecutorState, executorService);</span>
-<span class="fc" id="L73">		this.taskProvider = taskProvider;</span>
-<span class="fc" id="L74">	}</span>
+	public DexecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {
+<span class="fc" id="L71">		this(executorService, taskProvider, null);</span>
+<span class="fc" id="L72">	}</span>
+	
+<span class="fc" id="L74">	public DexecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider, final ExecutionListener&lt;T, R&gt; listener) {</span>
+<span class="fc" id="L75">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="fc" id="L76">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L77">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(this.dexecutorState, executorService, listener);</span>
+<span class="fc" id="L78">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L79">	}</span>
 
 	/**
 	 * Construct the object with mandatory params, rest are optional
@@ -79,78 +84,78 @@ public class DexecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
 	 * @param taskProvider provided task provider
 	 */
 	public DexecutorConfig(final ExecutionEngine&lt;T, R&gt; executionEngine, final TaskProvider&lt;T, R&gt; taskProvider) {
-<span class="fc" id="L82">		this(new DefaultDexecutorState&lt;&gt;(), executionEngine, taskProvider);</span>
-<span class="fc" id="L83">	}</span>
+<span class="fc" id="L87">		this(new DefaultDexecutorState&lt;&gt;(), executionEngine, taskProvider);</span>
+<span class="fc" id="L88">	}</span>
 
-<span class="fc" id="L85">	public DexecutorConfig(final DexecutorState&lt;T, R&gt; dexecutorState, final ExecutionEngine&lt;T, R&gt; executionEngine, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
-<span class="fc" id="L86">		checkNotNull(executionEngine, &quot;Execution Engine should not be null&quot;);</span>
-<span class="fc" id="L87">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="fc" id="L88">		checkNotNull(dexecutorState, &quot;Dexecutor State should not be null&quot;);</span>
-<span class="fc" id="L89">		this.executionEngine = executionEngine;</span>
-<span class="fc" id="L90">		this.taskProvider = taskProvider;</span>
-<span class="fc" id="L91">		this.dexecutorState = dexecutorState;</span>
-<span class="fc" id="L92">	}</span>
+<span class="fc" id="L90">	public DexecutorConfig(final DexecutorState&lt;T, R&gt; dexecutorState, final ExecutionEngine&lt;T, R&gt; executionEngine, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L91">		checkNotNull(executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L92">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L93">		checkNotNull(dexecutorState, &quot;Dexecutor State should not be null&quot;);</span>
+<span class="fc" id="L94">		this.executionEngine = executionEngine;</span>
+<span class="fc" id="L95">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L96">		this.dexecutorState = dexecutorState;</span>
+<span class="fc" id="L97">	}</span>
 
 	void validate() {
-<span class="fc" id="L95">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
-<span class="fc" id="L96">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
-<span class="fc" id="L97">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
-<span class="fc" id="L98">		checkNotNull(this.dexecutorState, &quot;Dexecutor State should not be null&quot;);		</span>
-<span class="fc" id="L99">	}</span>
+<span class="fc" id="L100">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L101">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L102">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
+<span class="fc" id="L103">		checkNotNull(this.dexecutorState, &quot;Dexecutor State should not be null&quot;);		</span>
+<span class="fc" id="L104">	}</span>
 
 	ExecutionEngine&lt;T, R&gt; getExecutorEngine() {
-<span class="fc" id="L102">		return this.executionEngine;</span>
+<span class="fc" id="L107">		return this.executionEngine;</span>
 	}
 
 	TaskProvider&lt;T, R&gt; getTaskProvider() {
-<span class="fc" id="L106">		return this.taskProvider;</span>
+<span class="fc" id="L111">		return this.taskProvider;</span>
 	}
 
 	Validator&lt;T, R&gt; getValidator() {
-<span class="fc" id="L110">		return this.validator;</span>
+<span class="fc" id="L115">		return this.validator;</span>
 	}
 	/**
 	 * change the validator to that of specified
 	 * @param validator the validator
 	 */
 	public void setValidator(final Validator&lt;T, R&gt; validator) {
-<span class="fc" id="L117">		this.validator = validator;</span>
-<span class="fc" id="L118">	}</span>
+<span class="fc" id="L122">		this.validator = validator;</span>
+<span class="fc" id="L123">	}</span>
 
 	/**
 	 * 
 	 * @return the immediate retry thread pool count
 	 */
 	public int getImmediateRetryPoolThreadsCount() {
-<span class="fc" id="L125">		return immediateRetryPoolThreadsCount;</span>
+<span class="fc" id="L130">		return immediateRetryPoolThreadsCount;</span>
 	}
 	/**
 	 * sets the immediate retry thread pool size to that of specified
 	 * @param immediateRetryPoolThreadsCount Number of threads that should process retry immediately 
 	 */
 	public void setImmediateRetryPoolThreadsCount(int immediateRetryPoolThreadsCount) {
-<span class="fc" id="L132">		this.immediateRetryPoolThreadsCount = immediateRetryPoolThreadsCount;</span>
-<span class="fc" id="L133">	}</span>
+<span class="fc" id="L137">		this.immediateRetryPoolThreadsCount = immediateRetryPoolThreadsCount;</span>
+<span class="fc" id="L138">	}</span>
 	/**
 	 * 
 	 * @return the scheduled retry thread pool size
 	 */
 	public int getScheduledRetryPoolThreadsCount() {
-<span class="fc" id="L139">		return scheduledRetryPoolThreadsCount;</span>
+<span class="fc" id="L144">		return scheduledRetryPoolThreadsCount;</span>
 	}
 	/**
 	 * sets the scheduled thread pool size to that of specified
 	 * @param scheduledRetryPoolThreadsCount Number of threads that should process retry immediately 
 	 */
 	public void setScheduledRetryPoolThreadsCount(int scheduledRetryPoolThreadsCount) {
-<span class="fc" id="L146">		this.scheduledRetryPoolThreadsCount = scheduledRetryPoolThreadsCount;</span>
-<span class="fc" id="L147">	}</span>
+<span class="fc" id="L151">		this.scheduledRetryPoolThreadsCount = scheduledRetryPoolThreadsCount;</span>
+<span class="fc" id="L152">	}</span>
 	/**
 	 * 
 	 * @return the dexecutor state
 	 */
 	public DexecutorState&lt;T, R&gt; getDexecutorState() {
-<span class="fc" id="L153">		return this.dexecutorState;</span>
+<span class="fc" id="L158">		return this.dexecutorState;</span>
 	}
 	
 	/**
@@ -158,7 +163,13 @@ public class DexecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
 	 * @param dexecutorState to set to
 	 */
 	public void setDexecutorState(final DexecutorState&lt;T, R&gt; dexecutorState) {
-<span class="fc" id="L161">		this.dexecutorState = dexecutorState;</span>
-<span class="fc" id="L162">	}</span>
+<span class="fc" id="L166">		this.dexecutorState = dexecutorState;</span>
+<span class="fc" id="L167">	}</span>
+
+	public void setExecutionListener(ExecutionListener&lt;T, R&gt; listener) {
+<span class="nc bnc" id="L170" title="All 2 branches missed.">		if (listener != null) {</span>
+<span class="nc" id="L171">			this.executionEngine.setExecutionListener(listener);</span>
+		}
+<span class="nc" id="L173">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

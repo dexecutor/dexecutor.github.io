@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DexecutorConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DexecutorConfig.java</span></div><h1>DexecutorConfig.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core;
+
+import static com.github.dexecutor.core.support.Preconditions.checkNotNull;
+
+import java.util.concurrent.ExecutorService;
+
+import com.github.dexecutor.core.graph.CyclicValidator;
+import com.github.dexecutor.core.graph.Validator;
+import com.github.dexecutor.core.task.TaskProvider;
+
+/**
+ * &lt;p&gt;Configuration Object for Dexecutor framework. At a minimum it needs {@code ExecutorService} and {@code TaskProvider}, rest are optional and takes default values&lt;/p&gt;
+ * &lt;p&gt;This provides way to hook in your own {@code DexecutorState} and {@code Validator} &lt;/p&gt;
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public class DexecutorConfig&lt;T extends Comparable&lt;T&gt;, R&gt; {
+	
+	/**
+	 * Number of threads that should handle the immediate retry.
+	 */
+<span class="fc" id="L42">	private int immediateRetryPoolThreadsCount = 1;</span>
+	
+	/**
+	 * Number of threads that should handle the immediate retry.
+	 */
+<span class="fc" id="L47">	private int scheduledRetryPoolThreadsCount = 1;</span>
+
+	/**
+	 * executor is the main platform on which tasks are executed
+	 */
+	private ExecutionEngine&lt;T, R&gt; executionEngine;
+
+	/**
+	 * When it comes to task execution, task provider would be consulted to provide task objects for execution
+	 */
+	private TaskProvider&lt;T, R&gt; taskProvider;
+	/**
+	 * Validator for validating the constructed graph, defaults to detecting Cyclic checks
+	 */
+<span class="fc" id="L61">	private Validator&lt;T, R&gt; validator = new CyclicValidator&lt;T, R&gt;();</span>
+
+<span class="fc" id="L63">	private DexecutorState&lt;T, R&gt; dexecutorState = new DefaultDexecutorState&lt;T, R&gt;();</span>
+	/**
+	 * Construct the object with mandatory params, rest are optional
+	 * @param executorService provided executor service
+	 * @param taskProvider provided task provider
+	 */
+<span class="fc" id="L69">	public DexecutorConfig(final ExecutorService executorService, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L70">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="fc" id="L71">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L72">		this.executionEngine = new DefaultExecutionEngine&lt;&gt;(this.dexecutorState, executorService);</span>
+<span class="fc" id="L73">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L74">	}</span>
+
+	/**
+	 * Construct the object with mandatory params, rest are optional
+	 * @param executionEngine  provided execution Engine
+	 * @param taskProvider provided task provider
+	 */
+	public DexecutorConfig(final ExecutionEngine&lt;T, R&gt; executionEngine, final TaskProvider&lt;T, R&gt; taskProvider) {
+<span class="fc" id="L82">		this(new DefaultDexecutorState&lt;&gt;(), executionEngine, taskProvider);</span>
+<span class="fc" id="L83">	}</span>
+
+<span class="fc" id="L85">	public DexecutorConfig(final DexecutorState&lt;T, R&gt; dexecutorState, final ExecutionEngine&lt;T, R&gt; executionEngine, final TaskProvider&lt;T, R&gt; taskProvider) {</span>
+<span class="fc" id="L86">		checkNotNull(executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L87">		checkNotNull(taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L88">		checkNotNull(dexecutorState, &quot;Dexecutor State should not be null&quot;);</span>
+<span class="fc" id="L89">		this.executionEngine = executionEngine;</span>
+<span class="fc" id="L90">		this.taskProvider = taskProvider;</span>
+<span class="fc" id="L91">		this.dexecutorState = dexecutorState;</span>
+<span class="fc" id="L92">	}</span>
+
+	void validate() {
+<span class="fc" id="L95">		checkNotNull(this.executionEngine, &quot;Execution Engine should not be null&quot;);</span>
+<span class="fc" id="L96">		checkNotNull(this.taskProvider, &quot;Task Provider should not be null&quot;);</span>
+<span class="fc" id="L97">		checkNotNull(this.validator, &quot;Validator should not be null&quot;);</span>
+<span class="fc" id="L98">		checkNotNull(this.dexecutorState, &quot;Dexecutor State should not be null&quot;);		</span>
+<span class="fc" id="L99">	}</span>
+
+	ExecutionEngine&lt;T, R&gt; getExecutorEngine() {
+<span class="fc" id="L102">		return this.executionEngine;</span>
+	}
+
+	TaskProvider&lt;T, R&gt; getTaskProvider() {
+<span class="fc" id="L106">		return this.taskProvider;</span>
+	}
+
+	Validator&lt;T, R&gt; getValidator() {
+<span class="fc" id="L110">		return this.validator;</span>
+	}
+	/**
+	 * change the validator to that of specified
+	 * @param validator the validator
+	 */
+	public void setValidator(final Validator&lt;T, R&gt; validator) {
+<span class="fc" id="L117">		this.validator = validator;</span>
+<span class="fc" id="L118">	}</span>
+
+	/**
+	 * 
+	 * @return the immediate retry thread pool count
+	 */
+	public int getImmediateRetryPoolThreadsCount() {
+<span class="fc" id="L125">		return immediateRetryPoolThreadsCount;</span>
+	}
+	/**
+	 * sets the immediate retry thread pool size to that of specified
+	 * @param immediateRetryPoolThreadsCount Number of threads that should process retry immediately 
+	 */
+	public void setImmediateRetryPoolThreadsCount(int immediateRetryPoolThreadsCount) {
+<span class="fc" id="L132">		this.immediateRetryPoolThreadsCount = immediateRetryPoolThreadsCount;</span>
+<span class="fc" id="L133">	}</span>
+	/**
+	 * 
+	 * @return the scheduled retry thread pool size
+	 */
+	public int getScheduledRetryPoolThreadsCount() {
+<span class="fc" id="L139">		return scheduledRetryPoolThreadsCount;</span>
+	}
+	/**
+	 * sets the scheduled thread pool size to that of specified
+	 * @param scheduledRetryPoolThreadsCount Number of threads that should process retry immediately 
+	 */
+	public void setScheduledRetryPoolThreadsCount(int scheduledRetryPoolThreadsCount) {
+<span class="fc" id="L146">		this.scheduledRetryPoolThreadsCount = scheduledRetryPoolThreadsCount;</span>
+<span class="fc" id="L147">	}</span>
+	/**
+	 * 
+	 * @return the dexecutor state
+	 */
+	public DexecutorState&lt;T, R&gt; getDexecutorState() {
+<span class="fc" id="L153">		return this.dexecutorState;</span>
+	}
+	
+	/**
+	 * 
+	 * @param dexecutorState to set to
+	 */
+	public void setDexecutorState(final DexecutorState&lt;T, R&gt; dexecutorState) {
+<span class="fc" id="L161">		this.dexecutorState = dexecutorState;</span>
+<span class="fc" id="L162">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

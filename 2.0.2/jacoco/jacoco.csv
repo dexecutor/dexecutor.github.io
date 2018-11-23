@@ -1,0 +1,29 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Dependent Tasks Executor Core,com.github.dexecutor.core,Duration,0,22,0,0,0,7,0,4,0,4
+Dependent Tasks Executor Core,com.github.dexecutor.core,DefaultExecutionEngine,0,71,0,2,0,18,0,9,0,8
+Dependent Tasks Executor Core,com.github.dexecutor.core,Phase,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor Core,com.github.dexecutor.core,DefaultExecutionEngine.new Callable() {...},0,52,0,0,0,12,0,2,0,2
+Dependent Tasks Executor Core,com.github.dexecutor.core,DefaultDexecutor,5,665,6,62,1,165,6,61,0,33
+Dependent Tasks Executor Core,com.github.dexecutor.core,ExecutionBehavior,9,49,0,0,0,2,2,2,2,2
+Dependent Tasks Executor Core,com.github.dexecutor.core,DefaultDexecutor.new Runnable() {...},0,16,0,0,0,3,0,2,0,2
+Dependent Tasks Executor Core,com.github.dexecutor.core,DefaultDexecutorState,0,211,1,11,0,58,1,36,0,31
+Dependent Tasks Executor Core,com.github.dexecutor.core,DexecutorConfig,0,132,0,0,0,39,0,14,0,14
+Dependent Tasks Executor Core,com.github.dexecutor.core,ExecutionConfig,1,114,2,6,0,28,2,17,0,15
+Dependent Tasks Executor Core,com.github.dexecutor.core.support,ThreadPoolUtil,0,21,0,0,0,7,0,3,0,3
+Dependent Tasks Executor Core,com.github.dexecutor.core.support,Preconditions,0,20,0,4,0,8,0,5,0,3
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,LevelOrderTraversar,0,29,0,2,0,9,0,3,0,2
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,CyclicValidator,0,103,0,8,0,23,0,11,0,7
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,StringTraversarAction,0,31,0,0,0,9,0,4,0,4
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,BaseTraversar,0,183,4,24,0,43,4,16,0,6
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,Node.NodeStatus,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,MergedLevelOrderTraversar,0,64,0,6,0,14,0,6,0,3
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,Node,2,136,2,10,0,40,2,25,0,21
+Dependent Tasks Executor Core,com.github.dexecutor.core.graph,DefaultDag,0,265,0,32,0,64,0,32,0,16
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,TaskExecutionException,0,9,0,0,0,4,0,2,0,2
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,AbstractDelegatingTask,0,32,0,0,0,11,0,7,0,7
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,ExecutionResults,0,66,0,8,0,19,0,11,0,7
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,Task,0,22,0,0,0,9,0,6,0,6
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,ExecutionStatus,9,39,0,0,0,2,2,2,2,2
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,LoggerTask,0,26,0,0,0,8,0,3,0,3
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,TaskFactory,0,8,0,0,0,2,0,2,0,2
+Dependent Tasks Executor Core,com.github.dexecutor.core.task,ExecutionResult,33,126,8,6,10,30,8,15,2,14

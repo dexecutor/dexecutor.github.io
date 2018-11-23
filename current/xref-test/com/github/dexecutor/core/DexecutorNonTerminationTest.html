@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  			
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  			Collection&lt;Node&lt;Integer, Integer&gt;&gt; processedNodesOrder = TestUtil.processedNodesOrder(executor);
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  			assertThat(processedNodesOrder).containsAll(executionOrderExpectedResult());
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  			assertThat(processedNodesOrder).size().isEqualTo(14);
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  			assertThat(processedNodesOrder).size().isEqualTo(9);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  			
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  		} <strong class="jxr_keyword">finally</strong> {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  			<strong class="jxr_keyword">try</strong> {
@@ -71,11 +71,11 @@
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>  	<strong class="jxr_keyword">private</strong> Collection&lt;Node&lt;Integer, Integer&gt;&gt; executionOrderExpectedResult() {
 <a class="jxr_linenumber" name="L64" href="#L64">64</a>  		List&lt;Node&lt;Integer, Integer&gt;&gt; result = <strong class="jxr_keyword">new</strong> ArrayList&lt;Node&lt;Integer, Integer&gt;&gt;();
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(1));
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(2));
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(7));
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(9));
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(10));
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(8));
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  		<em class="jxr_comment">//result.add(new Node&lt;Integer, Integer&gt;(2));</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  		<em class="jxr_comment">//result.add(new Node&lt;Integer, Integer&gt;(7));</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  		<em class="jxr_comment">//result.add(new Node&lt;Integer, Integer&gt;(9));</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  		<em class="jxr_comment">//result.add(new Node&lt;Integer, Integer&gt;(10));</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  		<em class="jxr_comment">//result.add(new Node&lt;Integer, Integer&gt;(8));</em>
 <a class="jxr_linenumber" name="L71" href="#L71">71</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(11));
 <a class="jxr_linenumber" name="L72" href="#L72">72</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(12));
 <a class="jxr_linenumber" name="L73" href="#L73">73</a>  		result.add(<strong class="jxr_keyword">new</strong> Node&lt;Integer, Integer&gt;(3));

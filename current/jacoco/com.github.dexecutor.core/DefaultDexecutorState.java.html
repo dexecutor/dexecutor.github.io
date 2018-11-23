@@ -32,7 +32,7 @@ import com.github.dexecutor.core.graph.Validator;
 import com.github.dexecutor.core.task.ExecutionResult;
 import com.github.dexecutor.core.task.ExecutionResults;
 
-public class DefaultDexecutorState&lt;T extends Comparable&lt;T&gt;, R&gt; implements DexecutorState &lt;T, R&gt; {
+public class DefaultDexecutorState&lt;T, R&gt; implements DexecutorState &lt;T, R&gt; {
 
 	private Phase currentPhase;
 	private final Dag&lt;T, R&gt; graph;
@@ -179,6 +179,16 @@ public class DefaultDexecutorState&lt;T extends Comparable&lt;T&gt;, R&gt; imple
 	@Override
 	public void forcedStop() {
 			
-<span class="fc" id="L182">	}	</span>
+<span class="fc" id="L182">	}</span>
+
+	@Override
+	public void onTerminate() {
+		
+<span class="fc" id="L187">	}</span>
+
+	@Override
+	public void onRecover() {
+		
+<span class="fc" id="L192">	}	</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>

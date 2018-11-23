@@ -27,7 +27,7 @@ import java.util.Collection;
  * @param &lt;T&gt; Type of Node/Task ID
  * @param &lt;R&gt; Type of Node/Task result
  */
-<span class="fc" id="L30">public class CyclicValidator&lt;T extends Comparable&lt;T&gt;, R&gt; implements Validator&lt;T, R&gt; {</span>
+<span class="fc" id="L30">public class CyclicValidator&lt;T, R&gt; implements Validator&lt;T, R&gt; {</span>
 
 <span class="fc" id="L32">	private Collection&lt;Node&lt;T, R&gt;&gt; processedNodes = new ArrayList&lt;Node&lt;T, R&gt;&gt;();</span>
 <span class="fc" id="L33">	private Collection&lt;Node&lt;T, R&gt;&gt; onStackNodes = new ArrayList&lt;Node&lt;T, R&gt;&gt;();</span>

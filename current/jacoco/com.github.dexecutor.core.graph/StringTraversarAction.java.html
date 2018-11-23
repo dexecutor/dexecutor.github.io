@@ -22,7 +22,7 @@ package com.github.dexecutor.core.graph;
  * @param &lt;T&gt; Type of Node/Task ID
  * @param &lt;R&gt; Type of Node/Task result
  */
-public class StringTraversarAction&lt;T extends Comparable&lt;T&gt;, R&gt; implements TraversarAction &lt;T, R&gt; {
+public class StringTraversarAction&lt;T, R&gt; implements TraversarAction &lt;T, R&gt; {
 
 	private final StringBuilder builder;
 	
@@ -37,7 +37,7 @@ public class StringTraversarAction&lt;T extends Comparable&lt;T&gt;, R&gt; imple
 
 	@Override
 	public void onNewPath(int pathNumber) {
-<span class="fc" id="L40">		builder.append(&quot;Path #&quot;).append(pathNumber);				</span>
+<span class="fc" id="L40">		builder.append(&quot;\n&quot;).append(&quot;Path #&quot;).append(pathNumber);				</span>
 <span class="fc" id="L41">	}</span>
 	
 	@Override

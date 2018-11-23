@@ -29,7 +29,7 @@ import java.util.List;
  * @param &lt;R&gt;
  *            Type of Node/Task result
  */
-<span class="fc" id="L32">public class LevelOrderTraversar&lt;T extends Comparable&lt;T&gt;, R&gt; extends BaseTraversar&lt;T, R&gt; {</span>
+<span class="fc" id="L32">public class LevelOrderTraversar&lt;T, R&gt; extends BaseTraversar&lt;T, R&gt; {</span>
 
 	@Override
 	public void traverse(final Dag&lt;T, R&gt; graph, final TraversarAction&lt;T, R&gt; action) {

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultExecutionEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Dependent Tasks Executor Core</a> &gt; <a href="index.source.html" class="el_package">com.github.dexecutor.core</a> &gt; <span class="el_source">DefaultExecutionEngine.java</span></div><h1>DefaultExecutionEngine.java</h1><pre class="source lang-java linenums">/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.github.dexecutor.core;
+
+import static com.github.dexecutor.core.support.Preconditions.checkNotNull;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.dexecutor.core.task.ExecutionResult;
+import com.github.dexecutor.core.task.Task;
+import com.github.dexecutor.core.task.TaskExecutionException;
+/**
+ * Default Executor, which internally operates on @ExecutorService
+ * 
+ * @author Nadeem Mohammad
+ *
+ * @param &lt;T&gt; Type of Node/Task ID
+ * @param &lt;R&gt; Type of Node/Task result
+ */
+public final class DefaultExecutionEngine&lt;T extends Comparable&lt;T&gt;, R&gt; implements ExecutionEngine&lt;T, R&gt; {
+
+<span class="fc" id="L43">	private static final Logger logger = LoggerFactory.getLogger(DefaultExecutionEngine.class);</span>
+
+	private final DexecutorState&lt;T, R&gt; state;
+
+	private final ExecutorService executorService;
+	private final CompletionService&lt;ExecutionResult&lt;T, R&gt;&gt; completionService;
+	/**
+	 * Creates the default instance given @ExecutorService, internally it uses @CompletionService
+	 * @param state the state
+	 * @param executorService Underlying execution service, where in tasks would be scheduled.
+	 */
+<span class="fc" id="L54">	public DefaultExecutionEngine(final DexecutorState&lt;T, R&gt; state, final ExecutorService executorService) {</span>
+<span class="fc" id="L55">		checkNotNull(state, &quot;State should not be null&quot;);</span>
+<span class="fc" id="L56">		checkNotNull(executorService, &quot;Executer Service should not be null&quot;);</span>
+<span class="fc" id="L57">		this.state = state;</span>
+<span class="fc" id="L58">		this.executorService = executorService;</span>
+<span class="fc" id="L59">		this.completionService = new ExecutorCompletionService&lt;ExecutionResult&lt;T, R&gt;&gt;(executorService);</span>
+<span class="fc" id="L60">	}</span>
+
+	@Override
+	public ExecutionResult&lt;T, R&gt; processResult() {
+		try {
+<span class="fc" id="L65">			return this.completionService.take().get();</span>
+<span class="fc" id="L66">		} catch (Exception e) {</span>
+<span class="fc" id="L67">			throw new TaskExecutionException(&quot;Task execution &quot;, e);</span>
+		}
+	}
+
+	@Override
+	public void submit(final Task&lt;T, R&gt; task) {
+<span class="fc" id="L73">		logger.debug(&quot;Received Task {} &quot;, task.getId());</span>
+<span class="fc" id="L74">		this.completionService.submit(newCallable(task));		</span>
+<span class="fc" id="L75">	}</span>
+
+	private Callable&lt;ExecutionResult&lt;T, R&gt;&gt; newCallable(final Task&lt;T, R&gt; task) {
+<span class="fc" id="L78">		return new Callable&lt;ExecutionResult&lt;T,R&gt;&gt;() {</span>
+
+			@Override
+			public ExecutionResult&lt;T, R&gt; call() throws Exception {
+<span class="fc" id="L82">				R r = null;</span>
+<span class="fc" id="L83">				ExecutionResult&lt;T, R&gt; result = null;</span>
+				try {
+<span class="fc" id="L85">					r = task.execute();</span>
+<span class="fc" id="L86">					result = ExecutionResult.success(task.getId(), r);</span>
+<span class="fc" id="L87">					state.removeErrored(result);</span>
+<span class="fc" id="L88">				} catch (Exception e) {</span>
+<span class="fc" id="L89">					result = ExecutionResult.errored(task.getId(), r, e.getMessage());</span>
+<span class="fc" id="L90">					state.addErrored(result);</span>
+<span class="fc" id="L91">					logger.error(&quot;Error Execution Task # {}&quot;, task.getId(), e);</span>
+<span class="fc" id="L92">				}</span>
+<span class="fc" id="L93">				return result;</span>
+			}
+		};
+	}
+
+	@Override
+	public boolean isDistributed() {
+<span class="fc" id="L100">		return false;</span>
+	}
+
+	@Override
+	public boolean isAnyTaskInError() {
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		return this.state.erroredCount() &gt; 0;</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="fc" id="L110">		return this.executorService.toString();</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.7.201606060606</span></div></body></html>
